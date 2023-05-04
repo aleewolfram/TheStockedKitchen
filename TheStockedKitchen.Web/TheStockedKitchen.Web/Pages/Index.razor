@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using TheStockedKitchen.Client;
 
+@inject ITheStockedKitchenClient _apiClient
 
 <PageTitle>Index</PageTitle>
 
@@ -16,6 +17,6 @@ Welcome to your new app.
 
     protected override async Task OnInitializedAsync()
     {
-        //FoodStock = (await _apiClient.GetFoodStockAsync()).ToList();
+        FoodStock = (await _apiClient.GetFoodStockAsync()).ToList();
     }
 }
