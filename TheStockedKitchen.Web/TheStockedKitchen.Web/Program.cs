@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using TheStockedKitchen.Web;
 using TheStockedKitchen.Web.Infrastructure;
+using MudBlazor.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -16,5 +17,7 @@ builder.Services.AddMsalAuthentication(options =>
 });
 
 builder.Services.AddTheStockedKitchenApiClient(builder.Configuration);
+
+builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();
