@@ -1,0 +1,20 @@
+﻿<MudCard>
+    <MudCardContent>
+        <MudText Align="Align.Left" Typo="Typo.overline">
+            @ChildContent
+        </MudText>
+    </MudCardContent>
+
+    <MudCardActions>
+        <AuthorizeView>
+            <NotAuthorized>
+                <MudButton Href="authentication/login" StartIcon="@Icons.Material.Filled.Login" Variant="Variant.Text" Color="Color.Primary">Get Started</MudButton>
+            </NotAuthorized>
+        </AuthorizeView>
+    </MudCardActions>
+</MudCard>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+}

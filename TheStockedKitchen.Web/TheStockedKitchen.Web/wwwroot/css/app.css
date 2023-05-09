@@ -67,8 +67,8 @@ a, .btn-link {
 @media only screen and (max-width: 600px) {
     .body-container {
         position: absolute;
-        height: min-content !important;
-        min-height: 100% !important;
+        height: 100%;
+        min-height: 100%;
         top: 8%;
         bottom: 0px;
         right: 0px;
@@ -80,8 +80,8 @@ a, .btn-link {
 @media only screen and (min-width: 600px) and (max-width: 1300px) {
     .body-container {
         position: absolute;
-        height: min-content !important;
-        min-height: 100% !important;
+        height: 100%;
+        min-height: 100%;
         top: 11%;
         bottom: 0px;
         right: 0px;
@@ -93,8 +93,8 @@ a, .btn-link {
 @media only screen and (min-width: 1300px) {
     .body-container {
         position: absolute;
-        height: min-content !important;
-        min-height: 100% !important;
+        height: 100%;
+        min-height: 100%;
         top: 7%;
         bottom: 0px;
         right: 0px;
@@ -120,10 +120,15 @@ a:hover {
     color: #9B4A08;
 }
 
-.mud-icon-root {
+.mud-nav-link-icon {
     margin-top: 0.4rem;
 }
 
 .nav-text-large {
     font-size: 14px;
+}
+
+.full-size {
+    height: 100%;
+    width: 100%;
 }

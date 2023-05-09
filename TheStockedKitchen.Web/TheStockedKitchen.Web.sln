@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheStockedKitchen.Web", "TheStockedKitchen.Web\TheStockedKitchen.Web.csproj", "{99AA8A43-E765-459C-8171-8F3142B94F43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheStockedKitchen.Web", "TheStockedKitchen.Web\TheStockedKitchen.Web.csproj", "{99AA8A43-E765-459C-8171-8F3142B94F43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheStockedKitchen.Client", "TheStockedKitchen.Client\TheStockedKitchen.Client.csproj", "{747C56F1-3B4E-46C8-9D4E-C8A2776CD650}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheStockedKitchen.Client", "TheStockedKitchen.Client\TheStockedKitchen.Client.csproj", "{747C56F1-3B4E-46C8-9D4E-C8A2776CD650}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
