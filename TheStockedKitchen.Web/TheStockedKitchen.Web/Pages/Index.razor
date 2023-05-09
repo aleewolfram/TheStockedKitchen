@@ -3,20 +3,27 @@
 
 @inject ITheStockedKitchenClient _apiClient
 
+@if(Loading)
+{
+    <LoadingSpinner/>
+}
+
 <PageTitle>Index</PageTitle>
 
 <h1>Hello, world!</h1>
 
-Welcome to your new app.
+Welcome to your new app...
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<SurveyPrompt Title="How is Blazor working for you?!" />
 
 @code {
-
+    bool Loading;
     private List<FoodStock> FoodStock = new List<FoodStock>();
 
     protected override async Task OnInitializedAsync()
     {
+        Loading = true;
         FoodStock = (await _apiClient.GetFoodStockAsync()).ToList();
+        Loading = false;
     }
 }

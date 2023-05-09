@@ -1,18 +1,26 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<MediaQueryList>
+    <MudThemeProvider Theme="_theme" />
 
-    <main>
-        <div class="top-row px-4 auth">
-            <LoginDisplay />
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
+    <NavMenu />
 
-        <article class="content px-4">
+    <div class="body-container">
             @Body
-        </article>
-    </main>
-</div>
+    </div>
+</MediaQueryList>
+
+@code {
+    MudTheme _theme = new MudTheme()
+        {
+            Palette = new Palette()
+            {
+                Primary = "#9B4A08",
+                AppbarBackground = "#F48C74",
+                DrawerBackground = "#F48C74",
+                DrawerIcon = "#FCF6ED",
+                DrawerText = "#FCF6ED",
+                Secondary = "#FCF6ED"
+            },
+        };
+}
