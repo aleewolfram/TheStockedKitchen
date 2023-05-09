@@ -1,12 +1,14 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider Theme="_theme" />
+<MediaQueryList>
+    <MudThemeProvider Theme="_theme" />
 
-<NavMenu />
+    <NavMenu />
 
-<MudPaper class="body-container" Square="true">
-        @Body
-</MudPaper>
+    <div class="body-container">
+            @Body
+    </div>
+</MediaQueryList>
 
 @code {
     MudTheme _theme = new MudTheme()
@@ -14,6 +16,7 @@
             Palette = new Palette()
             {
                 Primary = "#9B4A08",
+                AppbarBackground = "#F48C74",
                 DrawerBackground = "#F48C74",
                 DrawerIcon = "#FCF6ED",
                 DrawerText = "#FCF6ED",
