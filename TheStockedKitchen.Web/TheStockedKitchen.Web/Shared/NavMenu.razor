@@ -5,8 +5,10 @@
     <MudAppBar Elevation="1">
         @if (!Open)
         {
-            <MudImage Src="images/Toasty.png" Height="50" />
-            if (!HideTitle)
+            <a href="/">
+                <MudImage Src="images/Toasty.png" Height="50" />
+            </a>
+            if (!ShowSmallTitle)
             {
                 <MudText Class="site-logo-text site-title-large" Typo="Typo.overline" Align="Align.Center">The Stocked Kitchen</MudText>
             }
@@ -29,7 +31,9 @@
         <MudDrawerHeader>
             @if (Open)
             {
-                <MudImage Src="images/Toasty.png" Height="50" />
+                <a href="/">
+                    <MudImage Src="images/Toasty.png" Height="50" />
+                </a>
                 <MudText Class="site-logo-text site-title-small" Typo="Typo.overline" Align="Align.Center">The Stocked Kitchen</MudText>
             }
         </MudDrawerHeader>
@@ -150,7 +154,7 @@
 
 @code {
     bool Open = true;
-    bool HideTitle = false;
+    bool ShowSmallTitle = false;
 
     BrowserWindowSize browser = new BrowserWindowSize();
 
@@ -172,7 +176,7 @@
         browser = window;
 
         Open = await _listener.MatchMedia("(min-width: 1300px)");
-        HideTitle = await _listener.MatchMedia("(max-width: 600px)");
+        ShowSmallTitle = await _listener.MatchMedia("(max-width: 600px)");
 
         StateHasChanged();
     }
