@@ -34,69 +34,116 @@
             }
         </MudDrawerHeader>
         <MudNavMenu>
-            @if (Open)
-            {
-                <MudNavLink Icon="@Icons.Material.Filled.FoodBank" Href="/pantry">
-                    <MudText Class="nav-text-large" Typo="Typo.overline">Pantry</MudText>
-                </MudNavLink>
-                <MudNavLink Icon="@Icons.Material.Filled.Fastfood" Href="/recipes">
-                    <MudText Class="nav-text-large" Typo="Typo.overline">Recipes</MudText>
-                </MudNavLink>
-                <MudNavLink Icon="@Icons.Material.Filled.ShoppingCart" Href="/shopping">
-                    <MudText Class="nav-text-large" Typo="Typo.overline">Shopping</MudText>
-                </MudNavLink>
-                <MudDivider Class="my-2" />
-                <MudNavLink Icon="@Icons.Material.Filled.Info" Href="/info">
-                    <MudText Class="nav-text-large" Typo="Typo.overline">Info</MudText>
-                </MudNavLink>
-                <MudNavLink Icon="@Icons.Material.Filled.Mail" Href="/contact">
-                    <MudText Class="nav-text-large" Typo="Typo.overline">Contact</MudText>
-                </MudNavLink>
-            }
-            else
-            {
-                <MudTooltip Arrow="true" Placement="Placement.Right" Color="Color.Primary">
-                    <ChildContent>
-                        <MudNavLink Icon="@Icons.Material.Filled.FoodBank" Href="/pantry">Pantry</MudNavLink>
-                    </ChildContent>
-                    <TooltipContent>
-                        <MudText Typo="Typo.overline">Pantry</MudText>
-                    </TooltipContent>
-                </MudTooltip>
-                <MudTooltip Arrow="true" Placement="Placement.Right" Color="Color.Primary">
-                    <ChildContent>
-                        <MudNavLink Icon="@Icons.Material.Filled.Fastfood" Href="/recipes">Recipes</MudNavLink>
-                    </ChildContent>
-                    <TooltipContent>
-                        <MudText Typo="Typo.overline">Recipes</MudText>
-                    </TooltipContent>
-                </MudTooltip>
-                <MudTooltip Arrow="true" Placement="Placement.Right" Color="Color.Primary">
-                    <ChildContent>
-                        <MudNavLink Icon="@Icons.Material.Filled.ShoppingCart" Href="/shopping">Shopping</MudNavLink>
-                    </ChildContent>
-                    <TooltipContent>
-                        <MudText Typo="Typo.overline">Shopping</MudText>
-                    </TooltipContent>
-                </MudTooltip>
-                <MudDivider Class="my-2" />
-                <MudTooltip Arrow="true" Placement="Placement.Right" Color="Color.Primary">
-                    <ChildContent>
-                        <MudNavLink Icon="@Icons.Material.Filled.Info" Href="/info">Info</MudNavLink>
-                    </ChildContent>
-                    <TooltipContent>
-                        <MudText Typo="Typo.overline">Info</MudText>
-                    </TooltipContent>
-                </MudTooltip>
-                <MudTooltip Arrow="true" Placement="Placement.Right" Color="Color.Primary">
-                    <ChildContent>
-                        <MudNavLink Icon="@Icons.Material.Filled.Mail" Href="/contact">Contact</MudNavLink>
-                    </ChildContent>
-                    <TooltipContent>
-                        <MudText Typo="Typo.overline">Contact</MudText>
-                    </TooltipContent>
-                </MudTooltip>
-            }
+            <AuthorizeView>
+                <Authorized>
+                    @if (Open)
+                    {
+                        <MudNavLink Icon="@Icons.Material.Filled.FoodBank" Href="/pantry">
+                            <MudText Class="nav-text-large" Typo="Typo.overline">Pantry</MudText>
+                        </MudNavLink>
+                        <MudNavLink Icon="@Icons.Material.Filled.Fastfood" Href="/recipes">
+                            <MudText Class="nav-text-large" Typo="Typo.overline">Recipes</MudText>
+                        </MudNavLink>
+                        <MudNavLink Icon="@Icons.Material.Filled.ShoppingCart" Href="/shopping">
+                            <MudText Class="nav-text-large" Typo="Typo.overline">Shopping</MudText>
+                        </MudNavLink>
+                        <MudDivider Class="my-2" />
+                        <MudNavLink Icon="@Icons.Material.Filled.Info" Href="/info">
+                            <MudText Class="nav-text-large" Typo="Typo.overline">Info</MudText>
+                        </MudNavLink>
+                        <MudNavLink Icon="@Icons.Material.Filled.Mail" Href="/contact">
+                            <MudText Class="nav-text-large" Typo="Typo.overline">Contact</MudText>
+                        </MudNavLink>
+                    }
+                    else
+                    {
+                        <MudTooltip Arrow="true" Placement="Placement.Right" Color="Color.Primary">
+                            <ChildContent>
+                                <MudNavLink Icon="@Icons.Material.Filled.FoodBank" Href="/pantry">Pantry</MudNavLink>
+                            </ChildContent>
+                            <TooltipContent>
+                                <MudText Typo="Typo.overline">Pantry</MudText>
+                            </TooltipContent>
+                        </MudTooltip>
+                        <MudTooltip Arrow="true" Placement="Placement.Right" Color="Color.Primary">
+                            <ChildContent>
+                                <MudNavLink Icon="@Icons.Material.Filled.Fastfood" Href="/recipes">Recipes</MudNavLink>
+                            </ChildContent>
+                            <TooltipContent>
+                                <MudText Typo="Typo.overline">Recipes</MudText>
+                            </TooltipContent>
+                        </MudTooltip>
+                        <MudTooltip Arrow="true" Placement="Placement.Right" Color="Color.Primary">
+                            <ChildContent>
+                                <MudNavLink Icon="@Icons.Material.Filled.ShoppingCart" Href="/shopping">Shopping</MudNavLink>
+                            </ChildContent>
+                            <TooltipContent>
+                                <MudText Typo="Typo.overline">Shopping</MudText>
+                            </TooltipContent>
+                        </MudTooltip>
+                        <MudDivider Class="my-2" />
+                        <MudTooltip Arrow="true" Placement="Placement.Right" Color="Color.Primary">
+                            <ChildContent>
+                                <MudNavLink Icon="@Icons.Material.Filled.Info" Href="/info">Info</MudNavLink>
+                            </ChildContent>
+                            <TooltipContent>
+                                <MudText Typo="Typo.overline">Info</MudText>
+                            </TooltipContent>
+                        </MudTooltip>
+                        <MudTooltip Arrow="true" Placement="Placement.Right" Color="Color.Primary">
+                            <ChildContent>
+                                <MudNavLink Icon="@Icons.Material.Filled.Mail" Href="/contact">Contact</MudNavLink>
+                            </ChildContent>
+                            <TooltipContent>
+                                <MudText Typo="Typo.overline">Contact</MudText>
+                            </TooltipContent>
+                        </MudTooltip>
+                    }
+                </Authorized>
+                <NotAuthorized>
+                    @if (Open)
+                    {
+                        <MudNavLink Icon="@Icons.Material.Filled.Login" Href="authentication/login">
+                            <MudText Class="nav-text-large" Typo="Typo.overline">Register/Sign In</MudText>
+                        </MudNavLink>
+                        <MudDivider Class="my-2" />
+                        <MudNavLink Icon="@Icons.Material.Filled.Info" Href="/info">
+                            <MudText Class="nav-text-large" Typo="Typo.overline">Info</MudText>
+                        </MudNavLink>
+                        <MudNavLink Icon="@Icons.Material.Filled.Mail" Href="/contact">
+                            <MudText Class="nav-text-large" Typo="Typo.overline">Contact</MudText>
+                        </MudNavLink>
+                    }
+                    else
+                    {
+                        <MudTooltip Arrow="true" Placement="Placement.Right" Color="Color.Primary">
+                            <ChildContent>
+                                <MudNavLink Icon="@Icons.Material.Filled.Login" Href="authentication/login">Register/Sign In</MudNavLink>
+                            </ChildContent>
+                            <TooltipContent>
+                                <MudText Typo="Typo.overline">Register/Sign In</MudText>
+                            </TooltipContent>
+                        </MudTooltip>
+                        <MudDivider Class="my-2" />
+                        <MudTooltip Arrow="true" Placement="Placement.Right" Color="Color.Primary">
+                            <ChildContent>
+                                <MudNavLink Icon="@Icons.Material.Filled.Info" Href="/info">Info</MudNavLink>
+                            </ChildContent>
+                            <TooltipContent>
+                                <MudText Typo="Typo.overline">Info</MudText>
+                            </TooltipContent>
+                        </MudTooltip>
+                        <MudTooltip Arrow="true" Placement="Placement.Right" Color="Color.Primary">
+                            <ChildContent>
+                                <MudNavLink Icon="@Icons.Material.Filled.Mail" Href="/contact">Contact</MudNavLink>
+                            </ChildContent>
+                            <TooltipContent>
+                                <MudText Typo="Typo.overline">Contact</MudText>
+                            </TooltipContent>
+                        </MudTooltip>
+                    }
+                </NotAuthorized>
+            </AuthorizeView>
         </MudNavMenu>
     </MudDrawer>
 </MudLayout>

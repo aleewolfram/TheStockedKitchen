@@ -1,29 +1,50 @@
 ﻿@page "/"
-@using TheStockedKitchen.Client;
 
-@inject ITheStockedKitchenClient _apiClient
-
-@if(Loading)
-{
-    <LoadingSpinner/>
-}
-
-<PageTitle>Index</PageTitle>
-
-<h1>Hello, world!</h1>
-
-Welcome to your new app...
-
-<SurveyPrompt Title="How is Blazor working for you?!" />
-
-@code {
-    bool Loading;
-    private List<FoodStock> FoodStock = new List<FoodStock>();
-
-    protected override async Task OnInitializedAsync()
-    {
-        Loading = true;
-        FoodStock = (await _apiClient.GetFoodStockAsync()).ToList();
-        Loading = false;
-    }
-}
+<MudGrid Class="full-size">
+    <MudItem xs="6">
+        <MudCarousel Class="mud-width-full full-size" ShowArrows="true" ShowBullets="false" EnableSwipeGesture="true" AutoCycle="true" TData="object">
+            <MudCarouselItem Class="full-size" Transition="@Transition.Slide">
+                <MudImage Fluid="true" Src="images/chopping_strawberries.jpg" Elevation="25" Class="rounded-lg" />
+            </MudCarouselItem>
+            <MudCarouselItem Class="full-size" Transition="@Transition.Slide">
+                <MudImage Fluid="true" Src="images/organized_pantry.jpg" Elevation="25" Class="rounded-lg" />
+            </MudCarouselItem>
+            <MudCarouselItem Class="full-size" Transition="@Transition.Slide">
+                <MudImage Fluid="true" Src="images/woman_cooking.jpg" Elevation="25" Class="rounded-lg" />
+            </MudCarouselItem>
+        </MudCarousel>
+    </MudItem>
+    <MudItem xs="6">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8 px-8 full-size">
+            <MudGrid Spacing="5" Class="align-center justify-center">
+                <MudItem xs="12">
+                    <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+                        <MudTabPanel Text="TSK">
+                            <PanelCard>
+                                Our goal is to make meal planning and cooking a more enjoyable experience for all.
+                                Our website provides a range of tools to help simplify your meal planning and cooking.
+                                We believe that our website can help make cooking and meal planning a more enjoyable experience.
+                                Try it out today and see how it can help simplify your meal planning!
+                            </PanelCard>
+                        </MudTabPanel>
+                        <MudTabPanel Text="Pantry" Icon="@Icons.Material.Filled.FoodBank">
+                            <PanelCard>
+                                The pantry organization feature enables you to keep track of your pantry items and receive alerts when supplies are running low.
+                            </PanelCard>
+                        </MudTabPanel>
+                        <MudTabPanel Text="Recipes" Icon="@Icons.Material.Filled.Fastfood">
+                            <PanelCard>
+                                Use the recipe search function allows you to easily find recipes based on the ingredients you have, making it easy to plan your meals without any added stress.
+                            </PanelCard>
+                        </MudTabPanel>
+                        <MudTabPanel Text="Shopping" Icon="@Icons.Material.Filled.ShoppingCart">
+                            <PanelCard>
+                                If you're missing ingredients for a recipe, our shopping list feature can help you create a list of the items you need to buy and match with the locations that have those items in stock.
+                            </PanelCard>
+                        </MudTabPanel>
+                    </MudTabs>
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+    </MudItem>
+</MudGrid>

@@ -1,0 +1,21 @@
+﻿@page "/pantry"
+@using TheStockedKitchen.Client;
+
+@inject ITheStockedKitchenClient _apiClient
+
+@if (Loading)
+{
+    <LoadingSpinner />
+}
+
+@code {
+    bool Loading;
+    private List<FoodStock> FoodStock = new List<FoodStock>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Loading = true;
+        FoodStock = (await _apiClient.GetFoodStockAsync()).ToList();
+        Loading = false;
+    }
+}
