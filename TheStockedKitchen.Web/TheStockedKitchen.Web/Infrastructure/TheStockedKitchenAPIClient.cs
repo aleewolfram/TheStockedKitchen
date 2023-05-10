@@ -85,9 +85,9 @@ public static class ServiceCollectionExtensions
 
         services
             .AddTheStockedKitchenApiConfiguration(configuration)
-            //.AddTheStockedKitchenApiAuthorizationMessageHandler()
+            .AddTheStockedKitchenApiAuthorizationMessageHandler()
             .AddHttpClient<ITheStockedKitchenClient, TheStockedKitchenClient>()
-            //.AddHttpMessageHandler<TheStockedKitchenApiAuthorizationMessageHandler>()
+            .AddHttpMessageHandler<TheStockedKitchenApiAuthorizationMessageHandler>()
             .ConfigureHttpClient(client => client.BaseAddress = new Uri(apiConfiguration.BaseUrl));
 
         return services;
