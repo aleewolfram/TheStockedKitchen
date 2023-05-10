@@ -1,50 +1,111 @@
 ﻿@page "/"
 
-<MudGrid Class="full-size">
-    <MudItem xs="6">
-        <MudCarousel Class="mud-width-full full-size" ShowArrows="true" ShowBullets="false" EnableSwipeGesture="true" AutoCycle="true" TData="object">
-            <MudCarouselItem Class="full-size" Transition="@Transition.Slide">
-                <MudImage Fluid="true" Src="images/chopping_strawberries.jpg" Elevation="25" Class="rounded-lg" />
-            </MudCarouselItem>
-            <MudCarouselItem Class="full-size" Transition="@Transition.Slide">
-                <MudImage Fluid="true" Src="images/organized_pantry.jpg" Elevation="25" Class="rounded-lg" />
-            </MudCarouselItem>
-            <MudCarouselItem Class="full-size" Transition="@Transition.Slide">
-                <MudImage Fluid="true" Src="images/woman_cooking.jpg" Elevation="25" Class="rounded-lg" />
-            </MudCarouselItem>
-        </MudCarousel>
-    </MudItem>
-    <MudItem xs="6">
-        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8 px-8 full-size">
-            <MudGrid Spacing="5" Class="align-center justify-center">
-                <MudItem xs="12">
-                    <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
-                        <MudTabPanel Text="TSK">
-                            <PanelCard>
-                                Our goal is to make meal planning and cooking a more enjoyable experience for all.
-                                Our website provides a range of tools to help simplify your meal planning and cooking.
-                                We believe that our website can help make cooking and meal planning a more enjoyable experience.
-                                Try it out today and see how it can help simplify your meal planning!
-                            </PanelCard>
-                        </MudTabPanel>
-                        <MudTabPanel Text="Pantry" Icon="@Icons.Material.Filled.FoodBank">
-                            <PanelCard>
-                                The pantry organization feature enables you to keep track of your pantry items and receive alerts when supplies are running low.
-                            </PanelCard>
-                        </MudTabPanel>
-                        <MudTabPanel Text="Recipes" Icon="@Icons.Material.Filled.Fastfood">
-                            <PanelCard>
-                                Use the recipe search function allows you to easily find recipes based on the ingredients you have, making it easy to plan your meals without any added stress.
-                            </PanelCard>
-                        </MudTabPanel>
-                        <MudTabPanel Text="Shopping" Icon="@Icons.Material.Filled.ShoppingCart">
-                            <PanelCard>
-                                If you're missing ingredients for a recipe, our shopping list feature can help you create a list of the items you need to buy and match with the locations that have those items in stock.
-                            </PanelCard>
-                        </MudTabPanel>
-                    </MudTabs>
-                </MudItem>
-            </MudGrid>
-        </MudPaper>
-    </MudItem>
-</MudGrid>
+<MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="true">
+    <MudGrid Class="full-size">
+        <MudItem xs="12">
+            <MudButton>Join Now</MudButton>
+        </MudItem>
+        <MudItem xs="12">
+            <MudExpansionPanels>
+                <MudExpansionPanel>
+                    <TitleContent>
+                        <div class="d-flex">
+                            <MudImage Src="images/Toasty.png" Height="25" Class="mr-3" />
+                            <MudText>TSK</MudText>
+                        </div>
+                    </TitleContent>
+                    <ChildContent>
+                        Our goal is to make meal planning and cooking a more enjoyable experience for all.
+                        Our website provides a range of tools to help simplify your meal planning and cooking.
+                        We believe that our website can help make cooking and meal planning a more enjoyable experience.
+                        Try it out today and see how it can help simplify your meal planning!
+                    </ChildContent>
+                </MudExpansionPanel>
+                <MudExpansionPanel>
+                    <TitleContent>
+                        <div class="d-flex">
+                            <MudIcon Icon="@Icons.Material.Filled.FoodBank" Class="mr-3"></MudIcon>
+                            <MudText>Pantry</MudText>
+                        </div>
+                    </TitleContent>
+                    <ChildContent>
+                        The pantry organization feature enables you to keep track of your pantry items and receive alerts when supplies are running low.
+                    </ChildContent>
+                </MudExpansionPanel>
+                <MudExpansionPanel>
+                    <TitleContent>
+                        <div class="d-flex">
+                            <MudIcon Icon="@Icons.Material.Filled.Fastfood" Class="mr-3"></MudIcon>
+                            <MudText>Recipes</MudText>
+                        </div>
+                    </TitleContent>
+                    <ChildContent>
+                        Use the recipe search function allows you to easily find recipes based on the ingredients you have, making it easy to plan your meals without any added stress.
+                    </ChildContent>
+                </MudExpansionPanel>
+                <MudExpansionPanel Text="Shopping">
+                    <TitleContent>
+                        <div class="d-flex">
+                            <MudIcon Icon="@Icons.Material.Filled.ShoppingCart" Class="mr-3"></MudIcon>
+                            <MudText>Shopping</MudText>
+                        </div>
+                    </TitleContent>
+                    <ChildContent>
+                        If you're missing ingredients for a recipe, our shopping list feature can help you create a list of the items you need to buy and match with the locations that have those items in stock.
+                    </ChildContent>
+                </MudExpansionPanel>
+            </MudExpansionPanels>
+        </MudItem>
+    </MudGrid>
+</MudHidden>
+<MudHidden Breakpoint="Breakpoint.MdAndUp" Invert="true">
+    <MudGrid Class="full-size">
+        <MudItem xs="6">
+            <MudCarousel Class="mud-width-full full-size" ShowArrows="true" ShowBullets="false" EnableSwipeGesture="true" AutoCycle="true" TData="object">
+                <MudCarouselItem Class="full-size" Transition="@Transition.Slide">
+                    <MudImage Fluid="true" Src="images/chopping_strawberries.jpg" Elevation="25" Class="rounded-lg" />
+                </MudCarouselItem>
+                <MudCarouselItem Class="full-size" Transition="@Transition.Slide">
+                    <MudImage Fluid="true" Src="images/organized_pantry.jpg" Elevation="25" Class="rounded-lg" />
+                </MudCarouselItem>
+                <MudCarouselItem Class="full-size" Transition="@Transition.Slide">
+                    <MudImage Fluid="true" Src="images/woman_cooking.jpg" Elevation="25" Class="rounded-lg" />
+                </MudCarouselItem>
+            </MudCarousel>
+        </MudItem>
+        <MudItem xs="6">
+            <MudPaper Class="d-flex align-center justify-center mud-width-full py-8 px-8 full-size">
+                <MudGrid Spacing="5" Class="align-center justify-center">
+                    <MudItem xs="12">
+                        <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+                            <MudTabPanel Text="TSK">
+                                <PanelCard>
+                                    Our goal is to make meal planning and cooking a more enjoyable experience for all.
+                                    Our website provides a range of tools to help simplify your meal planning and cooking.
+                                    We believe that our website can help make cooking and meal planning a more enjoyable experience.
+                                    Try it out today and see how it can help simplify your meal planning!
+                                </PanelCard>
+                            </MudTabPanel>
+                            <MudTabPanel Text="Pantry" Icon="@Icons.Material.Filled.FoodBank">
+                                <PanelCard>
+                                    The pantry organization feature enables you to keep track of your pantry items and receive alerts when supplies are running low.
+                                </PanelCard>
+                            </MudTabPanel>
+                            <MudTabPanel Text="Recipes" Icon="@Icons.Material.Filled.Fastfood">
+                                <PanelCard>
+                                    Use the recipe search function allows you to easily find recipes based on the ingredients you have, making it easy to plan your meals without any added stress.
+                                </PanelCard>
+                            </MudTabPanel>
+                            <MudTabPanel Text="Shopping" Icon="@Icons.Material.Filled.ShoppingCart">
+                                <PanelCard>
+                                    If you're missing ingredients for a recipe, our shopping list feature can help you create a list of the items you need to buy and match with the locations that have those items in stock.
+                                </PanelCard>
+                            </MudTabPanel>
+                        </MudTabs>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+</MudHidden>
+
