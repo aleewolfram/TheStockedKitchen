@@ -11,6 +11,11 @@ public class ConnectionStringsConfiguration
     public string AppDb { get; set; }
 }
 
+public class ApiKeyConfiguration
+{
+    public string USDAApiKey { get; set; }
+}
+
 public class AzureAdConfiguration
 {
     public string Instance { get; set; }
@@ -25,6 +30,7 @@ public class AzureAdConfiguration
 
     public string CallbackPath { get; set; }
 }
+
 public class AzureApplicationInsightsConfiguration
 {
     public string InstrumentationKey { get; set; }
@@ -41,6 +47,8 @@ public class TheStockedKitchenConfiguration
 {
     public AzureAdConfiguration AzureAd { get; set; }
 
+    public ApiKeyConfiguration ApiKey { get; set; }
+
     public AzureApplicationInsightsConfiguration ApplicationInsights { get; set; }
 
     public ConnectionStringsConfiguration ConnectionStrings { get; set; }
@@ -52,6 +60,8 @@ public class TheStockedKitchenConfiguration
     public TheStockedKitchenConfiguration()
     {
         AzureAd = new AzureAdConfiguration();
+
+        ApiKey = new ApiKeyConfiguration();
 
         WasmCors = new CorsConfiguration();
 
@@ -70,6 +80,8 @@ public static class ConfigurationExtensions
         var TheStockedKitchenConfiguration = new TheStockedKitchenConfiguration();
 
         configuration.GetSection("AzureAd").Bind(TheStockedKitchenConfiguration.AzureAd);
+
+        configuration.GetSection("ApiKeys").Bind(TheStockedKitchenConfiguration.ApiKey);
 
         configuration.GetSection("WasmCors").Bind(TheStockedKitchenConfiguration.WasmCors);
 

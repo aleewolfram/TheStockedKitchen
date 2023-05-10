@@ -8,6 +8,14 @@
     <LoadingSpinner />
 }
 
+<MudDataGrid Items="@FoodStock">
+    <Columns>
+        <PropertyColumn Property="s => s.Name" Title="N" />
+        <PropertyColumn Property="s => s.Quantity" />
+        <PropertyColumn Property="s => s.Unit" />
+    </Columns>
+</MudDataGrid>
+
 @code {
     bool Loading;
     private List<FoodStock> FoodStock = new List<FoodStock>();

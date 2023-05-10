@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
-using SCGPlanningTool.Api.Services;
+using TheStockedKitchen.Api.Services;
 using TheStockedKitchen.Data.Model;
 
 namespace SCGPlanningTool.Api.Controllers

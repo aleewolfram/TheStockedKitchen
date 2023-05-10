@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SCGPlanningTool.Db;
+using TheStockedKitchen.Db;
 using TheStockedKitchen.Data.Model;
 
-namespace SCGPlanningTool.Api.Services
+namespace TheStockedKitchen.Api.Services
 {
     public interface IFoodStockService
     {

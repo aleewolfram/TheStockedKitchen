@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheStockedKitchen.Data.Model;
 
-namespace SCGPlanningTool.Db
+namespace TheStockedKitchen.Db
 {
     public partial class AppDBContext : DbContext
     {
