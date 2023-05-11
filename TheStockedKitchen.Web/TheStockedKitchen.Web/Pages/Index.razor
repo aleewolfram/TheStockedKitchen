@@ -3,7 +3,11 @@
 <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="true">
     <MudGrid Class="align-content-center">
         <MudItem xs="12">
-            <MudFab StartIcon="@Icons.Material.Filled.Login" Label="Join Now" Class="small-screen-join-btn" Color="Color.Primary" />
+            <AuthorizeView>
+                <NotAuthorized>
+                    <MudFab StartIcon="@Icons.Material.Filled.Login" Label="Join Now" Class="small-screen-join-btn" Color="Color.Primary" />
+                </NotAuthorized>
+            </AuthorizeView>
         </MudItem>
         <MudItem xs="12">
             <MudExpansionPanels>
