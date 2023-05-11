@@ -1,0 +1,30 @@
+﻿<MudItem xs="11">
+    <MudForm @ref="form" @bind-IsValid="@success" ReadOnly="false">
+        <MudTextField @bind-Value="FoodSearch" Label="Add Food" Variant="Variant.Outlined" Required="true" RequiredError="Don't forget to enter a food to search!" HelperText="Search food items to add them to your pantry."></MudTextField>
+    </MudForm>
+</MudItem>
+<MudItem xs="1">
+    <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Search" OnClick="Search" />
+</MudItem>
+
+@code {
+    [Parameter]
+    public EventCallback SearchEvent { get; set; }
+
+    public string FoodSearch { get; set; }
+    MudForm form = new MudForm();
+    bool success;
+
+    private async Task Search()
+    {
+        await SearchEvent.InvokeAsync();
+    }
+
+    public void Enter(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        {
+            Search();
+        }
+    }
+}

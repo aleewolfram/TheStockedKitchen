@@ -2,28 +2,62 @@
 @using TheStockedKitchen.Client;
 
 @inject ITheStockedKitchenClient _apiClient
+@inject IDialogService _dialogService
 
 @if (Loading)
 {
     <LoadingSpinner />
 }
 
-<MudDataGrid Items="@FoodStock">
-    <Columns>
-        <PropertyColumn Property="s => s.Name" Title="N" />
-        <PropertyColumn Property="s => s.Quantity" />
-        <PropertyColumn Property="s => s.Unit" />
-    </Columns>
-</MudDataGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudText Class="site-logo-text site-title-large" Typo="Typo.overline" Align="Align.Center" Color="Color.Primary">Pantry</MudText>
+    </MudItem>
+    <FoodSearchBar SearchEvent="OpenSearchFoodDialogAsync"/>
+    <MudItem xs="12">
+        <MudDataGrid Items="@FoodStock">
+            <Columns>
+                <PropertyColumn Property="s => s.Name" />
+                <PropertyColumn Property="s => s.Quantity" />
+                <PropertyColumn Property="s => s.Unit" />
+            </Columns>
+        </MudDataGrid>
+    </MudItem>
+</MudGrid>
+
 
 @code {
     bool Loading;
     private List<FoodStock> FoodStock = new List<FoodStock>();
+    public string FoodSearch { get; set; }
+    MudForm form = new MudForm();
+    bool success;
 
     protected override async Task OnInitializedAsync()
     {
         Loading = true;
         FoodStock = (await _apiClient.GetFoodStockAsync()).ToList();
         Loading = false;
+    }
+
+    public async Task OpenSearchFoodDialogAsync()
+    {
+        await form.Validate();
+
+        if(success)
+        {
+            DialogOptions options = new DialogOptions() { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
+            var parameters = new DialogParameters();
+            parameters.Add(nameof(SearchFoodDialog.Search), FoodSearch);
+
+            var dialog = _dialogService.Show<SearchFoodDialog>
+                ("Food Items", parameters, options);
+            var result = await dialog.Result;
+            if (result.Cancelled)
+            {
+                FoodSearch = "";
+                return;
+            }
+        }
     }
 }

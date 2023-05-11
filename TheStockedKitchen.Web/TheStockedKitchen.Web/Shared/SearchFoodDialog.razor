@@ -1,0 +1,79 @@
+﻿@using TheStockedKitchen.Client;
+
+@inject ITheStockedKitchenClient _apiClient
+
+@if (Loading)
+{
+    <LoadingSpinner />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <MudContainer Class="container-dialog">
+                <MudGrid>
+                    <FoodSearchBar SearchEvent="SearchFoodItemsAsync"/>
+                    <MudItem xs="12">
+                        <MudTable Items="@FoodDataVMs" Hover="true" SortLabel="Sort By">
+                            <HeaderContent>
+                                <MudTh><MudTableSortLabel SortBy="new Func<FoodDataVM, object>(f => f.Name)">Name</MudTableSortLabel></MudTh>
+                                <MudTh><MudTableSortLabel SortBy="new Func<FoodDataVM, object>(f => f.FoodCategory)">Food Category</MudTableSortLabel></MudTh>
+                                <MudTh></MudTh>
+                                <MudTh></MudTh>
+                            </HeaderContent>
+                            <RowTemplate>
+                                <MudTd DataLabel="Name">@context.Name</MudTd>
+                                <MudTd DataLabel="Food Category">@context.FoodCategory</MudTd>
+                                <MudTd><MudFab Color="Color.Info" StartIcon="@Icons.Material.Filled.Info" Size="Size.Small" /></MudTd>
+                                <MudTd><MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="AddFoodItemAsync" /></MudTd>
+                            </RowTemplate>
+                            <PagerContent>
+                                <MudTablePager PageSizeOptions="new int[]{50, 100}" />
+                            </PagerContent>
+                        </MudTable>
+                    </MudItem>
+                </MudGrid>
+            </MudContainer>
+        </DialogContent>
+    </MudDialog>
+}
+
+@code {
+    [CascadingParameter]
+    MudDialogInstance MudDialog { get; set; }
+    [Parameter]
+    public string Search { get; set; }
+
+    IEnumerable<FoodDataVM> FoodDataVMs { get; set; }
+    private bool Loading;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await SearchFoodItemsAsync();
+    }
+
+    private async Task SearchFoodItemsAsync()
+    {
+        Loading = true;
+
+        FoodDataVMs = await _apiClient.GetFoodDataAsync(Search);
+
+        Loading = false;
+    }
+
+    public void Enter(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        {
+            SearchFoodItemsAsync();
+        }
+    }
+
+    private async Task AddFoodItemAsync()
+    {
+        MudDialog.Close(DialogResult.Ok(true));
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+}

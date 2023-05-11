@@ -136,3 +136,9 @@ a:hover {
 .small-screen-join-btn {
     width: 100% !important;
 }
+
+.container-dialog {
+    max-height: 70vh;
+    overflow-y: scroll;
+    padding-top: 15px;
+}
