@@ -3,12 +3,14 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json.Nodes;
 using TheStockedKitchen.Api.Config;
+using TheStockedKitchen.Data.USDANutrientModel;
+using TheStockedKitchen.Data.ViewModel;
 
 namespace TheStockedKitchen.Api.Services
 {
     public interface IUSDANutrientDBService
     {
-        Task<object> GetFoodDataAsync(string search);
+        Task<List<FoodDataVM>> GetFoodDataAsync(string search);
     }
     public class USDANutrientDBService : IUSDANutrientDBService
     {
@@ -20,7 +22,7 @@ namespace TheStockedKitchen.Api.Services
             _uSDANutrientDBConfiguration = uSDANutrientDBConfiguration;
         }
 
-        public async Task<object> GetFoodDataAsync(string search)
+        public async Task<List<FoodDataVM>> GetFoodDataAsync(string search)
         {
             string apiUrl = "https://api.nal.usda.gov/fdc/v1/foods/search";
             string apiKey = _uSDANutrientDBConfiguration.ApiKey.USDAApiKey;
@@ -32,7 +34,7 @@ namespace TheStockedKitchen.Api.Services
                 var payload = new 
                 { 
                     query = search,
-                    dataType = new[] { "Foundation" },
+                    dataType = new[] { "SR Legacy" },
                 };
                 var jsonPayload = System.Text.Json.JsonSerializer.Serialize(payload);
 
@@ -44,11 +46,14 @@ namespace TheStockedKitchen.Api.Services
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     JsonNode data = System.Text.Json.JsonSerializer.Deserialize<JsonNode>(content);
-                    if(data != null)
+                    if (data != null)
                     {
-                        var food = data["foods"];
-                        return food;
-
+                        if (data["foods"] != null)
+                        {
+                            List<FoodData> foodDatas = JsonConvert.DeserializeObject<List<FoodData>>(data["foods"].ToJsonString());
+                            List<FoodDataVM> foodDataVMs = foodDatas.Select(f => new FoodDataVM(f)).ToList();
+                            return foodDataVMs;
+                        }
                     }
                 }
                 return null;

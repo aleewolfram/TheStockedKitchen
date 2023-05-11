@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using TheStockedKitchen.Api.Services;
+using TheStockedKitchen.Data.ViewModel;
 
 namespace SCGPlanningTool.Api.Controllers
 {
@@ -17,7 +18,7 @@ namespace SCGPlanningTool.Api.Controllers
         [HttpPost("GetFoodData")]
         [OpenApiOperation("GetFoodData")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<object> GetFoodDataAsync(string search)
+        public async Task<List<FoodDataVM>> GetFoodDataAsync(string search)
         {
             return await _USDANutrientDBService.GetFoodDataAsync(search);
         }
