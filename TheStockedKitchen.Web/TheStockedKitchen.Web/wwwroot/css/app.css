@@ -132,3 +132,7 @@ a:hover {
     height: 100%;
     width: 100%;
 }
+
+.small-screen-join-btn {
+    width: 100% !important;
+}

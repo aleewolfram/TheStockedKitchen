@@ -1,13 +1,13 @@
 ﻿@page "/"
 
 <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="true">
-    <MudGrid Class="full-size">
+    <MudGrid Class="align-content-center">
         <MudItem xs="12">
-            <MudButton>Join Now</MudButton>
+            <MudFab StartIcon="@Icons.Material.Filled.Login" Label="Join Now" Class="small-screen-join-btn" Color="Color.Primary" />
         </MudItem>
         <MudItem xs="12">
             <MudExpansionPanels>
-                <MudExpansionPanel>
+                <MudExpansionPanel IsInitiallyExpanded="true">
                     <TitleContent>
                         <div class="d-flex">
                             <MudImage Src="images/Toasty.png" Height="25" Class="mr-3" />
