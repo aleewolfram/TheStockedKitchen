@@ -144,7 +144,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": null,
+      "output": "../../TheStockedKitchen.Web/TheStockedKitchen.Client/TheStockedKitchenClient.cs",
       "newLineBehavior": "Auto"
     }
   }
