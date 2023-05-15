@@ -3,6 +3,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json.Nodes;
 using TheStockedKitchen.Api.Config;
+using TheStockedKitchen.Data.Model;
 using TheStockedKitchen.Data.USDANutrientModel;
 using TheStockedKitchen.Data.ViewModel;
 
@@ -17,9 +18,12 @@ namespace TheStockedKitchen.Api.Services
 
         private readonly TheStockedKitchenConfiguration _uSDANutrientDBConfiguration;
 
-        public USDANutrientDBService(TheStockedKitchenConfiguration uSDANutrientDBConfiguration)
+        private readonly IUnitService _unitService;
+
+        public USDANutrientDBService(TheStockedKitchenConfiguration uSDANutrientDBConfiguration, IUnitService unitService)
         {
             _uSDANutrientDBConfiguration = uSDANutrientDBConfiguration;
+            _unitService = unitService;
         }
 
         public async Task<List<FoodDataVM>> GetFoodDataAsync(string search)
@@ -52,6 +56,7 @@ namespace TheStockedKitchen.Api.Services
                         {
                             List<FoodData> foodDatas = JsonConvert.DeserializeObject<List<FoodData>>(data["foods"].ToJsonString());
                             List<FoodDataVM> foodDataVMs = foodDatas.Select(f => new FoodDataVM(f)).ToList();
+                            foodDataVMs = await _unitService.ApplyUnitInformationAsync(foodDataVMs);
                             return foodDataVMs;
                         }
                     }

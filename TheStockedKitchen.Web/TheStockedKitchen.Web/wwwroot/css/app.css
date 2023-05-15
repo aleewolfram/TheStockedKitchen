@@ -142,3 +142,25 @@ a:hover {
     overflow-y: scroll;
     padding-top: 15px;
 }
+
+.blurry-dialog {
+    backdrop-filter: blur(10px);
+}
+
+.fade-in-and-out {
+    -webkit-animation: fadeinout 4s linear forwards;
+    animation: fadeinout 4s linear forwards;
+    opacity: 0;
+}
+
+@-webkit-keyframes fadeinout {
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeinout {
+    50% {
+        opacity: 1;
+    }
+}

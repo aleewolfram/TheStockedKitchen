@@ -1,6 +1,6 @@
 ﻿@page "/pantry"
 @using TheStockedKitchen.Client;
-@using TheStockedKitchen.Web.Shared.Component
+@using TheStockedKitchen.Web.Shared.Components;
 @using TheStockedKitchen.Web.Shared.Dialogs;
 
 @inject ITheStockedKitchenClient _apiClient
@@ -42,7 +42,7 @@
 
     public async Task OpenSearchFoodDialogAsync(string foodSearch)
     {
-        DialogOptions options = new DialogOptions() { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
+        DialogOptions options = new DialogOptions() { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true, ClassBackground = "blurry-dialog" };
         var parameters = new DialogParameters();
         parameters.Add(nameof(SearchFoodDialog.Search), foodSearch);
 
