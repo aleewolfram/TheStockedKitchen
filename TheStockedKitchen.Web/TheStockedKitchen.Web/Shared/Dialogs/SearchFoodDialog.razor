@@ -1,4 +1,5 @@
 ﻿@using TheStockedKitchen.Client;
+@using TheStockedKitchen.Web.Shared.Component
 
 @inject ITheStockedKitchenClient _apiClient
 
@@ -12,7 +13,7 @@ else
         <DialogContent>
             <MudContainer Class="container-dialog">
                 <MudGrid>
-                    <FoodSearchBar SearchEvent="SearchFoodItemsAsync"/>
+                    <FoodSearchBar FoodSearch="@Search" SearchEvent="(string s) => SearchFoodItemsAsync(s)" />
                     <MudItem xs="12">
                         <MudTable Items="@FoodDataVMs" Hover="true" SortLabel="Sort By">
                             <HeaderContent>
@@ -50,24 +51,17 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await SearchFoodItemsAsync();
+        await SearchFoodItemsAsync(Search);
     }
 
-    private async Task SearchFoodItemsAsync()
+    private async Task SearchFoodItemsAsync(string foodSearch)
     {
         Loading = true;
 
-        FoodDataVMs = await _apiClient.GetFoodDataAsync(Search);
+        Search = foodSearch;
+        FoodDataVMs = await _apiClient.GetFoodDataAsync(foodSearch);
 
         Loading = false;
-    }
-
-    public void Enter(KeyboardEventArgs e)
-    {
-        if (e.Code == "Enter" || e.Code == "NumpadEnter")
-        {
-            SearchFoodItemsAsync();
-        }
     }
 
     private async Task AddFoodItemAsync()

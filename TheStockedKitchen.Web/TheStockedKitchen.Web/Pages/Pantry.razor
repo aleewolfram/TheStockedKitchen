@@ -1,5 +1,7 @@
 ﻿@page "/pantry"
 @using TheStockedKitchen.Client;
+@using TheStockedKitchen.Web.Shared.Component
+@using TheStockedKitchen.Web.Shared.Dialogs;
 
 @inject ITheStockedKitchenClient _apiClient
 @inject IDialogService _dialogService
@@ -13,7 +15,7 @@
     <MudItem xs="12">
         <MudText Class="site-logo-text site-title-large" Typo="Typo.overline" Align="Align.Center" Color="Color.Primary">Pantry</MudText>
     </MudItem>
-    <FoodSearchBar SearchEvent="OpenSearchFoodDialogAsync"/>
+    <FoodSearchBar FoodSearch="@Search" SearchEvent="(string s) => OpenSearchFoodDialogAsync(s)" />
     <MudItem xs="12">
         <MudDataGrid Items="@FoodStock">
             <Columns>
@@ -27,11 +29,9 @@
 
 
 @code {
-    bool Loading;
+    private bool Loading;
     private List<FoodStock> FoodStock = new List<FoodStock>();
-    public string FoodSearch { get; set; }
-    MudForm form = new MudForm();
-    bool success;
+    private string Search { get; set;}
 
     protected override async Task OnInitializedAsync()
     {
@@ -40,24 +40,19 @@
         Loading = false;
     }
 
-    public async Task OpenSearchFoodDialogAsync()
+    public async Task OpenSearchFoodDialogAsync(string foodSearch)
     {
-        await form.Validate();
+        DialogOptions options = new DialogOptions() { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
+        var parameters = new DialogParameters();
+        parameters.Add(nameof(SearchFoodDialog.Search), foodSearch);
 
-        if(success)
+        var dialog = _dialogService.Show<SearchFoodDialog>
+            ("Food Items", parameters, options);
+        var result = await dialog.Result;
+        if (result.Canceled)
         {
-            DialogOptions options = new DialogOptions() { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
-            var parameters = new DialogParameters();
-            parameters.Add(nameof(SearchFoodDialog.Search), FoodSearch);
-
-            var dialog = _dialogService.Show<SearchFoodDialog>
-                ("Food Items", parameters, options);
-            var result = await dialog.Result;
-            if (result.Cancelled)
-            {
-                FoodSearch = "";
-                return;
-            }
+            Search = "";
+            return;
         }
     }
 }
