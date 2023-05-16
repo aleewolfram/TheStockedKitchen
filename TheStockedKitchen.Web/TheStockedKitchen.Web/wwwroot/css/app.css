@@ -138,7 +138,7 @@ a:hover {
 }
 
 .container-dialog {
-    max-height: 70vh;
+    max-height: 70%;
     overflow-y: scroll;
     padding-top: 15px;
 }

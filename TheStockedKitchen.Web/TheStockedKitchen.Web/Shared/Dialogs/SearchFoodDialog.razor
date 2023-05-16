@@ -12,7 +12,7 @@
                     @if (ShowAddFoodItemStatus)
                     {
                         <MudItem xs="12">
-                            <StatusMessage ClassName="@ClassName" Color="@Color" Message="@Message" Icon="@Icon" />
+                            <StatusMessage Color="@Color" Message="@Message" Icon="@Icon" />
                         </MudItem>
                     }
                     <FoodSearchBar FoodSearch="@Search" SearchEvent="(string s) => SearchFoodItemsAsync(s)" />
@@ -61,23 +61,7 @@
             }
             else
             {
-                <MudGrid>
-                    <MudItem xs="12">
-                        <MudText Typo="Typo.h6">@FoodStockVM.Name</MudText>
-                    </MudItem>
-                    <MudItem xs="6">
-                        <MudNumericField HideSpinButtons="true" @bind-Value="FoodStockVM.Quantity" Label="Quantity" Variant="Variant.Outlined" Min="0.0" />
-                    </MudItem>
-                    <MudItem xs="6">
-                        <MudSelect @bind-Value="@FoodStockVM.Unit" T="string" Label="Unit" AnchorOrigin="Origin.BottomCenter" Variant="Variant.Outlined">
-                            @foreach (Unit unit in Units.Where(u => u.AllowedInDropDown == true))
-                            {
-                                <MudSelectItem Value="@unit.Name" />
-
-                            }
-                        </MudSelect>
-                    </MudItem>
-                </MudGrid>
+                <FoodItemInput @bind-FoodStockVM="@FoodStockVM" />
             }
         </MudContainer>
     </DialogContent>
@@ -96,7 +80,6 @@
     [Parameter]
     public string Search { get; set; }
 
-    private IEnumerable<Unit> Units { get; set; }
     private IEnumerable<FoodDataVM> FoodDataVMs { get; set; }
     private Color Color { get; set; } = Color.Success;
     private FoodStockVM FoodStockVM { get; set; } = new FoodStockVM();
@@ -104,8 +87,6 @@
     private double Quantity { get; set; }
 
     private string Icon { get; set; } = Icons.Material.Outlined.Check;
-    private string Unit { get; set; }
-    private string ClassName { get; set; } = "";
     private string Message { get; set; } = "";
 
     private bool Loading { get; set; }
@@ -116,7 +97,6 @@
     {
         Loading = true;
 
-        Units = await _apiClient.GetUnitsAsync();
         FoodDataVMs = await _apiClient.GetFoodDataAsync(Search);
 
         Loading = false;
@@ -152,14 +132,12 @@
             Message = "Food item was added to your pantry.";
             Color = Color.Success;
             Icon = Icons.Material.Outlined.Check;
-            ClassName = "fade-in-and-out";
         }
         else
         {
             Message = "Error adding food item. Please try again.";
             Color = Color.Error;
             Icon = Icons.Material.Outlined.Error;
-            ClassName = "fade-in-and-out";
         }
 
         StateHasChanged();

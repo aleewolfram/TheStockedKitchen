@@ -1,5 +1,5 @@
 ﻿<MudItem xs="11">
-    <MudForm @ref="form" @bind-IsValid="@success" ReadOnly="false">
+    <MudForm @ref="Form" @bind-IsValid="@Success" ReadOnly="false">
         <MudTextField @onfocusout="Reset" OnKeyUp="@Enter" @bind-Value="FoodSearch" Label="Add Food" Variant="Variant.Outlined" Required="true" RequiredError="Don't forget to enter a food to search!" HelperText="Search food items to add them to your pantry."></MudTextField>
     </MudForm>
 </MudItem>
@@ -13,15 +13,15 @@
     [Parameter]
     public string FoodSearch { get; set; }
 
-    private MudForm form = new MudForm();
+    private MudForm Form = new MudForm();
 
-    private bool success = true;
+    private bool Success = true;
 
     private async Task Search()
     {
-        await form.Validate();
+        await Form.Validate();
 
-        if (success)
+        if (Success)
         {
             await SearchEvent.InvokeAsync(FoodSearch);
         }
@@ -37,6 +37,6 @@
 
     private void Reset()
     {
-        form.ResetValidation();
+        Form.ResetValidation();
     }
 }

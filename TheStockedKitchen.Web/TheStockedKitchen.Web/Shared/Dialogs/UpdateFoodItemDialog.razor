@@ -1,0 +1,51 @@
+﻿@using TheStockedKitchen.Client;
+@using TheStockedKitchen.Web.Shared.Components;
+
+@inject ITheStockedKitchenClient _apiClient
+
+<MudDialog >
+    <DialogContent>
+        <MudContainer Class="container-dialog">
+            <MudGrid>
+                <FoodItemInput @bind-FoodStockVM="@FoodStockVM" />
+            </MudGrid>
+        </MudContainer>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary" OnClick="UpdateFoodItemAsync">Update</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    public MudDialogInstance MudDialog { get; set; }
+    [Parameter]
+    public FoodStockVM FoodStockVM { get; set; }
+
+    private IEnumerable<Unit> Units { get; set; }
+    private MudForm Form = new MudForm();
+
+    private bool Loading { get; set; }
+    private bool Success { get; set; } = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Loading = true;
+
+        Units = await _apiClient.GetUnitsAsync();
+
+        Loading = false;
+    }
+
+    private async void UpdateFoodItemAsync()
+    {
+        await Form.Validate();
+
+        if (Success)
+        {
+            MudDialog.Close(DialogResult.Ok(FoodStockVM));
+        }
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+}

@@ -9,6 +9,8 @@ namespace TheStockedKitchen.Api.Services
     {
         Task<List<FoodStock>> GetFoodStockAsync(string user);
         Task<bool> AddFoodStockAsync(FoodStockVM foodStockVM, string user);
+        Task<bool> DeleteFoodStockAsync(int foodStockId, string user);
+        Task<bool> UpdateFoodStockAsync(FoodStock foodStock, string user);
     }
     public class FoodStockService : IFoodStockService
     {
@@ -43,6 +45,49 @@ namespace TheStockedKitchen.Api.Services
                 await _dbContext.SaveChangesAsync();
 
                 return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        
+        public async Task<bool> DeleteFoodStockAsync(int foodStockId, string user)
+        {
+            try
+            {
+                FoodStock foodStock = await _dbContext.FoodStock.Where(f => f.User == user && f.FoodStockId == foodStockId).SingleAsync();
+
+                _dbContext.FoodStock.Remove(foodStock);
+                await _dbContext.SaveChangesAsync();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        
+        public async Task<bool> UpdateFoodStockAsync(FoodStock foodStock, string user)
+        {
+            try
+            {
+                FoodStock updateFoodStock = await _dbContext.FoodStock.Where(f => f.User == user && f.FoodStockId == foodStock.FoodStockId).SingleAsync();
+
+                if(updateFoodStock != null)
+                {
+                    updateFoodStock.Quantity = foodStock.Quantity;
+                    updateFoodStock.Unit = foodStock.Unit;
+                    updateFoodStock.LastEditedDate = DateTime.Now; 
+                    
+                    await _dbContext.SaveChangesAsync();
+
+                    return true;
+
+                }
+
+                return false;
             }
             catch
             {

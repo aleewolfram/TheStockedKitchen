@@ -15,6 +15,12 @@
     <MudItem xs="12">
         <MudText Class="site-logo-text site-title-large" Typo="Typo.overline" Align="Align.Center" Color="Color.Primary">Pantry</MudText>
     </MudItem>
+    @if (ShowChangeFoodItemStatus)
+    {
+        <MudItem xs="12">
+            <StatusMessage Color="@Color" Message="@Message" Icon="@Icon" />
+        </MudItem>
+    }
     <FoodSearchBar FoodSearch="@Search" SearchEvent="(string s) => OpenSearchFoodDialogAsync(s)" />
     <MudItem xs="12">
         <MudDataGrid Items="@FoodStock">
@@ -22,6 +28,15 @@
                 <PropertyColumn Property="s => s.Name" />
                 <PropertyColumn Property="s => s.Quantity" />
                 <PropertyColumn Property="s => s.Unit" />
+                <PropertyColumn Title="Date Added" Property="s => s.CreatedDate" />
+                <TemplateColumn CellClass="d-flex justify-end">
+                    <CellTemplate>
+                        <MudStack Row>
+                            <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Small" OnClick="@(() => OpenUpdateFoodItemDialog(context.Item))" />
+                            <MudFab Color="Color.Warning" StartIcon="@Icons.Material.Filled.Delete" Size="Size.Small" OnClick="@(() => OpenDeleteFoodItemDialog(context.Item))" />
+                        </MudStack>
+                    </CellTemplate>
+                </TemplateColumn>
             </Columns>
         </MudDataGrid>
     </MudItem>
@@ -30,10 +45,14 @@
 @code {
 
     private List<FoodStock> FoodStock = new List<FoodStock>();
+    private Color Color { get; set; } = Color.Success;
 
-    private bool Loading;
+    private bool Loading { get; set; }
+    private bool ShowChangeFoodItemStatus { get; set; }  = false;
 
-    private string Search { get; set;}
+    private string Search { get; set; }
+    private string Icon { get; set; } = Icons.Material.Outlined.Check;
+    private string Message { get; set; } = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -42,7 +61,7 @@
         Loading = false;
     }
 
-    public async Task OpenSearchFoodDialogAsync(string foodSearch)
+    private async Task OpenSearchFoodDialogAsync(string foodSearch)
     {
         DialogOptions options = new DialogOptions() { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true, ClassBackground = "blurry-dialog" };
         var parameters = new DialogParameters();
@@ -55,6 +74,80 @@
         {
             Search = "";
             return;
+        }
+    }
+
+    private async Task OpenDeleteFoodItemDialog(FoodStock foodStock)
+    {
+        DialogOptions options = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseButton = true, ClassBackground = "blurry-dialog" };
+        var parameters = new DialogParameters();
+        parameters.Add(nameof(ConfirmDialog.Icon), Icons.Material.Outlined.Warning);
+        parameters.Add(nameof(ConfirmDialog.Color), Color.Warning);
+        parameters.Add(nameof(ConfirmDialog.Message), "Are you sure you want to delete this from your pantry? It cannot be recovered.");
+
+        var dialog = _dialogService.Show<ConfirmDialog>
+            (foodStock.Name, parameters, options);
+
+        var result = await dialog.Result;
+        if (!result.Canceled)
+        {
+            bool success = await _apiClient.DeleteFoodStockAsync(foodStock.FoodStockId);
+            ShowChangeFoodItemStatus = true;
+
+            if (success)
+            {
+                Message = "Food item was deleted from your pantry.";
+                Color = Color.Warning;
+                Icon = Icons.Material.Outlined.Delete;
+            }
+            else
+            {
+                Message = "Error deleting food item. Please try again.";
+                Color = Color.Error;
+                Icon = Icons.Material.Outlined.Error;
+            }
+
+            StateHasChanged();
+            await Task.Delay(4000);
+            ShowChangeFoodItemStatus = false;
+        }
+    }
+
+    private async Task OpenUpdateFoodItemDialog(FoodStock foodStock)
+    {
+        DialogOptions options = new DialogOptions() { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true, ClassBackground = "blurry-dialog" };
+        var parameters = new DialogParameters();
+        parameters.Add(nameof(UpdateFoodItemDialog.FoodStockVM), new FoodStockVM { Name = foodStock.Name, Quantity = foodStock.Quantity, Unit = foodStock.Unit});
+
+        var dialog = _dialogService.Show<UpdateFoodItemDialog>
+            ("Update Food Item", parameters, options);
+
+        var result = await dialog.Result;
+        if (!result.Canceled)
+        {
+            FoodStockVM foodStockVM = result.Data as FoodStockVM;
+            foodStock.Quantity = foodStockVM.Quantity;
+            foodStock.Unit = foodStockVM.Unit;
+
+            bool success = await _apiClient.UpdateFoodStockAsync(foodStock);
+            ShowChangeFoodItemStatus = true;
+
+            if (success)
+            {
+                Message = "Item " + foodStock.Name + " was successfully updated.";
+                Color = Color.Success;
+                Icon = Icons.Material.Outlined.Check;
+            }
+            else
+            {
+                Message = "Error updating " + foodStock.Name + ". Please try again.";
+                Color = Color.Error;
+                Icon = Icons.Material.Outlined.Error;
+            }
+
+            StateHasChanged();
+            await Task.Delay(4000);
+            ShowChangeFoodItemStatus = false;
         }
     }
 }

@@ -1,9 +1,7 @@
-﻿<MudIcon Class="@ClassName" Icon="@Icon" Color="@Color" />
-<MudText Class="@ClassName" Typo="Typo.overline">@Message</MudText>
+﻿<MudIcon Class="fade-in-and-out" Icon="@Icon" Color="@Color" />
+<MudText Class="fade-in-and-out" Typo="Typo.overline">@Message</MudText>
 
 @code {
-    [Parameter]
-    public string ClassName { get; set; }
     [Parameter]
     public string Message { get; set; }
     [Parameter]
