@@ -14,6 +14,7 @@ public class ConnectionStringsConfiguration
 public class ApiKeyConfiguration
 {
     public string USDAApiKey { get; set; }
+    public string SpoonacularApiKey { get; set; }
 }
 
 public class AzureAdConfiguration

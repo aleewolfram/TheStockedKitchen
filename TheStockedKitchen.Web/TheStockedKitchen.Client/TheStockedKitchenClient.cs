@@ -52,6 +52,13 @@ namespace TheStockedKitchen.Client
         System.Threading.Tasks.Task<bool> UpdateFoodStockAsync(FoodStock foodStock, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Recipe>> GetRecipesAsync(string? ingredients);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Recipe>> GetRecipesAsync(string? ingredients, System.Threading.CancellationToken cancellationToken);
+
+        /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Unit>> GetUnitsAsync();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -403,6 +410,84 @@ namespace TheStockedKitchen.Client
         }
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Recipe>> GetRecipesAsync(string? ingredients)
+        {
+            return GetRecipesAsync(ingredients, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Recipe>> GetRecipesAsync(string? ingredients, System.Threading.CancellationToken cancellationToken)
+        {
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append("GetRecipes?");
+            if (ingredients != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("ingredients") + "=").Append(System.Uri.EscapeDataString(ConvertToString(ingredients, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            urlBuilder_.Length--;
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "application/json");
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<Recipe>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Unit>> GetUnitsAsync()
         {
             return GetUnitsAsync(System.Threading.CancellationToken.None);
@@ -716,6 +801,284 @@ namespace TheStockedKitchen.Client
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Unit { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Recipe
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        public int Id { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("image")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Image { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("imageType")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string ImageType { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("likes")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        public int Likes { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("missedIngredientCount")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        public int MissedIngredientCount { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("missedIngredients")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<MissedIngredient> MissedIngredients { get; set; } = new System.Collections.ObjectModel.Collection<MissedIngredient>();
+
+        [System.Text.Json.Serialization.JsonPropertyName("title")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Title { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("unusedIngredients")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<UnusedIngredient> UnusedIngredients { get; set; } = new System.Collections.ObjectModel.Collection<UnusedIngredient>();
+
+        [System.Text.Json.Serialization.JsonPropertyName("usedIngredientCount")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        public int UsedIngredientCount { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("usedIngredients")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<UsedIngredient> UsedIngredients { get; set; } = new System.Collections.ObjectModel.Collection<UsedIngredient>();
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class MissedIngredient
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("aisle")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Aisle { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("amount")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        public double Amount { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        public int Id { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("image")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Image { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("meta")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<string> Meta { get; set; } = new System.Collections.ObjectModel.Collection<string>();
+
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Name { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("original")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Original { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("originalName")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string OriginalName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("unit")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Unit { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("unitLong")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string UnitLong { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("unitShort")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string UnitShort { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("extendedName")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string ExtendedName { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class UnusedIngredient
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("aisle")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Aisle { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("amount")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        public double Amount { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        public int Id { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("image")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Image { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("meta")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<object> Meta { get; set; } = new System.Collections.ObjectModel.Collection<object>();
+
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Name { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("original")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Original { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("originalName")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string OriginalName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("unit")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Unit { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("unitLong")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string UnitLong { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("unitShort")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string UnitShort { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class UsedIngredient
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("aisle")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Aisle { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("amount")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        public double Amount { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        public int Id { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("image")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Image { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("meta")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<object> Meta { get; set; } = new System.Collections.ObjectModel.Collection<object>();
+
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Name { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("original")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Original { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("originalName")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string OriginalName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("unit")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Unit { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("unitLong")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string UnitLong { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("unitShort")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string UnitShort { get; set; } = default!;
 
     }
 
