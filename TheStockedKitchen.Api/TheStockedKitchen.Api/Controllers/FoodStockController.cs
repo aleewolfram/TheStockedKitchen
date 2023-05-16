@@ -34,5 +34,23 @@ namespace SCGPlanningTool.Api.Controllers
             string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
             return await _FoodStockService.AddFoodStockAsync(foodStockVM, user);
         }
+
+        [HttpPost("DeleteFoodStock")]
+        [OpenApiOperation("DeleteFoodStock")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> DeleteFoodStockAsync(int foodStockId)
+        {
+            string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
+            return await _FoodStockService.DeleteFoodStockAsync(foodStockId, user);
+        }
+
+        [HttpPost("UpdateFoodStock")]
+        [OpenApiOperation("UpdateFoodStock")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> UpdateFoodStockAsync(FoodStock foodStock)
+        {
+            string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
+            return await _FoodStockService.UpdateFoodStockAsync(foodStock, user);
+        }
     }
 }
