@@ -1,12 +1,14 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Web;
+using System.Configuration;
 using TheStockedKitchen.Api.Config;
-using SCGPlanningTool.Db;
-using SCGPlanningTool.Api.Services;
+using TheStockedKitchen.Api.Services;
+using TheStockedKitchen.Db;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var scgPlanningConfiguration = builder.Configuration.GetTheStockedKitchenConfiguration();
+var theStockedKitchenConfiguration = builder.Configuration.GetTheStockedKitchenConfiguration();
 
 builder.Services.AddTheStockedKitchenConfiguration(builder.Configuration);
 
@@ -14,25 +16,24 @@ builder.Services.AddMicrosoftIdentityWebApiAuthentication(builder.Configuration)
 
 builder.Services.AddDbContext<AppDBContext>(options =>
 {
-    options.UseSqlServer(scgPlanningConfiguration.ConnectionStrings.AppDb,
+    options.UseSqlServer(theStockedKitchenConfiguration.ConnectionStrings.AppDb,
         sqlServerOptions =>
             sqlServerOptions.MigrationsHistoryTable(
-                scgPlanningConfiguration.EntityFramework.MigrationsHistoryTable,
-                scgPlanningConfiguration.EntityFramework.MigrationsHistorySchema));
+                theStockedKitchenConfiguration.EntityFramework.MigrationsHistoryTable,
+                theStockedKitchenConfiguration.EntityFramework.MigrationsHistorySchema));
 });
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: scgPlanningConfiguration.WasmCors.PolicyName,
+    options.AddPolicy(name: theStockedKitchenConfiguration.WasmCors.PolicyName,
         policyBuilder => {
             policyBuilder
-                .WithOrigins(scgPlanningConfiguration.WasmCors.BaseUrl)
+                .WithOrigins(theStockedKitchenConfiguration.WasmCors.BaseUrl)
                 .AllowAnyMethod()
                 .AllowAnyHeader()
-                .AllowCredentials();
+            .AllowCredentials();
         });
 });
-
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -40,6 +41,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerDocument();
 
 builder.Services.AddScoped<IFoodStockService, FoodStockService>();
+builder.Services.AddScoped<IUSDANutrientDBService, USDANutrientDBService>();
+builder.Services.AddScoped<IUnitService, UnitService>();
 
 var app = builder.Build();
 
@@ -60,7 +63,7 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
-app.UseCors(scgPlanningConfiguration.WasmCors.PolicyName);
+app.UseCors(theStockedKitchenConfiguration.WasmCors.PolicyName);
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -132,3 +132,35 @@ a:hover {
     height: 100%;
     width: 100%;
 }
+
+.small-screen-join-btn {
+    width: 100% !important;
+}
+
+.container-dialog {
+    max-height: 70vh;
+    overflow-y: scroll;
+    padding-top: 15px;
+}
+
+.blurry-dialog {
+    backdrop-filter: blur(10px);
+}
+
+.fade-in-and-out {
+    -webkit-animation: fadeinout 4s linear forwards;
+    animation: fadeinout 4s linear forwards;
+    opacity: 0;
+}
+
+@-webkit-keyframes fadeinout {
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeinout {
+    50% {
+        opacity: 1;
+    }
+}

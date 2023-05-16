@@ -1,0 +1,20 @@
+﻿<MudDialog>
+    <DialogContent>
+        @if(Success)
+        {
+            <MudText><MudIcon Color="@Color.Success" Icon="@Icons.Filled.CheckCircle" />@MessageBody</MudText>
+        }
+        else
+        {
+            <MudText><MudIcon Color="@Color.Error" Icon="@Icons.Filled.Error" />@MessageBody</MudText>
+        }
+    </DialogContent>
+</MudDialog>
+
+@code {
+
+    [Parameter]
+    public bool Success { get; set; }
+    [Parameter]
+    public string MessageBody { get; set; }
+}

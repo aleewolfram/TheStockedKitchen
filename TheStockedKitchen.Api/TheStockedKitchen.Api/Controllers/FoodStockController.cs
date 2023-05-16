@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
-using SCGPlanningTool.Api.Services;
+using TheStockedKitchen.Api.Services;
 using TheStockedKitchen.Data.Model;
+using TheStockedKitchen.Data.ViewModel;
 
 namespace SCGPlanningTool.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     public class FoodStockController : ControllerBase
     {
@@ -20,7 +22,17 @@ namespace SCGPlanningTool.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<FoodStock>>> GetFoodStockAsync()
         {
-            return await _FoodStockService.GetFoodStockAsync();
+            string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
+            return await _FoodStockService.GetFoodStockAsync(user);
+        }
+
+        [HttpPost("AddFoodStock")]
+        [OpenApiOperation("AddFoodStock")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> AddFoodStockAsync(FoodStockVM foodStockVM)
+        {
+            string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
+            return await _FoodStockService.AddFoodStockAsync(foodStockVM, user);
         }
     }
 }
