@@ -27,10 +27,12 @@
     </MudItem>
 </MudGrid>
 
-
 @code {
-    private bool Loading;
+
     private List<FoodStock> FoodStock = new List<FoodStock>();
+
+    private bool Loading;
+
     private string Search { get; set;}
 
     protected override async Task OnInitializedAsync()

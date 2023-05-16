@@ -3,92 +3,92 @@
 
 @inject ITheStockedKitchenClient _apiClient
 
-@if (Loading)
-{
-    <LoadingSpinner />
-}
-else
-{
-    <MudDialog>
-        <DialogContent>
-            <MudContainer Class="container-dialog">
-                @if(ShowDataGrid)
-                {
-                    <MudGrid>
-                        @if(ShowAddFoodItemStatus)
-                        {
-                            <MudItem xs="12">
-                                <StatusMessage ClassName="@ClassName" Color="@Color" Message="@Message" Icon="@Icon" />
-                            </MudItem>
-                        }
-                        <FoodSearchBar FoodSearch="@Search" SearchEvent="(string s) => SearchFoodItemsAsync(s)" />
-                        <MudItem xs="12">
-                            <MudDataGrid Items="@FoodDataVMs" Hover="true" SortLabel="Sort By">
-                                <Columns>
-                                    <HierarchyColumn T="FoodDataVM" ButtonDisabledFunc="@(f => !f.FoodNutrients.Any())" />
-                                    <PropertyColumn Property="f => f.Name" />
-                                    <PropertyColumn Title="Food Category" Property="f => f.FoodCategory" />
-                                    <TemplateColumn CellClass="d-flex justify-end">
-                                        <CellTemplate>
-                                            <MudStack Row>
-                                            <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="@(() => OpenAddFoodItemFormAsync(context.Item))" />
-                                        </MudStack>
-                                    </CellTemplate>
-                                </TemplateColumn>
-                            </Columns>
-                            <ChildRowContent>
-                                <MudCard>
-                                    <MudCardHeader>
-                                        <CardHeaderContent>
-                                            <MudText Typo="Typo.h6">@context.Item.Name</MudText>
-                                        </CardHeaderContent>
-                                    </MudCardHeader>
-                                    <MudCardContent>
-                                        @foreach (FoodNutrientVM foodNutrient in context.Item.FoodNutrients.OrderBy(n => n.UnitName))
-                                            {
-                                                <MudText>@foodNutrient.Name : @foodNutrient.Value @foodNutrient.UnitName </MudText>
-                                            }
-                                        </MudCardContent>
-                                    </MudCard>
-                                </ChildRowContent>
-                                <PagerContent>
-                                    <MudTablePager PageSizeOptions="new int[]{50, 100}" />
-                                </PagerContent>
-                            </MudDataGrid>
-                        </MudItem>
-                    </MudGrid>
-                }
-                else
-                {
-                    <MudGrid>
-                        <MudItem xs="12">
-                            <MudText Typo="Typo.h6">@FoodStockVM.Name</MudText>
-                        </MudItem>
-                        <MudItem xs="6">
-                            <MudNumericField HideSpinButtons="true" @bind-Value="FoodStockVM.Quantity" Label="Quantity" Variant="Variant.Outlined" Min="0.0" />
-                        </MudItem>
-                        <MudItem xs="6">
-                            <MudSelect @bind-Value="@FoodStockVM.Unit" T="string" Label="Unit" AnchorOrigin="Origin.BottomCenter" Variant="Variant.Outlined">
-                                @foreach(Unit unit in Units.Where(u => u.AllowedInDropDown == true))
-                                {
-                                    <MudSelectItem Value="@unit.Name"/>
-                                
-                                }
-                            </MudSelect>
-                        </MudItem>
-                    </MudGrid>
-                }
-            </MudContainer>
-        </DialogContent>
-        <DialogActions>
-            @if (!ShowDataGrid)
+<MudDialog>
+    <DialogContent>
+        <MudContainer Class="container-dialog">
+            @if (ShowDataGrid)
             {
-                <MudButton OnClick="ToggleGrid">Back</MudButton>
-                <MudButton Color="Color.Primary" OnClick="AddFoodItemAsync">Add</MudButton>
+                <MudGrid>
+                    @if (ShowAddFoodItemStatus)
+                    {
+                        <MudItem xs="12">
+                            <StatusMessage ClassName="@ClassName" Color="@Color" Message="@Message" Icon="@Icon" />
+                        </MudItem>
+                    }
+                    <FoodSearchBar FoodSearch="@Search" SearchEvent="(string s) => SearchFoodItemsAsync(s)" />
+                    <MudItem xs="12">
+                        @if (Loading)
+                        {
+                            <LoadingSpinner />
+                        }
+                        else
+                        {
+                            <MudDataGrid Items="@FoodDataVMs" Hover="true" SortLabel="Sort By">
+                            <Columns>
+                                <HierarchyColumn T="FoodDataVM" ButtonDisabledFunc="@(f => !f.FoodNutrients.Any())" />
+                                <PropertyColumn Property="f => f.Name" />
+                                <PropertyColumn Title="Food Category" Property="f => f.FoodCategory" />
+                                <TemplateColumn CellClass="d-flex justify-end">
+                                    <CellTemplate>
+                                        <MudStack Row>
+                                        <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="@(() => OpenAddFoodItemFormAsync(context.Item))" />
+                                    </MudStack>
+                                </CellTemplate>
+                            </TemplateColumn>
+                        </Columns>
+                        <ChildRowContent>
+                            <MudCard>
+                                <MudCardHeader>
+                                    <CardHeaderContent>
+                                        <MudText Typo="Typo.h6">@context.Item.Name</MudText>
+                                    </CardHeaderContent>
+                                </MudCardHeader>
+                                <MudCardContent>
+                                    @foreach (FoodNutrientVM foodNutrient in context.Item.FoodNutrients.OrderBy(n => n.UnitName))
+                                        {
+                                            <MudText>@foodNutrient.Name : @foodNutrient.Value @foodNutrient.UnitName </MudText>
+                                        }
+                                    </MudCardContent>
+                                </MudCard>
+                            </ChildRowContent>
+                            <PagerContent>
+                                <MudTablePager />
+                            </PagerContent>
+                        </MudDataGrid>
+                        }
+                    </MudItem>
+                </MudGrid>
             }
-        </DialogActions>
-    </MudDialog>
-}
+            else
+            {
+                <MudGrid>
+                    <MudItem xs="12">
+                        <MudText Typo="Typo.h6">@FoodStockVM.Name</MudText>
+                    </MudItem>
+                    <MudItem xs="6">
+                        <MudNumericField HideSpinButtons="true" @bind-Value="FoodStockVM.Quantity" Label="Quantity" Variant="Variant.Outlined" Min="0.0" />
+                    </MudItem>
+                    <MudItem xs="6">
+                        <MudSelect @bind-Value="@FoodStockVM.Unit" T="string" Label="Unit" AnchorOrigin="Origin.BottomCenter" Variant="Variant.Outlined">
+                            @foreach (Unit unit in Units.Where(u => u.AllowedInDropDown == true))
+                            {
+                                <MudSelectItem Value="@unit.Name" />
+
+                            }
+                        </MudSelect>
+                    </MudItem>
+                </MudGrid>
+            }
+        </MudContainer>
+    </DialogContent>
+    <DialogActions>
+        @if (!ShowDataGrid)
+        {
+            <MudButton OnClick="ToggleGrid">Back</MudButton>
+            <MudButton Color="Color.Primary" OnClick="AddFoodItemAsync">Add</MudButton>
+        }
+    </DialogActions>
+</MudDialog>
 
 @code {
     [CascadingParameter]
@@ -97,24 +97,29 @@ else
     public string Search { get; set; }
 
     private IEnumerable<Unit> Units { get; set; }
-    public IEnumerable<FoodDataVM> FoodDataVMs { get; set; }
+    private IEnumerable<FoodDataVM> FoodDataVMs { get; set; }
+    private Color Color { get; set; } = Color.Success;
+    private FoodStockVM FoodStockVM { get; set; } = new FoodStockVM();
+
+    private double Quantity { get; set; }
+
+    private string Icon { get; set; } = Icons.Material.Outlined.Check;
+    private string Unit { get; set; }
+    private string ClassName { get; set; } = "";
+    private string Message { get; set; } = "";
+
     private bool Loading { get; set; }
     private bool ShowDataGrid { get; set; } = true;
     private bool ShowAddFoodItemStatus { get; set; } = false;
-    private string Message { get; set; } = "";
-    private Color Color { get; set; } = Color.Success;
-    private string Icon { get; set; } = Icons.Material.Outlined.Check;
-
-
-    private FoodStockVM FoodStockVM { get; set; } = new FoodStockVM();
-    private double Quantity { get; set; }
-    private string Unit { get; set; }
-    private string ClassName { get; set; } = "";
 
     protected override async Task OnInitializedAsync()
     {
+        Loading = true;
+
         Units = await _apiClient.GetUnitsAsync();
-        await SearchFoodItemsAsync(Search);
+        FoodDataVMs = await _apiClient.GetFoodDataAsync(Search);
+
+        Loading = false;
     }
 
     private async Task SearchFoodItemsAsync(string foodSearch)
