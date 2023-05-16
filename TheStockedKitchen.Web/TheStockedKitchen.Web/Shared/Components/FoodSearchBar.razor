@@ -1,11 +1,22 @@
-﻿<MudItem xs="11">
-    <MudForm @ref="Form" @bind-IsValid="@Success" ReadOnly="false">
-        <MudTextField @onfocusout="Reset" OnKeyUp="@Enter" @bind-Value="FoodSearch" Label="Add Food" Variant="Variant.Outlined" Required="true" RequiredError="Don't forget to enter a food to search!" HelperText="Search food items to add them to your pantry."></MudTextField>
-    </MudForm>
-</MudItem>
-<MudItem xs="1">
-    <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Search" OnClick="Search" />
-</MudItem>
+﻿
+<MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
+    <MudItem xs="12">
+        <MudForm @ref="Form" @bind-IsValid="@Success" ReadOnly="false">
+            <MudTextField @onfocusout="Reset" OnKeyUp="@Enter" @bind-Value="FoodSearch" Label="Add Food" Variant="Variant.Outlined" Required="true" RequiredError="Don't forget to enter a food to search!" HelperText="Search food items to add them to your pantry."></MudTextField>
+        </MudForm>
+    </MudItem>
+</MudHidden>
+
+<MudHidden Breakpoint="Breakpoint.SmAndUp" Invert="true">
+    <MudItem xs="11">
+        <MudForm @ref="Form" @bind-IsValid="@Success" ReadOnly="false">
+            <MudTextField @onfocusout="Reset" OnKeyUp="@Enter" @bind-Value="FoodSearch" Label="Add Food" Variant="Variant.Outlined" Required="true" RequiredError="Don't forget to enter a food to search!" HelperText="Search food items to add them to your pantry."></MudTextField>
+        </MudForm>
+    </MudItem>
+    <MudItem xs="1">
+        <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Search" OnClick="Search" />
+    </MudItem>
+</MudHidden>
 
 @code {
     [Parameter]

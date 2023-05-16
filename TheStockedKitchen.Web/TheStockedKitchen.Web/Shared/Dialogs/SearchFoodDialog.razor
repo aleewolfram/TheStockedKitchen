@@ -5,25 +5,24 @@
 
 <MudDialog>
     <DialogContent>
-        <MudContainer Class="container-dialog">
-            @if (ShowDataGrid)
-            {
-                <MudGrid>
-                    @if (ShowAddFoodItemStatus)
-                    {
-                        <MudItem xs="12">
-                            <StatusMessage Color="@Color" Message="@Message" Icon="@Icon" />
-                        </MudItem>
-                    }
-                    <FoodSearchBar FoodSearch="@Search" SearchEvent="(string s) => SearchFoodItemsAsync(s)" />
+        @if (ShowDataGrid)
+        {
+            <MudGrid>
+                @if (ShowAddFoodItemStatus)
+                {
                     <MudItem xs="12">
-                        @if (Loading)
-                        {
-                            <LoadingSpinner />
-                        }
-                        else
-                        {
-                            <MudDataGrid Items="@FoodDataVMs" Hover="true" SortLabel="Sort By">
+                        <StatusMessage Color="@Color" Message="@Message" Icon="@Icon" />
+                    </MudItem>
+                }
+                <FoodSearchBar FoodSearch="@Search" SearchEvent="(string s) => SearchFoodItemsAsync(s)" />
+                <MudItem xs="12">
+                    @if (Loading)
+                    {
+                        <LoadingSpinner />
+                    }
+                    else
+                    {
+                        <MudDataGrid Items="@FoodDataVMs" Hover="true" SortLabel="Sort By">
                             <Columns>
                                 <HierarchyColumn T="FoodDataVM" ButtonDisabledFunc="@(f => !f.FoodNutrients.Any())" />
                                 <PropertyColumn Property="f => f.Name" />
@@ -31,7 +30,12 @@
                                 <TemplateColumn CellClass="d-flex justify-end">
                                     <CellTemplate>
                                         <MudStack Row>
-                                        <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="@(() => OpenAddFoodItemFormAsync(context.Item))" />
+                                        <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
+                                            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(() => OpenAddFoodItemFormAsync(context.Item))">Add</MudButton>
+                                        </MudHidden>
+                                        <MudHidden Breakpoint="Breakpoint.SmAndUp" Invert="true">
+                                            <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="@(() => OpenAddFoodItemFormAsync(context.Item))" />
+                                        </MudHidden>
                                     </MudStack>
                                 </CellTemplate>
                             </TemplateColumn>
@@ -40,13 +44,26 @@
                             <MudCard>
                                 <MudCardHeader>
                                     <CardHeaderContent>
-                                        <MudText Typo="Typo.h6">@context.Item.Name</MudText>
+                                        <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
+                                            <MudText Typo="Typo.subtitle2">@context.Item.Name</MudText>
+                                        </MudHidden>
+                                        <MudHidden Breakpoint="Breakpoint.SmAndUp" Invert="true">
+                                            <MudText Typo="Typo.h6">@context.Item.Name</MudText>
+                                        </MudHidden>
                                     </CardHeaderContent>
                                 </MudCardHeader>
                                 <MudCardContent>
                                     @foreach (FoodNutrientVM foodNutrient in context.Item.FoodNutrients.OrderBy(n => n.UnitName))
                                         {
-                                            <MudText>@foodNutrient.Name : @foodNutrient.Value @foodNutrient.UnitName </MudText>
+                                            <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
+                                                <MudText Class="site-text-small" Typo="Typo.overline"><b>@foodNutrient.Name</b> : @foodNutrient.Value @foodNutrient.UnitName </MudText>
+                                                <br />
+                                            </MudHidden>
+
+                                            <MudHidden Breakpoint="Breakpoint.SmAndUp" Invert="true">
+                                                <MudText Class="site-text-large" Typo="Typo.overline"><b>@foodNutrient.Name</b> : @foodNutrient.Value @foodNutrient.UnitName </MudText>
+                                                <br />
+                                            </MudHidden>
                                         }
                                     </MudCardContent>
                                 </MudCard>
@@ -55,15 +72,14 @@
                                 <MudTablePager />
                             </PagerContent>
                         </MudDataGrid>
-                        }
-                    </MudItem>
-                </MudGrid>
-            }
-            else
-            {
-                <FoodItemInput @bind-FoodStockVM="@FoodStockVM" />
-            }
-        </MudContainer>
+                    }
+                </MudItem>
+            </MudGrid>
+        }
+        else
+        {
+            <FoodItemInput @bind-FoodStockVM="@FoodStockVM" />
+        }
     </DialogContent>
     <DialogActions>
         @if (!ShowDataGrid)

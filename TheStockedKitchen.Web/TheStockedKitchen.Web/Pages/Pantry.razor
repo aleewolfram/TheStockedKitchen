@@ -56,9 +56,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Loading = true;
-        FoodStock = (await _apiClient.GetFoodStockAsync()).ToList();
-        Loading = false;
+        await LoadFoodStockTable();
     }
 
     private async Task OpenSearchFoodDialogAsync(string foodSearch)
@@ -70,11 +68,15 @@
         var dialog = _dialogService.Show<SearchFoodDialog>
             ("Food Items", parameters, options);
         var result = await dialog.Result;
-        if (result.Canceled)
-        {
-            Search = "";
-            return;
-        }
+        Search = "";
+        await LoadFoodStockTable();
+    }
+
+    private async Task LoadFoodStockTable()
+    {
+        Loading = true;
+        FoodStock = (await _apiClient.GetFoodStockAsync()).ToList();
+        Loading = false;
     }
 
     private async Task OpenDeleteFoodItemDialog(FoodStock foodStock)
