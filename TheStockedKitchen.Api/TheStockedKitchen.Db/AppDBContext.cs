@@ -32,6 +32,10 @@ namespace TheStockedKitchen.Db
 
                 entity.Property(e => e.Unit).HasColumnName("Unit");
 
+                entity.Property(e => e.Image).HasColumnName("Image");
+
+                entity.Property(e => e.Category).HasColumnName("Category");
+
                 entity.Property(e => e.User).HasColumnName("User");
 
                 entity.Property(e => e.CreatedDate).HasColumnName("CreatedDate");

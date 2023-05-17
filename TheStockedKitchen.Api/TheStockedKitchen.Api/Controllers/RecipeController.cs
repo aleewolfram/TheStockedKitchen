@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using TheStockedKitchen.Api.Services;
-using TheStockedKitchen.Data.Model;
-using TheStockedKitchen.Data.SpoonacularModel;
+using TheStockedKitchen.Data.ViewModel;
 
 namespace SCGPlanningTool.Api.Controllers
 {
@@ -19,7 +18,7 @@ namespace SCGPlanningTool.Api.Controllers
         [HttpPost("GetRecipes")]
         [OpenApiOperation("GetRecipes")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<Recipe>>> GetRecipesAsync(string ingredients)
+        public async Task<ActionResult<List<RecipeVM>>> GetRecipesAsync(string ingredients)
         {
             return await _RecipeService.GetRecipesAsync(ingredients);
         }

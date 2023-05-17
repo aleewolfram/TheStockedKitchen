@@ -23,13 +23,18 @@
     }
     <FoodSearchBar FoodSearch="@Search" SearchEvent="(string s) => OpenSearchFoodDialogAsync(s)" />
     <MudItem xs="12">
-        <MudDataGrid Items="@FoodStock">
+        <MudDataGrid Items="@FoodStocks">
             <Columns>
+                <TemplateColumn>
+                    <CellTemplate>
+                        <MudImage Src="@(context.Item.Image)" Elevation="25" Class="rounded-lg" />
+                    </CellTemplate>
+                </TemplateColumn>
                 <PropertyColumn Property="s => s.Name" />
                 <PropertyColumn Property="s => s.Quantity" />
                 <PropertyColumn Property="s => s.Unit" />
                 <PropertyColumn Title="Date Added" Property="s => s.CreatedDate" />
-                <TemplateColumn CellClass="d-flex justify-end">
+                <TemplateColumn>
                     <CellTemplate>
                         <MudStack Row>
                             <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Small" OnClick="@(() => OpenUpdateFoodItemDialog(context.Item))" />
@@ -38,13 +43,16 @@
                     </CellTemplate>
                 </TemplateColumn>
             </Columns>
+            <PagerContent>
+                <MudDataGridPager T="FoodStock" />
+            </PagerContent>
         </MudDataGrid>
     </MudItem>
 </MudGrid>
 
 @code {
 
-    private List<FoodStock> FoodStock = new List<FoodStock>();
+    private IEnumerable<FoodStock> FoodStocks { get; set; }
     private Color Color { get; set; } = Color.Success;
 
     private bool Loading { get; set; }
@@ -75,7 +83,7 @@
     private async Task LoadFoodStockTable()
     {
         Loading = true;
-        FoodStock = (await _apiClient.GetFoodStockAsync()).ToList();
+        FoodStocks = await _apiClient.GetFoodStockAsync();
         Loading = false;
     }
 

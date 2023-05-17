@@ -37,6 +37,8 @@ namespace TheStockedKitchen.Api.Services
                     Unit = foodStockVM.Unit,
                     Quantity = foodStockVM.Quantity,
                     User = user,
+                    Image = foodStockVM.Image,
+                    Category = foodStockVM.Category,
                     CreatedDate = DateTime.Now,
                     LastEditedDate = DateTime.Now
                 };

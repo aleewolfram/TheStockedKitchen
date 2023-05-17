@@ -42,7 +42,7 @@ builder.Services.AddSwaggerDocument();
 
 builder.Services.AddScoped<IFoodStockService, FoodStockService>();
 builder.Services.AddScoped<IRecipeService, RecipeService>();
-builder.Services.AddScoped<IUSDANutrientDBService, USDANutrientDBService>();
+builder.Services.AddScoped<IIngredientService, IngredientService>();
 builder.Services.AddScoped<IUnitService, UnitService>();
 
 var app = builder.Build();
