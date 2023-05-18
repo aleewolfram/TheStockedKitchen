@@ -27,7 +27,7 @@
                                 <HierarchyColumn T="FoodDataVM" ButtonDisabledFunc="@(f => !f.FoodNutrients.Any())" />
                                 <TemplateColumn>
                                     <CellTemplate>
-                                        <MudImage Src="@(context.Item.Image)" Elevation="25" Class="rounded-lg" />
+                                        <MudImage Src="@(context.Item.Image)" Elevation="25" Class="rounded-lg" Width="80" Height="60"/>
                                     </CellTemplate>
                                 </TemplateColumn>
                                 <PropertyColumn Property="f => f.Name" />

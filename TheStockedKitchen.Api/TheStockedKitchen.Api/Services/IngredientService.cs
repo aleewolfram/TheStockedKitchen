@@ -45,20 +45,20 @@ namespace TheStockedKitchen.Api.Services
 
                 var foodDataVMs = from names in FoodNames.Where(n => n.NBDNumber != 0)
                                   join info in FoodInfo.Where(n => n.NBDNumber != 0)
-                                  on names.NBDNumber equals info.NBDNumber
+                                  on names.NBDNumber equals info.NBDNumber into gj
+                                  from subInfo in gj.DefaultIfEmpty()
+                                  where names.Name.ToLower() == subInfo?.Name.ToLower() || names.NBDNumber == subInfo?.NBDNumber || subInfo == null
                                   select new FoodDataVM
                                   {
-                                      FDCId = info.FDCId,
-                                      NBDNumber = info.NBDNumber,
+                                      FDCId = subInfo?.FDCId ?? 0,
+                                      NBDNumber = subInfo?.NBDNumber ?? names.NBDNumber,
                                       Name = names.Name,
-                                      FoodCategory = info.FoodCategory,
+                                      FoodCategory = subInfo?.FoodCategory ?? string.Empty,
                                       Image = names.Image,
-                                      FoodNutrients = info.FoodNutrients
-
+                                      FoodNutrients = subInfo?.FoodNutrients ?? new List<FoodNutrientVM>()
                                   };
 
-
-                return foodDataVMs.ToList();
+                return  foodDataVMs.ToList();
             }
         }
 
@@ -109,7 +109,7 @@ namespace TheStockedKitchen.Api.Services
                 var payload = new 
                 { 
                     query = search,
-                    dataType = new[] { "SR Legacy" },
+                    dataType = new[] { "SR Legacy" }
                 };
                 var jsonPayload = System.Text.Json.JsonSerializer.Serialize(payload);
 

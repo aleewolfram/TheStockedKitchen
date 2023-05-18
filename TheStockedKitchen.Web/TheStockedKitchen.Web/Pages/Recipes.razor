@@ -10,114 +10,105 @@
 {
     <LoadingSpinner />
 }
-
-<MudGrid>
-    <MudItem xs="12">
-        <MudText Class="site-logo-text site-title-large" Typo="Typo.overline" Align="Align.Center" Color="Color.Primary">Recipes</MudText>
-    </MudItem>
-    @if(FoodStocks.Any())
-    {
+else
+{
+    <MudGrid>
         <MudItem xs="12">
-            @if (FoodStocks.Count > 40)
+            <MudText Class="site-logo-text site-title-large" Typo="Typo.overline" Align="Align.Center" Color="Color.Primary">Recipes</MudText>
+        </MudItem>
+        @if (FoodStocks.Any())
+        {
+            <MudItem xs="12">
+                <MudDropContainer T="FoodStock" Items="FoodStocks" ItemsSelector="@((f,dropzone) => (f.IncludedInRecipeSearch ? "Yes" : "No") == dropzone)" ItemDropped="ItemUpdated" Class="d-flex flex-wrap flex-grow-1">
+                    <ChildContent>
+                        <MudPaper Class="ma-4 flex-grow-1" Elevation="3">
+                            <MudListSubheader Class="mt-4 pb-2 mud-typography-overline site-text-large">Excluded From Recipe Search</MudListSubheader>
+                            <MudChipSet MultiSelection="true" Filter="false" ReadOnly="true">
+                                <MudDropZone Class="d-flex flex-wrap flex-grow-1 pa-6 rounded" T="FoodStock" Identifier="No" AllowReorder="true" />
+                            </MudChipSet>
+                        </MudPaper>
+                        <MudPaper Class="ma-4 flex-grow-1" Elevation="3">
+                            <MudListSubheader Class="mt-4 pb-2 mud-typography-overline site-text-large">Included In Recipe Search</MudListSubheader>
+                            <MudChipSet MultiSelection="true" Filter="false" ReadOnly="true">
+                                <MudDropZone Class="d-flex flex-wrap flex-grow-1 pa-6 rounded" T="FoodStock" Identifier="Yes" AllowReorder="true" />
+                            </MudChipSet>
+                        </MudPaper>
+                    </ChildContent>
+                    <ItemRenderer>
+                        <MudChip Text="@(context.Name)" Color="@Color.Primary" Default="@(!context.IncludedInRecipeSearch)" />
+                    </ItemRenderer>
+                </MudDropContainer>
+            </MudItem>
+        }
+
+        <MudItem xs="12">
+            @if (RecipeVMs.Any())
             {
                 <MudPaper Class="pa-6 ma-2" Elevation="3">
-                    <MudChipSet @bind-SelectedChips="SelectedChips" MultiSelection="true" Filter="true">
-                        @foreach (var group in FoodStocks.OrderBy(f => f.Category).GroupBy(f => f.Category))
+                    <MudGrid>
+                        @foreach (RecipeVM recipeVM in RecipeVMs.OrderBy(r => r.MissingIngredientsCount).ThenByDescending(r => r.Likes).ThenBy(r => r.Title))
                         {
-                            <MudGrid>
-                                <MudItem xs="12">
-                                    <MudText Class="site-text-large p-1" Typo="Typo.overline">@(group.Key)</MudText>
-                                        <MudDivider />
-                                    </MudItem>
-                                    <MudItem xs="12">
-                                        @foreach (FoodStock foodStock in group)
-                                    {
-                                        <MudChip Text="@(foodStock.Name)" Color="@Color.Primary" Default="true" />
-                                    }
+                            <MudItem xs="12" sm="4" md="3">
+                                <MudCard>
+                                    <MudCardHeader>
+                                        <CardHeaderContent>
+                                            <MudText Typo="Typo.body1">@(recipeVM.Title)</MudText>
+                                            </CardHeaderContent>
+                                            <CardHeaderActions>
+                                                <MudBadge Content="@(recipeVM.Likes)" Overlap="true" Class="mx-6 my-4" Color="Color.Primary">
+                                                    <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Info" />
+                                                </MudBadge>
+                                            </CardHeaderActions>
+                                        </MudCardHeader>
+                                        <MudCardMedia Image="@(recipeVM.Image)" />
+                                        <MudCardContent>
+                                        @if(recipeVM.MissingIngredients.Any())
+                                        {
+                                            <MudText Typo="Typo.overline">Missing Ingredients: @(string.Join(", ", recipeVM.MissingIngredients.Select(i => i.Name)))</MudText>
+                                        }
+                                        else
+                                        {
+                                            <MudText Typo="Typo.overline">You have all ingredients!</MudText>
+                                        }
+                                    </MudCardContent>
+                                        <MudCardActions>
+                                            <MudTooltip Text="View">
+                                                <MudIconButton Icon="@Icons.Material.Filled.Link" Color="Color.Default" />
+                                            </MudTooltip>
+                                            @if (recipeVM.MissingIngredients.Any())
+                                            {
+                                                <MudTooltip Text="Shop Missing Ingredients">
+                                                    <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default" />
+                                                </MudTooltip>
+                                            }
+                                        </MudCardActions>
+                                    </MudCard>
                                 </MudItem>
-                            </MudGrid>
                         }
-                    </MudChipSet>
+                    </MudGrid>
                 </MudPaper>
             }
             else
             {
-                <MudChipSet @bind-SelectedChips="SelectedChips" MultiSelection="true" Filter="true">
-                    <MudPaper Class="pa-6 ma-2" Elevation="3">
-                        <MudGrid>
-                            <MudItem xs="12">
-                                @foreach (FoodStock foodStock in FoodStocks.OrderBy(f => f.Category))
-                                {
-                                    <MudChip Text="@(foodStock.Name)" Color="@Color.Primary" Default="true" />
-                                }
-                            </MudItem>
-                        </MudGrid>
-                    </MudPaper>
-                </MudChipSet>
+                <MudPaper Class="pa-6 ma-2" Elevation="3">
+                    <MudGrid>
+                        <MudItem xs="11">
+                            <MudText Class="" Typo="Typo.overline">No recipes found. Go add some ingredients to your pantry.</MudText>
+                        </MudItem>
+                        <MudItem xs="1">
+                            <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.ArrowForward" Href="/pantry" Size="Size.Small" />
+                        </MudItem>
+                    </MudGrid>
+                </MudPaper>
             }
         </MudItem>
-    }
-    
-    <MudItem xs="12">
-        @if(RecipeVMs.Any())
-        {
-            <MudPaper Class="pa-6 ma-2" Elevation="3">
-                <MudGrid>
-                    @foreach (RecipeVM recipeVM in RecipeVMs.OrderBy(r => r.MissingIngredientsCount).ThenByDescending(r => r.Likes).ThenBy(r => r.Title))
-                    {
-                        <MudItem xs="12" sm="4" md="3">
-                            <MudCard>
-                                <MudCardHeader>
-                                    <CardHeaderContent>
-                                        <MudText Typo="Typo.body1">@(recipeVM.Title)</MudText>
-                                    </CardHeaderContent>
-                                    <CardHeaderActions>
-                                        <MudBadge Content="@(recipeVM.Likes)" Overlap="true" Class="mx-6 my-4" Color="Color.Primary">
-                                            <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Info" />
-                                        </MudBadge>
-                                    </CardHeaderActions>
-                                </MudCardHeader>
-                                <MudCardMedia Image="@(recipeVM.Image)" />
-                                <MudCardContent>
-                                    <MudText Typo="Typo.overline">Missing Ingredients: @(string.Join(", ", recipeVM.MissingIngredients.Select(i => i.Name)))</MudText>
-                                </MudCardContent>
-                                <MudCardActions>
-                                    <MudTooltip Text="View">
-                                        <MudIconButton Icon="@Icons.Material.Filled.Link" Color="Color.Default" />
-                                    </MudTooltip>
-                                    <MudTooltip Text="Shop Missing Ingredients">
-                                        <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default" />
-                                    </MudTooltip>
-                                </MudCardActions>
-                            </MudCard>
-                        </MudItem>
-                    }
-                </MudGrid>
-            </MudPaper>
-        }
-        else
-        {
-            <MudPaper Class="pa-6 ma-2" Elevation="3">
-                <MudGrid>
-                    <MudItem xs="11">
-                        <MudText Class="" Typo="Typo.overline">No recipes found. Go add some ingredients to your pantry.</MudText>
-                    </MudItem>
-                    <MudItem xs="1">
-                        <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.ArrowForward" Href="/pantry" Size="Size.Small" />
-                    </MudItem>
-                </MudGrid>
-            </MudPaper>
-        }
-    </MudItem>
-
-</MudGrid>
+    </MudGrid>
+}
 
 @code {
 
     private List<FoodStock> FoodStocks { get; set; } = new List<FoodStock>();
     private List<RecipeVM> RecipeVMs { get; set; } = new List<RecipeVM>();
-    private MudChip[] SelectedChips { get; set; }
-    private IEnumerable<string> SelectedIngredients { get; set; }
 
     private bool Loading { get; set; }
 
@@ -127,11 +118,24 @@
         FoodStocks = (await _apiClient.GetFoodStockAsync()).ToList();
         if(FoodStocks.Any())
         {
-            SelectedIngredients = FoodStocks.Select(f => f.Name).ToList();
-            RecipeVMs = (await _apiClient.GetRecipesAsync(string.Join(", ", SelectedIngredients))).ToList();
+            await GetRecipes();
         }
         Loading = false;
     }
 
+    private async Task GetRecipes()
+    {
+        Console.WriteLine("Searching: " + string.Join(", ", FoodStocks.Where(f => f.IncludedInRecipeSearch == true).Select(f => f.Name)));
+        RecipeVMs = (await _apiClient.GetRecipesAsync(string.Join(", ", FoodStocks.Where(f => f.IncludedInRecipeSearch == true).Select(f => f.Name)))).ToList();
+    }
 
+    private async Task ItemUpdated(MudItemDropInfo<FoodStock> dropItem)
+    {
+        bool success = await _apiClient.ToggleFoodStockIncludedInRecipeAsync(dropItem.Item.FoodStockId);
+        if(success)
+        {
+            dropItem.Item.IncludedInRecipeSearch = (dropItem.DropzoneIdentifier == "Yes" ? true : false);
+            await GetRecipes();
+        }
+    }
 }

@@ -25,10 +25,30 @@ namespace TheStockedKitchen.Api.Services
             //Keeping this here so I don't spam the limited Spoonacular API
             if (true)
             {
-                using (StreamReader r = new StreamReader("SampleData/BananaRecipeSearchResults.json"))
+                if(ingredients == "banana")
                 {
-                    string json = r.ReadToEnd();
-                    return JsonConvert.DeserializeObject<List<RecipeVM>>(json);
+                    using (StreamReader r = new StreamReader("SampleData/BananaRecipeSearchResults.json"))
+                    {
+                        string json = r.ReadToEnd();
+                        return JsonConvert.DeserializeObject<List<RecipeVM>>(json);
+                    }
+                }
+                else if(ingredients == "banana, peanut butter, chocolate chips" || 
+                        ingredients == "banana, chocolate chips, peanut butter" || 
+                        ingredients == "chocolate chips, banana, peanut butter" ||
+                        ingredients == "chocolate chips, peanut butter, banana" ||
+                        ingredients == "peanut butter, banana, chocolate chips" ||
+                        ingredients == "peanut butter, chocolate chips, banana")
+                {
+                    using (StreamReader r = new StreamReader("SampleData/BananaChocolatePeanutButterRecipeSearchResults.json"))
+                    {
+                        string json = r.ReadToEnd();
+                        return JsonConvert.DeserializeObject<List<RecipeVM>>(json);
+                    }
+                }
+                else
+                {
+                    return new List<RecipeVM>();
                 }
             }
             else

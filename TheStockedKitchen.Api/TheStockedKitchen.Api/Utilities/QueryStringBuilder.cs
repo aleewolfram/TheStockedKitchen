@@ -12,7 +12,9 @@ namespace TheStockedKitchen.Api.Utilities
                 var value = property.GetValue(parameters);
                 if (value is IList<string> listValue)
                 {
-                    keyValuePairs.AddRange(listValue.Select(item => $"{property.Name}={Uri.EscapeDataString(item)}"));
+                    var encodedValues = listValue.Select(item => Uri.EscapeDataString(item));
+                    var joinedValues = string.Join(",", encodedValues);
+                    keyValuePairs.Add($"{property.Name}={joinedValues}");
                 }
                 else
                 {

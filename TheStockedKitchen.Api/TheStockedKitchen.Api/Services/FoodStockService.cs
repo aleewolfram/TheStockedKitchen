@@ -11,6 +11,7 @@ namespace TheStockedKitchen.Api.Services
         Task<bool> AddFoodStockAsync(FoodStockVM foodStockVM, string user);
         Task<bool> DeleteFoodStockAsync(int foodStockId, string user);
         Task<bool> UpdateFoodStockAsync(FoodStock foodStock, string user);
+        Task<bool> ToggleFoodStockIncludedInRecipeAsync(int foodStockId, string user);
     }
     public class FoodStockService : IFoodStockService
     {
@@ -38,6 +39,7 @@ namespace TheStockedKitchen.Api.Services
                     Quantity = foodStockVM.Quantity,
                     User = user,
                     Image = foodStockVM.Image,
+                    IncludedInRecipeSearch = true,
                     Category = foodStockVM.Category,
                     CreatedDate = DateTime.Now,
                     LastEditedDate = DateTime.Now
@@ -87,6 +89,29 @@ namespace TheStockedKitchen.Api.Services
 
                     return true;
 
+                }
+
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        
+        public async Task<bool> ToggleFoodStockIncludedInRecipeAsync(int foodStockId, string user)
+        {
+            try
+            {
+                FoodStock updateFoodStock = await _dbContext.FoodStock.Where(f => f.User == user && f.FoodStockId == foodStockId).SingleAsync();
+
+                if (updateFoodStock != null)
+                {
+                    updateFoodStock.IncludedInRecipeSearch = !updateFoodStock.IncludedInRecipeSearch;
+
+                    await _dbContext.SaveChangesAsync();
+
+                    return true;
                 }
 
                 return false;

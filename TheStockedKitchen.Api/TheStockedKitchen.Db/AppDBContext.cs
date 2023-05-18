@@ -36,6 +36,8 @@ namespace TheStockedKitchen.Db
 
                 entity.Property(e => e.Category).HasColumnName("Category");
 
+                entity.Property(e => e.IncludedInRecipeSearch).HasColumnName("IncludedInRecipeSearch");
+
                 entity.Property(e => e.User).HasColumnName("User");
 
                 entity.Property(e => e.CreatedDate).HasColumnName("CreatedDate");
