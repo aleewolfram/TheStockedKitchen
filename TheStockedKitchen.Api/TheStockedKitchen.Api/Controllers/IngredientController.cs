@@ -7,20 +7,20 @@ using TheStockedKitchen.Data.ViewModel;
 namespace SCGPlanningTool.Api.Controllers
 {
     [ApiController]
-    public class USDANutrientDBController : ControllerBase
+    public class IngredientController : ControllerBase
     {
-        private readonly IUSDANutrientDBService _USDANutrientDBService;
-        public USDANutrientDBController(IUSDANutrientDBService USDANutrientDBService)
+        private readonly IIngredientService _IngredientService;
+        public IngredientController(IIngredientService IngredientService)
         {
-            _USDANutrientDBService = USDANutrientDBService;
+            _IngredientService = IngredientService;
         }
 
-        [HttpPost("GetFoodData")]
-        [OpenApiOperation("GetFoodData")]
+        [HttpPost("GetFullFoodDataResults")]
+        [OpenApiOperation("GetFullFoodDataResults")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<List<FoodDataVM>> GetFoodDataAsync(string search)
         {
-            return await _USDANutrientDBService.GetFoodDataAsync(search);
+            return await _IngredientService.GetFullFoodDataResultsAsync(search);
         }
     }
 }

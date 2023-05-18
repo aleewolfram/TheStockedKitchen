@@ -52,5 +52,14 @@ namespace SCGPlanningTool.Api.Controllers
             string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
             return await _FoodStockService.UpdateFoodStockAsync(foodStock, user);
         }
+
+        [HttpPost("ToggleFoodStockIncludedInRecipe")]
+        [OpenApiOperation("ToggleFoodStockIncludedInRecipe")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> ToggleFoodStockIncludedInRecipeAsync(int foodStockId)
+        {
+            string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
+            return await _FoodStockService.ToggleFoodStockIncludedInRecipeAsync(foodStockId, user);
+        }
     }
 }

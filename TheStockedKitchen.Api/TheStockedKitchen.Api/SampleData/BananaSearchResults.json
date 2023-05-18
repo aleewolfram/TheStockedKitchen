@@ -1,0 +1,1811 @@
+[
+  {
+    "fdcId": 173944,
+    "nbdNumber": 9040,
+    "name": "banana",
+    "foodCategory": "Fruits and Fruit Juices",
+    "image": "https://spoonacular.com/cdn/ingredients_100x100/bananas.jpg",
+    "foodNutrients": [
+      {
+        "name": "Fatty acids, total saturated",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.112
+      },
+      {
+        "name": "SFA 12:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.002
+      },
+      {
+        "name": "SFA 14:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.002
+      },
+      {
+        "name": "MUFA 16:1",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.01
+      },
+      {
+        "name": "Energy",
+        "unitAbbreviation": "kJ",
+        "unitName": "Kilojoules",
+        "value": 371
+      },
+      {
+        "name": "Vitamin A, IU",
+        "unitAbbreviation": "IU",
+        "unitName": "International Units",
+        "value": 64
+      },
+      {
+        "name": "Vitamin A, RAE",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 3
+      },
+      {
+        "name": "Folate, food",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 20
+      },
+      {
+        "name": "Fluoride, F",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 2.2
+      },
+      {
+        "name": "Choline, total",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 9.8
+      },
+      {
+        "name": "SFA 10:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.001
+      },
+      {
+        "name": "SFA 16:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.102
+      },
+      {
+        "name": "SFA 18:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.005
+      },
+      {
+        "name": "MUFA 18:1",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.022
+      },
+      {
+        "name": "PUFA 18:2",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.046
+      },
+      {
+        "name": "PUFA 18:3",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.027
+      },
+      {
+        "name": "Fatty acids, total monounsaturated",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.032
+      },
+      {
+        "name": "Fatty acids, total polyunsaturated",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.073
+      },
+      {
+        "name": "Carbohydrate, by difference",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 22.8
+      },
+      {
+        "name": "Energy",
+        "unitAbbreviation": "KCAL",
+        "unitName": "Calories",
+        "value": 89
+      },
+      {
+        "name": "Folate, DFE",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 20
+      },
+      {
+        "name": "Betaine",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.1
+      },
+      {
+        "name": "Phytosterols",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 16
+      },
+      {
+        "name": "Vitamin K (phylloquinone)",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 0.5
+      },
+      {
+        "name": "Tocopherol, delta",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.01
+      },
+      {
+        "name": "Vitamin C, total ascorbic acid",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 8.7
+      },
+      {
+        "name": "Thiamin",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.031
+      },
+      {
+        "name": "Riboflavin",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.073
+      },
+      {
+        "name": "Folate, total",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 20
+      },
+      {
+        "name": "Tryptophan",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.009
+      },
+      {
+        "name": "Threonine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.028
+      },
+      {
+        "name": "Methionine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.008
+      },
+      {
+        "name": "Phenylalanine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.049
+      },
+      {
+        "name": "Tyrosine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.009
+      },
+      {
+        "name": "Alanine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.04
+      },
+      {
+        "name": "Glutamic acid",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.152
+      },
+      {
+        "name": "Glycine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.038
+      },
+      {
+        "name": "Proline",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.028
+      },
+      {
+        "name": "Carotene, beta",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 26
+      },
+      {
+        "name": "Carotene, alpha",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 25
+      },
+      {
+        "name": "Fiber, total dietary",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 2.6
+      },
+      {
+        "name": "Iron, Fe",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.26
+      },
+      {
+        "name": "Magnesium, Mg",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 27
+      },
+      {
+        "name": "Phosphorus, P",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 22
+      },
+      {
+        "name": "Sodium, Na",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 1
+      },
+      {
+        "name": "Copper, Cu",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.078
+      },
+      {
+        "name": "Manganese, Mn",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.27
+      },
+      {
+        "name": "Protein",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 1.09
+      },
+      {
+        "name": "Ash",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.82
+      },
+      {
+        "name": "Starch",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 5.38
+      },
+      {
+        "name": "Fructose",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 4.85
+      },
+      {
+        "name": "Sugars, total including NLEA",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 12.2
+      },
+      {
+        "name": "Calcium, Ca",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 5
+      },
+      {
+        "name": "Potassium, K",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 358
+      },
+      {
+        "name": "Zinc, Zn",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.15
+      },
+      {
+        "name": "Sucrose",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 2.39
+      },
+      {
+        "name": "Glucose",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 4.98
+      },
+      {
+        "name": "Maltose",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.01
+      },
+      {
+        "name": "Water",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 74.9
+      },
+      {
+        "name": "Total lipid (fat)",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.33
+      },
+      {
+        "name": "Isoleucine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.028
+      },
+      {
+        "name": "Leucine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.068
+      },
+      {
+        "name": "Lysine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.05
+      },
+      {
+        "name": "Cystine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.009
+      },
+      {
+        "name": "Valine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.047
+      },
+      {
+        "name": "Arginine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.049
+      },
+      {
+        "name": "Histidine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.077
+      },
+      {
+        "name": "Aspartic acid",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.124
+      },
+      {
+        "name": "Serine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.04
+      },
+      {
+        "name": "Lutein + zeaxanthin",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 22
+      },
+      {
+        "name": "Tocopherol, gamma",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.02
+      },
+      {
+        "name": "Tocotrienol, alpha",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.06
+      },
+      {
+        "name": "Niacin",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.665
+      },
+      {
+        "name": "Pantothenic acid",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.334
+      },
+      {
+        "name": "Vitamin B-6",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.367
+      },
+      {
+        "name": "Selenium, Se",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 1
+      },
+      {
+        "name": "Vitamin E (alpha-tocopherol)",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.1
+      }
+    ]
+  },
+  {
+    "fdcId": 168849,
+    "nbdNumber": 19400,
+    "name": "banana chips",
+    "foodCategory": "Snacks",
+    "image": "https://spoonacular.com/cdn/ingredients_100x100/banana-chips.jpg",
+    "foodNutrients": [
+      {
+        "name": "Carbohydrate, by difference",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 58.4
+      },
+      {
+        "name": "Lutein + zeaxanthin",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 46
+      },
+      {
+        "name": "Vitamin E (alpha-tocopherol)",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.24
+      },
+      {
+        "name": "Vitamin A, RAE",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 4
+      },
+      {
+        "name": "Carotene, beta",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 34
+      },
+      {
+        "name": "Carotene, alpha",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 32
+      },
+      {
+        "name": "Vitamin K (phylloquinone)",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 1.3
+      },
+      {
+        "name": "Folate, food",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 14
+      },
+      {
+        "name": "Sugars, total including NLEA",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 35.3
+      },
+      {
+        "name": "Energy",
+        "unitAbbreviation": "KCAL",
+        "unitName": "Calories",
+        "value": 519
+      },
+      {
+        "name": "Folate, DFE",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 14
+      },
+      {
+        "name": "Choline, total",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 21.3
+      },
+      {
+        "name": "Energy",
+        "unitAbbreviation": "kJ",
+        "unitName": "Kilojoules",
+        "value": 2170
+      },
+      {
+        "name": "Water",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 4.3
+      },
+      {
+        "name": "Calcium, Ca",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 18
+      },
+      {
+        "name": "Potassium, K",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 536
+      },
+      {
+        "name": "Zinc, Zn",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.75
+      },
+      {
+        "name": "Niacin",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.71
+      },
+      {
+        "name": "Pantothenic acid",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.62
+      },
+      {
+        "name": "Vitamin B-6",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.26
+      },
+      {
+        "name": "Isoleucine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.074
+      },
+      {
+        "name": "Leucine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.158
+      },
+      {
+        "name": "Lysine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.107
+      },
+      {
+        "name": "Cystine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.039
+      },
+      {
+        "name": "Valine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.104
+      },
+      {
+        "name": "Arginine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.104
+      },
+      {
+        "name": "Histidine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.18
+      },
+      {
+        "name": "Aspartic acid",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.253
+      },
+      {
+        "name": "Serine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.104
+      },
+      {
+        "name": "SFA 6:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.2
+      },
+      {
+        "name": "SFA 10:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 2.01
+      },
+      {
+        "name": "SFA 16:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 2.79
+      },
+      {
+        "name": "SFA 18:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.94
+      },
+      {
+        "name": "MUFA 18:1",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 1.95
+      },
+      {
+        "name": "PUFA 18:2",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.62
+      },
+      {
+        "name": "PUFA 18:3",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.01
+      },
+      {
+        "name": "Total lipid (fat)",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 33.6
+      },
+      {
+        "name": "Fatty acids, total monounsaturated",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 1.95
+      },
+      {
+        "name": "Fatty acids, total polyunsaturated",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.63
+      },
+      {
+        "name": "Vitamin C, total ascorbic acid",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 6.3
+      },
+      {
+        "name": "Thiamin",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.085
+      },
+      {
+        "name": "Riboflavin",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.017
+      },
+      {
+        "name": "Folate, total",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 14
+      },
+      {
+        "name": "Tryptophan",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.027
+      },
+      {
+        "name": "Threonine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.076
+      },
+      {
+        "name": "Methionine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.024
+      },
+      {
+        "name": "Phenylalanine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.086
+      },
+      {
+        "name": "Tyrosine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.053
+      },
+      {
+        "name": "Alanine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.087
+      },
+      {
+        "name": "Glutamic acid",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.248
+      },
+      {
+        "name": "Glycine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.082
+      },
+      {
+        "name": "Proline",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.089
+      },
+      {
+        "name": "Fatty acids, total saturated",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 29
+      },
+      {
+        "name": "SFA 8:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 2.51
+      },
+      {
+        "name": "SFA 12:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 14.9
+      },
+      {
+        "name": "SFA 14:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 5.62
+      },
+      {
+        "name": "Fiber, total dietary",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 7.7
+      },
+      {
+        "name": "Iron, Fe",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 1.25
+      },
+      {
+        "name": "Magnesium, Mg",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 76
+      },
+      {
+        "name": "Phosphorus, P",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 56
+      },
+      {
+        "name": "Sodium, Na",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 6
+      },
+      {
+        "name": "Copper, Cu",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.205
+      },
+      {
+        "name": "Manganese, Mn",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 1.56
+      },
+      {
+        "name": "Vitamin A, IU",
+        "unitAbbreviation": "IU",
+        "unitName": "International Units",
+        "value": 83
+      },
+      {
+        "name": "Protein",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 2.3
+      },
+      {
+        "name": "Ash",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 1.4
+      },
+      {
+        "name": "Selenium, Se",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 1.5
+      }
+    ]
+  },
+  {
+    "fdcId": 174906,
+    "nbdNumber": 18019,
+    "name": "banana bread",
+    "foodCategory": "Baked Products",
+    "image": "https://spoonacular.com/cdn/ingredients_100x100/quick-bread.png",
+    "foodNutrients": [
+      {
+        "name": "Energy",
+        "unitAbbreviation": "kJ",
+        "unitName": "Kilojoules",
+        "value": 1360
+      },
+      {
+        "name": "Folate, DFE",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 48
+      },
+      {
+        "name": "Vitamin B-12",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 0.1
+      },
+      {
+        "name": "Vitamin A, IU",
+        "unitAbbreviation": "IU",
+        "unitName": "International Units",
+        "value": 493
+      },
+      {
+        "name": "Retinol",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 97
+      },
+      {
+        "name": "Vitamin A, RAE",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 106
+      },
+      {
+        "name": "Carotene, beta",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 102
+      },
+      {
+        "name": "Folic acid",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 22
+      },
+      {
+        "name": "Fiber, total dietary",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 1.1
+      },
+      {
+        "name": "Calcium, Ca",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 21
+      },
+      {
+        "name": "Potassium, K",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 134
+      },
+      {
+        "name": "Zinc, Zn",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.35
+      },
+      {
+        "name": "Niacin",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 1.45
+      },
+      {
+        "name": "Pantothenic acid",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.268
+      },
+      {
+        "name": "Vitamin B-6",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.15
+      },
+      {
+        "name": "Total lipid (fat)",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 10.5
+      },
+      {
+        "name": "Carbohydrate, by difference",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 54.6
+      },
+      {
+        "name": "Energy",
+        "unitAbbreviation": "KCAL",
+        "unitName": "Calories",
+        "value": 326
+      },
+      {
+        "name": "Water",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 29.2
+      },
+      {
+        "name": "Isoleucine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.182
+      },
+      {
+        "name": "Leucine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.327
+      },
+      {
+        "name": "Lysine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.18
+      },
+      {
+        "name": "Cystine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.09
+      },
+      {
+        "name": "Valine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.209
+      },
+      {
+        "name": "Arginine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.199
+      },
+      {
+        "name": "Histidine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.113
+      },
+      {
+        "name": "Aspartic acid",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.281
+      },
+      {
+        "name": "Serine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.247
+      },
+      {
+        "name": "SFA 4:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.004
+      },
+      {
+        "name": "SFA 6:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.002
+      },
+      {
+        "name": "SFA 10:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.004
+      },
+      {
+        "name": "SFA 16:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 1.42
+      },
+      {
+        "name": "SFA 18:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.761
+      },
+      {
+        "name": "MUFA 18:1",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 4.44
+      },
+      {
+        "name": "PUFA 18:2",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 2.97
+      },
+      {
+        "name": "PUFA 18:3",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.143
+      },
+      {
+        "name": "PUFA 20:4",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.014
+      },
+      {
+        "name": "MUFA 20:1",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.003
+      },
+      {
+        "name": "Fatty acids, total monounsaturated",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 4.48
+      },
+      {
+        "name": "Fatty acids, total polyunsaturated",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 3.13
+      },
+      {
+        "name": "Vitamin C, total ascorbic acid",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 1.7
+      },
+      {
+        "name": "Thiamin",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.172
+      },
+      {
+        "name": "Riboflavin",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.2
+      },
+      {
+        "name": "Folate, food",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 11
+      },
+      {
+        "name": "Tryptophan",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.053
+      },
+      {
+        "name": "Threonine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.15
+      },
+      {
+        "name": "Methionine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.094
+      },
+      {
+        "name": "Phenylalanine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.218
+      },
+      {
+        "name": "Tyrosine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.148
+      },
+      {
+        "name": "Alanine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.17
+      },
+      {
+        "name": "Glutamic acid",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 1.11
+      },
+      {
+        "name": "Glycine",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.149
+      },
+      {
+        "name": "Proline",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.384
+      },
+      {
+        "name": "Cholesterol",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 43
+      },
+      {
+        "name": "Fatty acids, total saturated",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 2.24
+      },
+      {
+        "name": "SFA 8:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.002
+      },
+      {
+        "name": "SFA 12:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.004
+      },
+      {
+        "name": "SFA 14:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.039
+      },
+      {
+        "name": "PUFA 22:6 n-3 (DHA)",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.004
+      },
+      {
+        "name": "MUFA 16:1",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.036
+      },
+      {
+        "name": "Phytosterols",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 34
+      },
+      {
+        "name": "Protein",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 4.3
+      },
+      {
+        "name": "Ash",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 1
+      },
+      {
+        "name": "Iron, Fe",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 1.4
+      },
+      {
+        "name": "Magnesium, Mg",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 14
+      },
+      {
+        "name": "Phosphorus, P",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 58
+      },
+      {
+        "name": "Sodium, Na",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 302
+      },
+      {
+        "name": "Copper, Cu",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.072
+      },
+      {
+        "name": "Manganese, Mn",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.209
+      },
+      {
+        "name": "Folate, total",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 33
+      },
+      {
+        "name": "Selenium, Se",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 12.1
+      }
+    ]
+  },
+  {
+    "fdcId": 169394,
+    "nbdNumber": 11976,
+    "name": "banana pepper",
+    "foodCategory": "Vegetables and Vegetable Products",
+    "image": "https://spoonacular.com/cdn/ingredients_100x100/pepperoncini.jpg",
+    "foodNutrients": [
+      {
+        "name": "Fiber, total dietary",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 3.4
+      },
+      {
+        "name": "Iron, Fe",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.46
+      },
+      {
+        "name": "Magnesium, Mg",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 17
+      },
+      {
+        "name": "Phosphorus, P",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 32
+      },
+      {
+        "name": "Sodium, Na",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 13
+      },
+      {
+        "name": "Copper, Cu",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.094
+      },
+      {
+        "name": "Vitamin C, total ascorbic acid",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 82.7
+      },
+      {
+        "name": "Thiamin",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.081
+      },
+      {
+        "name": "Riboflavin",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.054
+      },
+      {
+        "name": "Folate, total",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 29
+      },
+      {
+        "name": "Protein",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 1.66
+      },
+      {
+        "name": "Total lipid (fat)",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.45
+      },
+      {
+        "name": "Water",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 91.8
+      },
+      {
+        "name": "Calcium, Ca",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 14
+      },
+      {
+        "name": "Potassium, K",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 256
+      },
+      {
+        "name": "Zinc, Zn",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.25
+      },
+      {
+        "name": "Niacin",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 1.24
+      },
+      {
+        "name": "Vitamin B-6",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.357
+      },
+      {
+        "name": "Fatty acids, total monounsaturated",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.027
+      },
+      {
+        "name": "Fatty acids, total polyunsaturated",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.243
+      },
+      {
+        "name": "SFA 16:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.036
+      },
+      {
+        "name": "SFA 18:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.007
+      },
+      {
+        "name": "MUFA 18:1",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.025
+      },
+      {
+        "name": "PUFA 18:2",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.24
+      },
+      {
+        "name": "PUFA 18:3",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.003
+      },
+      {
+        "name": "Fatty acids, total saturated",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.048
+      },
+      {
+        "name": "SFA 14:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.001
+      },
+      {
+        "name": "MUFA 16:1",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.002
+      },
+      {
+        "name": "Carbohydrate, by difference",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 5.35
+      },
+      {
+        "name": "Vitamin E (alpha-tocopherol)",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.69
+      },
+      {
+        "name": "Sugars, total including NLEA",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 1.95
+      },
+      {
+        "name": "Carotene, alpha",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 39
+      },
+      {
+        "name": "Vitamin K (phylloquinone)",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 9.5
+      },
+      {
+        "name": "Energy",
+        "unitAbbreviation": "KCAL",
+        "unitName": "Calories",
+        "value": 27
+      },
+      {
+        "name": "Choline, total",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 7.4
+      },
+      {
+        "name": "Folate, DFE",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 29
+      },
+      {
+        "name": "Folate, food",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 29
+      },
+      {
+        "name": "Energy",
+        "unitAbbreviation": "kJ",
+        "unitName": "Kilojoules",
+        "value": 113
+      },
+      {
+        "name": "Vitamin A, IU",
+        "unitAbbreviation": "IU",
+        "unitName": "International Units",
+        "value": 340
+      },
+      {
+        "name": "Vitamin A, RAE",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 17
+      },
+      {
+        "name": "Manganese, Mn",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.1
+      },
+      {
+        "name": "Carotene, beta",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 184
+      },
+      {
+        "name": "Phytosterols",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 3
+      },
+      {
+        "name": "Campesterol",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 1
+      },
+      {
+        "name": "Ash",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.73
+      },
+      {
+        "name": "Pantothenic acid",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.265
+      },
+      {
+        "name": "Beta-sitosterol",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 2
+      },
+      {
+        "name": "Selenium, Se",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 0.3
+      }
+    ]
+  },
+  {
+    "fdcId": 169648,
+    "nbdNumber": 19318,
+    "name": "banana pudding mix",
+    "foodCategory": "Sweets",
+    "image": "https://spoonacular.com/cdn/ingredients_100x100/vanilla-pudding.png",
+    "foodNutrients": [
+      {
+        "name": "Energy",
+        "unitAbbreviation": "kJ",
+        "unitName": "Kilojoules",
+        "value": 1540
+      },
+      {
+        "name": "Sugars, total including NLEA",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 76.6
+      },
+      {
+        "name": "Ash",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 3.8
+      },
+      {
+        "name": "Iron, Fe",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.12
+      },
+      {
+        "name": "Magnesium, Mg",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 2
+      },
+      {
+        "name": "Phosphorus, P",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 804
+      },
+      {
+        "name": "Sodium, Na",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 1500
+      },
+      {
+        "name": "Copper, Cu",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.021
+      },
+      {
+        "name": "Manganese, Mn",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.01
+      },
+      {
+        "name": "Fatty acids, total saturated",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.09
+      },
+      {
+        "name": "Thiamin",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.001
+      },
+      {
+        "name": "Riboflavin",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.003
+      },
+      {
+        "name": "Vitamin B-12",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 0.01
+      },
+      {
+        "name": "Niacin",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.002
+      },
+      {
+        "name": "Pantothenic acid",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.006
+      },
+      {
+        "name": "Vitamin B-6",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.001
+      },
+      {
+        "name": "Calcium, Ca",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 6
+      },
+      {
+        "name": "Potassium, K",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 15
+      },
+      {
+        "name": "Zinc, Zn",
+        "unitAbbreviation": "MG",
+        "unitName": "Milligrams",
+        "value": 0.04
+      },
+      {
+        "name": "SFA 16:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.06
+      },
+      {
+        "name": "SFA 18:0",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.02
+      },
+      {
+        "name": "MUFA 18:1",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.14
+      },
+      {
+        "name": "PUFA 18:2",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.31
+      },
+      {
+        "name": "PUFA 18:3",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.04
+      },
+      {
+        "name": "Fatty acids, total monounsaturated",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.14
+      },
+      {
+        "name": "Fatty acids, total polyunsaturated",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.35
+      },
+      {
+        "name": "Total lipid (fat)",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 0.6
+      },
+      {
+        "name": "Carbohydrate, by difference",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 92.7
+      },
+      {
+        "name": "Energy",
+        "unitAbbreviation": "KCAL",
+        "unitName": "Calories",
+        "value": 367
+      },
+      {
+        "name": "Water",
+        "unitAbbreviation": "G",
+        "unitName": "Grams",
+        "value": 2.8
+      },
+      {
+        "name": "Selenium, Se",
+        "unitAbbreviation": "UG",
+        "unitName": "Micrograms",
+        "value": 0.8
+      }
+    ]
+  }
+]

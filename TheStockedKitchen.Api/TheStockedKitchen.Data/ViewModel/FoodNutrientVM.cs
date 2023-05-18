@@ -9,6 +9,10 @@ namespace TheStockedKitchen.Data.ViewModel
         public string UnitName { get; set; }
         public double Value { get; set; }
 
+        public FoodNutrientVM()
+        {
+
+        }
         public FoodNutrientVM(FoodNutrient foodNutrient) 
         {
             Name = foodNutrient.nutrientName;

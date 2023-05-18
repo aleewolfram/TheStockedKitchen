@@ -25,51 +25,56 @@
                         <MudDataGrid Items="@FoodDataVMs" Hover="true" SortLabel="Sort By">
                             <Columns>
                                 <HierarchyColumn T="FoodDataVM" ButtonDisabledFunc="@(f => !f.FoodNutrients.Any())" />
+                                <TemplateColumn>
+                                    <CellTemplate>
+                                        <MudImage Src="@(context.Item.Image)" Elevation="25" Class="rounded-lg" Width="80" Height="60"/>
+                                    </CellTemplate>
+                                </TemplateColumn>
                                 <PropertyColumn Property="f => f.Name" />
                                 <PropertyColumn Title="Food Category" Property="f => f.FoodCategory" />
-                                <TemplateColumn CellClass="d-flex justify-end">
+                                <TemplateColumn>
                                     <CellTemplate>
                                         <MudStack Row>
-                                        <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
-                                            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(() => OpenAddFoodItemFormAsync(context.Item))">Add</MudButton>
-                                        </MudHidden>
-                                        <MudHidden Breakpoint="Breakpoint.SmAndUp" Invert="true">
-                                            <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="@(() => OpenAddFoodItemFormAsync(context.Item))" />
-                                        </MudHidden>
-                                    </MudStack>
-                                </CellTemplate>
-                            </TemplateColumn>
-                        </Columns>
-                        <ChildRowContent>
-                            <MudCard>
-                                <MudCardHeader>
-                                    <CardHeaderContent>
-                                        <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
-                                            <MudText Typo="Typo.subtitle2">@context.Item.Name</MudText>
-                                        </MudHidden>
-                                        <MudHidden Breakpoint="Breakpoint.SmAndUp" Invert="true">
-                                            <MudText Typo="Typo.h6">@context.Item.Name</MudText>
-                                        </MudHidden>
-                                    </CardHeaderContent>
-                                </MudCardHeader>
-                                <MudCardContent>
-                                    @foreach (FoodNutrientVM foodNutrient in context.Item.FoodNutrients.OrderBy(n => n.UnitName))
-                                        {
                                             <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
-                                                <MudText Class="site-text-small" Typo="Typo.overline"><b>@foodNutrient.Name</b> : @foodNutrient.Value @foodNutrient.UnitName </MudText>
-                                                <br />
+                                                <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(() => OpenAddFoodItemFormAsync(context.Item))">Add</MudButton>
                                             </MudHidden>
-
                                             <MudHidden Breakpoint="Breakpoint.SmAndUp" Invert="true">
-                                                <MudText Class="site-text-large" Typo="Typo.overline"><b>@foodNutrient.Name</b> : @foodNutrient.Value @foodNutrient.UnitName </MudText>
-                                                <br />
+                                                <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="@(() => OpenAddFoodItemFormAsync(context.Item))" />
                                             </MudHidden>
-                                        }
-                                    </MudCardContent>
-                                </MudCard>
-                            </ChildRowContent>
+                                        </MudStack>
+                                    </CellTemplate>
+                                </TemplateColumn>
+                            </Columns>
+                            <ChildRowContent>
+                                <MudCard>
+                                    <MudCardHeader>
+                                        <CardHeaderContent>
+                                            <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
+                                                <MudText Typo="Typo.subtitle2">@context.Item.Name</MudText>
+                                            </MudHidden>
+                                            <MudHidden Breakpoint="Breakpoint.SmAndUp" Invert="true">
+                                                <MudText Typo="Typo.h6">@context.Item.Name</MudText>
+                                            </MudHidden>
+                                        </CardHeaderContent>
+                                    </MudCardHeader>
+                                    <MudCardContent>
+                                        @foreach (FoodNutrientVM foodNutrient in context.Item.FoodNutrients.OrderBy(n => n.UnitName))
+                                            {
+                                                <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
+                                                    <MudText Class="site-text-small" Typo="Typo.overline"><b>@foodNutrient.Name</b> : @foodNutrient.Value @foodNutrient.UnitName </MudText>
+                                                    <br />
+                                                </MudHidden>
+
+                                                <MudHidden Breakpoint="Breakpoint.SmAndUp" Invert="true">
+                                                    <MudText Class="site-text-large" Typo="Typo.overline"><b>@foodNutrient.Name</b> : @foodNutrient.Value @foodNutrient.UnitName </MudText>
+                                                    <br />
+                                                </MudHidden>
+                                            }
+                                        </MudCardContent>
+                                    </MudCard>
+                                </ChildRowContent>
                             <PagerContent>
-                                <MudTablePager />
+                                <MudDataGridPager T="FoodDataVM" />
                             </PagerContent>
                         </MudDataGrid>
                     }
@@ -113,7 +118,7 @@
     {
         Loading = true;
 
-        FoodDataVMs = await _apiClient.GetFoodDataAsync(Search);
+        FoodDataVMs = await _apiClient.GetFullFoodDataResultsAsync(Search);
 
         Loading = false;
     }
@@ -123,7 +128,7 @@
         Loading = true;
 
         Search = foodSearch;
-        FoodDataVMs = await _apiClient.GetFoodDataAsync(foodSearch);
+        FoodDataVMs = await _apiClient.GetFullFoodDataResultsAsync(foodSearch);
 
         Loading = false;
     }
@@ -131,6 +136,8 @@
     private async Task OpenAddFoodItemFormAsync(FoodDataVM foodData)
     {
         FoodStockVM.Name = foodData.Name;
+        FoodStockVM.Image = foodData.Image;
+        FoodStockVM.Category = foodData.FoodCategory;
         FoodStockVM.Quantity = 0;
         FoodStockVM.Unit = "";
         ToggleGrid();
