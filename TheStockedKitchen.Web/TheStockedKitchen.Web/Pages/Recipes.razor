@@ -1,10 +1,9 @@
 ﻿@page "/recipes"
 @using TheStockedKitchen.Client;
 @using TheStockedKitchen.Web.Shared.Components;
-@using TheStockedKitchen.Web.Shared.Dialogs;
 
 @inject ITheStockedKitchenClient _apiClient
-@inject IDialogService _dialogService
+@inject NavigationManager _navigationManager
 
 @if (Loading)
 {
@@ -73,7 +72,7 @@ else
                                     </MudCardContent>
                                         <MudCardActions>
                                             <MudTooltip Text="View">
-                                                <MudIconButton Icon="@Icons.Material.Filled.Link" Color="Color.Default" />
+                                                <MudIconButton Icon="@Icons.Material.Filled.Link" Color="Color.Default" OnClick="() => NavigateToRecipe(recipeVM.RecipeId)" />
                                             </MudTooltip>
                                             @if (recipeVM.MissingIngredients.Any())
                                             {
@@ -137,5 +136,10 @@ else
             dropItem.Item.IncludedInRecipeSearch = (dropItem.DropzoneIdentifier == "Yes" ? true : false);
             await GetRecipes();
         }
+    }
+
+    private void NavigateToRecipe(int id)
+    {
+        _navigationManager.NavigateTo($"{_navigationManager.BaseUri}recipedetails/{id}");
     }
 }

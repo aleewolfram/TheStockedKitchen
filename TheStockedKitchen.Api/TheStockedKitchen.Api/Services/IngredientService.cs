@@ -63,7 +63,7 @@ namespace TheStockedKitchen.Api.Services
         }
 
         // Get cleansed food names from Spoonacular
-        public async Task<List<FoodDataVM>> GetFoodAsync(string search)
+        private async Task<List<FoodDataVM>> GetFoodAsync(string search)
         {
             string apiUrl = "https://api.spoonacular.com/food/ingredients/search";
             string apiKey = _uSDANutrientDBConfiguration.ApiKey.SpoonacularApiKey;
@@ -97,7 +97,7 @@ namespace TheStockedKitchen.Api.Services
         }
 
         // Query USDA for extra food information since thier API is less limiting for free versions
-        public async Task<List<FoodDataVM>> GetFoodInfoAsync(string search)
+        private async Task<List<FoodDataVM>> GetFoodInfoAsync(string search)
         {
             string apiUrl = "https://api.nal.usda.gov/fdc/v1/foods/search";
             string apiKey = _uSDANutrientDBConfiguration.ApiKey.USDAApiKey;

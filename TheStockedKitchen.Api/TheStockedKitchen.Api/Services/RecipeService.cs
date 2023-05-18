@@ -10,6 +10,7 @@ namespace TheStockedKitchen.Api.Services
     public interface IRecipeService
     {
         Task<List<RecipeVM>> GetRecipesAsync(string ingredients);
+        Task<RecipeDetailVM> GetRecipeDetailAsync(int id);
     }
     public class RecipeService : IRecipeService
     {
@@ -79,6 +80,50 @@ namespace TheStockedKitchen.Api.Services
                         var content = await response.Content.ReadAsStringAsync();
                         List<Recipe> recipes = System.Text.Json.JsonSerializer.Deserialize<List<Recipe>>(content);
                         return recipes.Select(r => new RecipeVM(r)).ToList();
+                    }
+
+                    return null;
+                }
+            }
+        }
+        
+        public async Task<RecipeDetailVM> GetRecipeDetailAsync(int id)
+        {
+            //Keeping this here so I don't spam the limited Spoonacular API
+            if (true)
+            {
+                using (StreamReader r = new StreamReader("SampleData/RecipeDetailResult.json"))
+                {
+                    string json = r.ReadToEnd();
+                    return JsonConvert.DeserializeObject<RecipeDetailVM>(json);
+                }
+            }
+            else
+            {
+                string apiUrl = $"https://api.spoonacular.com/recipes/{id}/information";
+                string apiKey = _uSDANutrientDBConfiguration.ApiKey.SpoonacularApiKey;
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var payload = new
+                    {
+                        apiKey
+
+                    };
+                    var jsonPayload = System.Text.Json.JsonSerializer.Serialize(payload);
+
+                    var requestUri = $"{apiUrl}?{QueryStringBuilder.BuildQueryString(payload)}";
+
+                    var response = await httpClient.GetAsync(requestUri);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        RecipeDetail recipe = System.Text.Json.JsonSerializer.Deserialize<RecipeDetail>(content);
+                        RecipeDetailVM recipeDetailVM = new RecipeDetailVM(recipe);
+                        return recipeDetailVM;
                     }
 
                     return null;

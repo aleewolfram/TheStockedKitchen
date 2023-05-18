@@ -27,12 +27,22 @@ namespace TheStockedKitchen.Data.ViewModel
             UnitAbbreviation = usedIngredient.unitShort.ToUpper();
             Image = usedIngredient.image;
         }
+
         public IngredientVM(MissedIngredient missedIngredient)
         {
             Name = missedIngredient.name;
             Unit = missedIngredient.unitLong;
             UnitAbbreviation = missedIngredient.unitShort.ToUpper();
             Image = missedIngredient.image;
+        }
+
+        public IngredientVM(ExtendedIngredient extendedIngredient)
+        {
+            Name = extendedIngredient.name;
+            Unit = extendedIngredient.unit;
+            UnitAbbreviation = extendedIngredient.measures.us.unitShort.ToUpper();
+            Image = extendedIngredient.image;
+            Quantity = extendedIngredient.amount;
         }
     }
 }

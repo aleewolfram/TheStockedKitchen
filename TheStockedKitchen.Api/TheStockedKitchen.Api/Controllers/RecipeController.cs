@@ -22,5 +22,13 @@ namespace SCGPlanningTool.Api.Controllers
         {
             return await _RecipeService.GetRecipesAsync(ingredients);
         }
+
+        [HttpPost("GetRecipeDetail")]
+        [OpenApiOperation("GetRecipeDetail")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<RecipeDetailVM>> GetRecipeDetailAsync(int id)
+        {
+            return await _RecipeService.GetRecipeDetailAsync(id);
+        }
     }
 }
