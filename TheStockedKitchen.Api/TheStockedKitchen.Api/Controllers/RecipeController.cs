@@ -26,9 +26,10 @@ namespace SCGPlanningTool.Api.Controllers
         [HttpPost("GetRecipeDetail")]
         [OpenApiOperation("GetRecipeDetail")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<RecipeDetailVM>> GetRecipeDetailAsync(int id)
+        public async Task<ActionResult<RecipeDetailVM>> GetRecipeDetailAsync(RecipeVM recipeVM)
         {
-            return await _RecipeService.GetRecipeDetailAsync(id);
+            string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
+            return await _RecipeService.GetRecipeDetailAsync(recipeVM, user);
         }
     }
 }

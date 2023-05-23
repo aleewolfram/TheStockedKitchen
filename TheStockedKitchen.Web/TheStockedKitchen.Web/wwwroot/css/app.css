@@ -124,6 +124,10 @@ a, .btn-link {
     font-size: 13px;
 }
 
+a {
+    color: #F48C74;
+}
+
 a:hover {
     color: #9B4A08;
 }

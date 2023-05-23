@@ -73,11 +73,11 @@ namespace TheStockedKitchen.Client
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<RecipeVM>> GetRecipesAsync(string? ingredients, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<RecipeDetailVM> GetRecipeDetailAsync(int? id);
+        System.Threading.Tasks.Task<RecipeDetailVM> GetRecipeDetailAsync(RecipeVM recipeVM);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<RecipeDetailVM> GetRecipeDetailAsync(int? id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<RecipeDetailVM> GetRecipeDetailAsync(RecipeVM recipeVM, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Unit>> GetUnitsAsync();
@@ -658,22 +658,20 @@ namespace TheStockedKitchen.Client
         }
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<RecipeDetailVM> GetRecipeDetailAsync(int? id)
+        public virtual System.Threading.Tasks.Task<RecipeDetailVM> GetRecipeDetailAsync(RecipeVM recipeVM)
         {
-            return GetRecipeDetailAsync(id, System.Threading.CancellationToken.None);
+            return GetRecipeDetailAsync(recipeVM, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<RecipeDetailVM> GetRecipeDetailAsync(int? id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<RecipeDetailVM> GetRecipeDetailAsync(RecipeVM recipeVM, System.Threading.CancellationToken cancellationToken)
         {
+            if (recipeVM == null)
+                throw new System.ArgumentNullException("recipeVM");
+
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("GetRecipeDetail?");
-            if (id != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            urlBuilder_.Length--;
+            urlBuilder_.Append("GetRecipeDetail");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -681,7 +679,10 @@ namespace TheStockedKitchen.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "application/json");
+                    var json_ = System.Text.Json.JsonSerializer.Serialize(recipeVM, _settings.Value);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
@@ -933,6 +934,12 @@ namespace TheStockedKitchen.Client
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Unit { get; set; } = default!;
 
+        [System.Text.Json.Serialization.JsonPropertyName("unitAbbreviation")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string UnitAbbreviation { get; set; } = default!;
+
         [System.Text.Json.Serialization.JsonPropertyName("image")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
@@ -988,6 +995,12 @@ namespace TheStockedKitchen.Client
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Unit { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("unitAbbreviation")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string UnitAbbreviation { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("image")]
 
@@ -1185,11 +1198,85 @@ namespace TheStockedKitchen.Client
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Summary { get; set; } = default!;
 
-        [System.Text.Json.Serialization.JsonPropertyName("ingredients")]
+        [System.Text.Json.Serialization.JsonPropertyName("ingredientCompareVMs")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
         [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.ICollection<IngredientVM> Ingredients { get; set; } = new System.Collections.ObjectModel.Collection<IngredientVM>();
+        public System.Collections.Generic.ICollection<IngredientCompareVM> IngredientCompareVMs { get; set; } = new System.Collections.ObjectModel.Collection<IngredientCompareVM>();
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class IngredientCompareVM
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("recipeIngredientName")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string RecipeIngredientName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("recipeIngredientUnit")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string RecipeIngredientUnit { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("recipeIngredientUnitAbbreviation")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string RecipeIngredientUnitAbbreviation { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("recipeIngredientQuantity")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        public double RecipeIngredientQuantity { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("pantryIngredientName")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string PantryIngredientName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("pantryIngredientUnit")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string PantryIngredientUnit { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("pantryIngredientUnitAbbreviation")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string PantryIngredientUnitAbbreviation { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("pantryIngredientQuantity")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        public double PantryIngredientQuantity { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("pantryIngredientRemainingUnit")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string PantryIngredientRemainingUnit { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("pantryIngredientUnitRemainingAbbreviation")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string PantryIngredientUnitRemainingAbbreviation { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("pantryIngredientRemainingQuantity")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        public double PantryIngredientRemainingQuantity { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("wasAbleToCompare")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        public bool WasAbleToCompare { get; set; } = default!;
 
     }
 

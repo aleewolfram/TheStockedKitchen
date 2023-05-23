@@ -29,7 +29,7 @@ namespace TheStockedKitchen.Api.Services
 
         public async Task<List<FoodDataVM>> GetFullFoodDataResultsAsync(string search)
         {
-            //Keeping this here so I don't spam the limited Spoonacular API
+            // Keeping this here so I don't spam the limited Spoonacular API
             if (true)
             {
                 using (StreamReader r = new StreamReader("SampleData/BananaSearchResults.json"))

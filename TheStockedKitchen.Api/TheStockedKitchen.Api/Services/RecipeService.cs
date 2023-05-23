@@ -4,21 +4,28 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using TheStockedKitchen.Data.SpoonacularModel;
 using TheStockedKitchen.Api.Utilities;
+using TheStockedKitchen.Data.Model;
 
 namespace TheStockedKitchen.Api.Services
 {
     public interface IRecipeService
     {
         Task<List<RecipeVM>> GetRecipesAsync(string ingredients);
-        Task<RecipeDetailVM> GetRecipeDetailAsync(int id);
+        Task<RecipeDetailVM> GetRecipeDetailAsync(RecipeVM recipeVM, string user);
     }
     public class RecipeService : IRecipeService
     {
         private readonly TheStockedKitchenConfiguration _uSDANutrientDBConfiguration;
 
-        public RecipeService(TheStockedKitchenConfiguration uSDANutrientDBConfiguration)
+        private readonly IFoodStockService _foodStockService;
+
+        private readonly IUnitService _unitService;
+
+        public RecipeService(TheStockedKitchenConfiguration uSDANutrientDBConfiguration, IFoodStockService foodStockService, IUnitService unitService)
         {
             _uSDANutrientDBConfiguration = uSDANutrientDBConfiguration;
+            _foodStockService = foodStockService;
+            _unitService = unitService;
         }
 
         public async Task<List<RecipeVM>> GetRecipesAsync(string ingredients)
@@ -87,9 +94,9 @@ namespace TheStockedKitchen.Api.Services
             }
         }
         
-        public async Task<RecipeDetailVM> GetRecipeDetailAsync(int id)
+        public async Task<RecipeDetailVM> GetRecipeDetailAsync(RecipeVM recipeVM, string user)
         {
-            //Keeping this here so I don't spam the limited Spoonacular API
+            // Keeping this here so I don't spam the limited Spoonacular API
             if (true)
             {
                 using (StreamReader r = new StreamReader("SampleData/RecipeDetailResult.json"))
@@ -100,7 +107,7 @@ namespace TheStockedKitchen.Api.Services
             }
             else
             {
-                string apiUrl = $"https://api.spoonacular.com/recipes/{id}/information";
+                string apiUrl = $"https://api.spoonacular.com/recipes/{recipeVM.RecipeId}/information";
                 string apiKey = _uSDANutrientDBConfiguration.ApiKey.SpoonacularApiKey;
 
                 using (HttpClient httpClient = new HttpClient())
@@ -121,8 +128,43 @@ namespace TheStockedKitchen.Api.Services
                     if (response.IsSuccessStatusCode)
                     {
                         var content = await response.Content.ReadAsStringAsync();
-                        RecipeDetail recipe = System.Text.Json.JsonSerializer.Deserialize<RecipeDetail>(content);
-                        RecipeDetailVM recipeDetailVM = new RecipeDetailVM(recipe);
+                        
+                        RecipeDetail recipeDetail = System.Text.Json.JsonSerializer.Deserialize<RecipeDetail>(content);
+                        
+                        List<FoodStock> foodStocks = await _foodStockService.GetFoodStockAsync(user);
+
+                        List<IngredientCompareVM> ingredientCompareVMs = (  from d in recipeDetail.extendedIngredients
+                                                                            from f in foodStocks
+                                                                            where (d.nameClean == f.Name) || (d.name == f.Name)
+                                                                            select new IngredientCompareVM
+                                                                            {
+                                                                                RecipeIngredientName = !string.IsNullOrEmpty(d.nameClean) ? d.nameClean : d.name,
+                                                                                RecipeIngredientQuantity = d.amount,
+                                                                                RecipeIngredientUnit = d.unit.ToUpper(),
+                                                                                RecipeIngredientUnitAbbreviation = d.unit.ToUpper(),
+                                                                                PantryIngredientName = f.Name,
+                                                                                PantryIngredientQuantity = f.Quantity,
+                                                                                PantryIngredientUnit = f.Unit,
+                                                                                PantryIngredientUnitAbbreviation = f.UnitAbbreviation
+                                                                            }
+                                                                        ).ToList();
+
+
+                        RecipeDetailVM recipeDetailVM = new RecipeDetailVM()
+                        {
+                            SourceUrl = recipeDetail.sourceUrl,
+                            Title = recipeDetail.title,
+                            Image = recipeDetail.image,
+                            Summary = recipeDetail.summary,
+                            IngredientCompareVMs = new List<IngredientCompareVM>()
+                        };
+
+                        foreach(IngredientCompareVM ingredientCompareVM in ingredientCompareVMs)
+                        {
+                            IngredientCompareVM convertedIngredientCompareVM = await _unitService.GetPantryIngredientRemaining(ingredientCompareVM);
+                            recipeDetailVM.IngredientCompareVMs.Add(convertedIngredientCompareVM);
+                        }
+                        
                         return recipeDetailVM;
                     }
 

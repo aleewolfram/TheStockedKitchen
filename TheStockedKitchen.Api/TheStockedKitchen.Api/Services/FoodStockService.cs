@@ -17,10 +17,12 @@ namespace TheStockedKitchen.Api.Services
     {
 
         private readonly AppDBContext _dbContext;
+        private readonly IUnitService _unitService;
 
-        public FoodStockService(AppDBContext dbContext)
+        public FoodStockService(AppDBContext dbContext, IUnitService unitService)
         {
             _dbContext = dbContext;
+            _unitService = unitService;
         }
 
         public async Task<List<FoodStock>> GetFoodStockAsync(string user)
@@ -36,6 +38,7 @@ namespace TheStockedKitchen.Api.Services
                 {
                     Name = foodStockVM.Name,
                     Unit = foodStockVM.Unit,
+                    UnitAbbreviation = await _unitService.GetUnitAbbreviationAsync(foodStockVM.Unit),
                     Quantity = foodStockVM.Quantity,
                     User = user,
                     Image = foodStockVM.Image,
@@ -83,6 +86,7 @@ namespace TheStockedKitchen.Api.Services
                 {
                     updateFoodStock.Quantity = foodStock.Quantity;
                     updateFoodStock.Unit = foodStock.Unit;
+                    updateFoodStock.UnitAbbreviation = await _unitService.GetUnitAbbreviationAsync(foodStock.Unit);
                     updateFoodStock.LastEditedDate = DateTime.Now; 
                     
                     await _dbContext.SaveChangesAsync();

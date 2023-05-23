@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TheStockedKitchen.Data.Model;
 using TheStockedKitchen.Data.SpoonacularModel;
 
 namespace TheStockedKitchen.Data.ViewModel
@@ -38,11 +39,19 @@ namespace TheStockedKitchen.Data.ViewModel
 
         public IngredientVM(ExtendedIngredient extendedIngredient)
         {
-            Name = extendedIngredient.name;
+            Name = extendedIngredient.nameClean;
             Unit = extendedIngredient.unit;
             UnitAbbreviation = extendedIngredient.measures.us.unitShort.ToUpper();
             Image = extendedIngredient.image;
             Quantity = extendedIngredient.amount;
+        }
+
+        public IngredientVM(FoodStock foodStock, List<Unit> units)
+        {
+            Name = foodStock.Name;
+            Unit = foodStock.Unit;
+            UnitAbbreviation = units.Where(u => u.Name == foodStock.Unit).Select(u => u.Abbreviation).FirstOrDefault()?.ToUpper();
+            Quantity = foodStock.Quantity;
         }
     }
 }

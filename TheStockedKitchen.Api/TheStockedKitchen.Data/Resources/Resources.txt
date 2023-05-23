@@ -1,0 +1,5 @@
+Resources:
+
+https://www.inchcalculator.com
+https://spoonacular.com/food-api
+https://fdc.nal.usda.gov/api-guide.html

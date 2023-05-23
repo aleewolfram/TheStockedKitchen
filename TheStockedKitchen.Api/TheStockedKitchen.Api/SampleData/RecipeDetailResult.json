@@ -1,36 +1,50 @@
 {
-  "sourceUrl": "http://www.foodista.com/recipe/WXRJDY2T/healthier-reese-s-peanut-butter-ice-cream-vegan",
-  "title": "Vegan Peanut Butter Ice Cream",
-  "image": "https://spoonacular.com/recipeImages/646426-556x370.jpg",
-  "summary": "Vegan Peanut Butter Ice Cream might be a good recipe to expand your dessert repertoire. This recipe serves 1 and costs 68 cents per serving. One portion of this dish contains roughly <b>7g of protein</b>, <b>27g of fat</b>, and a total of <b>438 calories</b>. It is brought to you by Foodista. 1 person were glad they tried this recipe. If you have banana, coconut oil, peanut butter, and a few other ingredients on hand, you can make it. It is a good option if you're following a <b>gluten free, dairy free, and fodmap friendly</b> diet. It will be a hit at your <b>Summer</b> event. From preparation to the plate, this recipe takes around <b>15 minutes</b>. With a spoonacular <b>score of 43%</b>, this dish is good. Users who liked this recipe also liked <a href=\"https://spoonacular.com/recipes/vegan-chocolate-peanut-butter-ice-cream-1027074\">Vegan Chocolate Peanut Butter Ice Cream</a>, <a href=\"https://spoonacular.com/recipes/vegan-salted-caramel-and-peanut-butter-ice-cream-553275\">Vegan salted caramel and peanut butter ice cream</a>, and <a href=\"https://spoonacular.com/recipes/vegan-chocolate-peanut-butter-ice-cream-no-machine-required-602766\">Vegan Chocolate Peanut Butter Ice Cream {No Machine Required}</a>.",
-  "ingredients": [
+  "sourceUrl": "https://www.foodista.com/recipe/YCYD4KVW/chocolate-peanut-butter-frozen-banana-dips",
+  "title": "CHOCOLATE PEANUT BUTTER, FROZEN BANANA DIPS",
+  "image": "https://spoonacular.com/recipeImages/639152-556x370.jpg",
+  "summary": "You can never have too many hor d'oeuvre recipes, so give CHOCOLATE PEANUT BUTTER, FROZEN BANANA DIPS a try. For <b>32 cents per serving</b>, this recipe <b>covers 4%</b> of your daily requirements of vitamins and minerals. This recipe serves 6. Watching your figure? This gluten free, dairy free, and fodmap friendly recipe has <b>194 calories</b>, <b>3g of protein</b>, and <b>11g of fat</b> per serving. Only a few people made this recipe, and 1 would say it hit the spot. If you have bananas, chocolate chips, coconut oil, and a few other ingredients on hand, you can make it. It is brought to you by Foodista. From preparation to the plate, this recipe takes roughly <b>45 minutes</b>. All things considered, we decided this recipe <b>deserves a spoonacular score of 25%</b>. This score is rather bad. <a href=\"https://spoonacular.com/recipes/frozen-chocolate-peanut-butter-banana-bites-991802\">Frozen Chocolate Peanut Butter Banana Bites</a>, <a href=\"https://spoonacular.com/recipes/frozen-chocolate-peanut-butter-banana-bites-1361083\">Frozen Chocolate Peanut Butter Banana Bites</a>, and <a href=\"https://spoonacular.com/recipes/frozen-banana-peanut-butter-chocolate-chip-milkshakes-35119\">Frozen Banana-peanut Butter-chocolate Chip Milkshakes</a> are very similar to this recipe.",
+  "ingredientCompareVMs": [
     {
-      "name": "banana",
-      "unit": "",
-      "unitAbbreviation": "",
-      "image": "bananas.jpg",
-      "quantity": 1
+      "recipeIngredientName": "banana",
+      "recipeIngredientUnit": "",
+      "recipeIngredientUnitAbbreviation": "",
+      "recipeIngredientQuantity": 2,
+      "pantryIngredientName": "banana",
+      "pantryIngredientUnit": "Whole",
+      "pantryIngredientUnitAbbreviation": "W",
+      "pantryIngredientQuantity": 3,
+      "pantryIngredientRemainingUnit": "Whole",
+      "pantryIngredientUnitRemainingAbbreviation": "W",
+      "pantryIngredientRemainingQuantity": 0,
+      "wasAbleToCompare": false
     },
     {
-      "name": "coconut oil",
-      "unit": "tsp",
-      "unitAbbreviation": "TSPS",
-      "image": "oil-coconut.jpg",
-      "quantity": 2
+      "recipeIngredientName": "dark chocolate chips",
+      "recipeIngredientUnit": "TBSP",
+      "recipeIngredientUnitAbbreviation": "TBSP",
+      "recipeIngredientQuantity": 8,
+      "pantryIngredientName": "chocolate chips",
+      "pantryIngredientUnit": "Ounces",
+      "pantryIngredientUnitAbbreviation": "OZ",
+      "pantryIngredientQuantity": 12,
+      "pantryIngredientRemainingUnit": "Ounces",
+      "pantryIngredientUnitRemainingAbbreviation": "OZ",
+      "pantryIngredientRemainingQuantity": 8,
+      "wasAbleToCompare": true
     },
     {
-      "name": "chocolate chips",
-      "unit": "tbsp",
-      "unitAbbreviation": "TBSPS",
-      "image": "chocolate-chips.jpg",
-      "quantity": 2
-    },
-    {
-      "name": "peanut butter",
-      "unit": "tbsp",
-      "unitAbbreviation": "TBSP",
-      "image": "peanut-butter.png",
-      "quantity": 1
+      "recipeIngredientName": "peanut butter",
+      "recipeIngredientUnit": "TBSP",
+      "recipeIngredientUnitAbbreviation": "TBSP",
+      "recipeIngredientQuantity": 2,
+      "pantryIngredientName": "peanut butter",
+      "pantryIngredientUnit": "Ounces",
+      "pantryIngredientUnitAbbreviation": "OZ",
+      "pantryIngredientQuantity": 40,
+      "pantryIngredientRemainingUnit": "Ounces",
+      "pantryIngredientUnitRemainingAbbreviation": "OZ",
+      "pantryIngredientRemainingQuantity": 39,
+      "wasAbleToCompare": true
     }
   ]
 }

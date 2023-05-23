@@ -1,0 +1,66 @@
+﻿@using TheStockedKitchen.Client;
+@using TheStockedKitchen.Web.Shared.Components;
+
+@inject ITheStockedKitchenClient _apiClient
+
+@if (Loading)
+{
+    <LoadingSpinner />
+}
+else
+{
+    <MudGrid>
+        <MudItem xs="12">
+            <MudPaper Class="pa-6 ma-2" Elevation="3">
+                <MudGrid>
+                    <MudItem xs="12" md="6" Class="d-flex justify-center align-center">
+                        <MudImage ObjectFit="ObjectFit.Cover" Fluid="true" Src="@RecipeDetailVM.Image" Elevation="25" Class="rounded-lg" />
+                    </MudItem>
+                    <MudItem xs="12" md="6">
+                        <MudItem xs="12">
+                            <MudText Typo="Typo.h6" Class="pb-3">@RecipeDetailVM.Title</MudText>
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudText Typo="Typo.overline" Class="site-text-small">@((MarkupString)RecipeDetailVM.Summary)</MudText>
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudTable Items="@(RecipeDetailVM.Ingredients)" Breakpoint="Breakpoint.Sm">
+                                    <HeaderContent>
+                                        <MudTh>Ingredient</MudTh>
+                                        <MudTh>Amount</MudTh>
+                                        <MudTh>Pantry</MudTh>a
+                                    </HeaderContent>
+                                    <RowTemplate>
+                                        <MudTd DataLabel="Nr">@context.Name</MudTd>
+                                        <MudTd DataLabel="Sign">@context.Quantity @context.UnitAbbreviation</MudTd>
+                                        <MudTd DataLabel="Name">@FoodStocks.Where(f => f.Name == context.Name).Select(f => f.Quantity) @FoodStocks.Where(f => f.Name == context.Name).Select(f => f.Unit)</MudTd>
+                                    </RowTemplate>
+                                </MudTable>
+                        </MudItem>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+}
+
+@code {
+    [Parameter]
+    public RecipeVM RecipeVM { get; set; }
+    [Parameter]
+    public List<FoodStock> FoodStocks { get; set; }
+
+    private RecipeDetailVM RecipeDetailVM { get; set; }
+    private List<FoodStock> UsedFoodStocks { get; set; }
+
+    private bool Loading { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Loading = true;
+
+        RecipeDetailVM = await _apiClient.GetRecipeDetailAsync(RecipeVM);
+
+        Loading = false;
+    }
+}
