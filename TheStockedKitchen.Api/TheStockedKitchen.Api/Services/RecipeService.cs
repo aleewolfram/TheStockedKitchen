@@ -164,7 +164,8 @@ namespace TheStockedKitchen.Api.Services
                             Title = recipeDetail.title,
                             Image = recipeDetail.image,
                             Summary = recipeDetail.summary,
-                            IngredientCompareVMs = new List<IngredientCompareVM>()
+                            IngredientCompareVMs = new List<IngredientCompareVM>(),
+                            Instructions = recipeDetail.analyzedInstructions.SelectMany(i => i.steps.Select(s => s.step)).ToList()
                         };
 
                         foreach(IngredientCompareVM ingredientCompareVM in ingredientCompareVMs)

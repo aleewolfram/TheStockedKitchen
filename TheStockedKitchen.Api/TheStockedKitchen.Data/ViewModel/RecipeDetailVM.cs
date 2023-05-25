@@ -10,5 +10,6 @@ namespace TheStockedKitchen.Data.ViewModel
         public string Image { get; set; }
         public string Summary { get; set; }
         public List<IngredientCompareVM> IngredientCompareVMs { get; set; }
+        public List<string> Instructions { get; set; }
     }
 }

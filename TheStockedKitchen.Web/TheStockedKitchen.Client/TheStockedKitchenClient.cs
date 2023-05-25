@@ -1534,6 +1534,12 @@ namespace TheStockedKitchen.Client
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<IngredientCompareVM> IngredientCompareVMs { get; set; } = new System.Collections.ObjectModel.Collection<IngredientCompareVM>();
 
+        [System.Text.Json.Serialization.JsonPropertyName("instructions")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<string> Instructions { get; set; } = new System.Collections.ObjectModel.Collection<string>();
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
