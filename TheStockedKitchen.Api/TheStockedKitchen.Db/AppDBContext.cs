@@ -16,6 +16,7 @@ namespace TheStockedKitchen.Db
         public virtual DbSet<FoodStock> FoodStock { get; set; }
         public virtual DbSet<Unit> Unit { get; set; }
         public virtual DbSet<UnitConversion> UnitConversion { get; set; }
+        public virtual DbSet<RecipeMade> RecipesMade { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -202,6 +203,25 @@ namespace TheStockedKitchen.Db
                 new UnitConversion { UnitConversionId = 99, UnitAbbreviation = "GAL", UnitAmount = 1, CompareUnitAbbreviation = "QT", CompareUnitAmount = 4 },
                 new UnitConversion { UnitConversionId = 100, UnitAbbreviation = "GAL", UnitAmount = 1, CompareUnitAbbreviation = "GAL", CompareUnitAmount = 1 }
             );
+
+            modelBuilder.Entity<RecipeMade>(entity =>
+            {
+                entity.HasKey(e => e.RecipeMadeId);
+
+                entity.ToTable("RecipeMade", "dbo");
+
+                entity.Property(e => e.RecipeMadeId).HasColumnName("RecipeMadeId");
+
+                entity.Property(e => e.SpoonacularRecipeId).HasColumnName("SpoonacularRecipeId");
+
+                entity.Property(e => e.Title).HasColumnName("Title");
+
+                entity.Property(e => e.Image).HasColumnName("Image");
+
+                entity.Property(e => e.User).HasColumnName("User");
+
+                entity.Property(e => e.CreatedDate).HasColumnName("CreatedDate");
+            });
 
             OnModelCreatingPartial(modelBuilder);
         }

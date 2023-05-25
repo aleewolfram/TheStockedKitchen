@@ -31,5 +31,23 @@ namespace SCGPlanningTool.Api.Controllers
             string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
             return await _RecipeService.GetRecipeDetailAsync(recipeVM, user);
         }
+
+        [HttpPost("MarkRecipeAsMade")]
+        [OpenApiOperation("MarkRecipeAsMade")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<int>> MarkRecipeAsMadeAsync(RecipeVM recipeVM)
+        {
+            string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
+            return await _RecipeService.MarkRecipeAsMadeAsync(recipeVM, user);
+        }
+
+        [HttpPost("UndoMarkRecipeAsMade")]
+        [OpenApiOperation("UndoMarkRecipeAsMade")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> UndoMarkRecipeAsMadeAsync(int recipeMadeId)
+        {
+            string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
+            return await _RecipeService.UndoMarkRecipeAsMadeAsync(recipeMadeId, user);
+        }
     }
 }

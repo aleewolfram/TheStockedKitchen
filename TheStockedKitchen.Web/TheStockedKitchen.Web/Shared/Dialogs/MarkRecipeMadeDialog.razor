@@ -1,0 +1,142 @@
+﻿@using TheStockedKitchen.Client;
+@using TheStockedKitchen.Web.Shared.Components;
+
+@inject ITheStockedKitchenClient _apiClient
+
+<MudDialog >
+    <DialogContent>
+        <MudGrid Class="pb-5 d-flex justify-center">
+            <MudItem xs="10">
+                <MudPaper class="pa-5" Elevation="3">
+                    <MudGrid Class="d-flex justify-center pa-5">
+                        <MudItem sm="12">
+                            <MudText Typo="Typo.body1"><b>Pantry Quantities</b></MudText>
+                        </MudItem>
+                        @foreach (IngredientCompareVM ingredientCompareVM in IngredientCompareVMs)
+                        {
+                            <MudItem sm="4">
+                                <MudText Class="pt-4" Typo="Typo.subtitle2">@ingredientCompareVM.PantryIngredientName</MudText>
+                            </MudItem>
+                            <MudItem sm="4">
+                                <MudText Class="pt-4" Typo="Typo.subtitle2">@ingredientCompareVM.PantryIngredientQuantity @ingredientCompareVM.PantryIngredientUnit <MudIcon Icon="@Icons.Material.Filled.ArrowForward" />  @ingredientCompareVM.PantryIngredientRemainingQuantity @ingredientCompareVM.PantryIngredientRemainingUnit</MudText>
+                            </MudItem>
+                            <MudItem sm="4">
+                                @if (!ingredientCompareVM.WasAbleToCompare)
+                                {
+                                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Info"></MudIconButton>
+                                    <MudTooltip Text="Not able to auto convert this ingredient." Placement="Placement.Top">
+                                        <MudIcon Icon="@Icons.Material.Filled.PriorityHigh" Color="@Color.Error" />
+                                    </MudTooltip>
+                                }
+                                else
+                                {
+                                    <MudIconButton Icon="@Icons.Material.Filled.Edit"></MudIconButton>
+                                }
+                            </MudItem>
+                            @if(false)
+                    {
+                        <MudItem xs="12">
+                            <MudText Typo="Typo.h6">@ingredientCompareVM.PantryIngredientName</MudText>
+                        </MudItem>
+                        <MudItem xs="12" sm="6">
+                            <MudNumericField HideSpinButtons="true" @bind-Value="ingredientCompareVM.PantryIngredientRemainingQuantity" Label="Quantity" Variant="Variant.Outlined" Min="0.0" />
+                        </MudItem>
+                        <MudItem xs="12" sm="6">
+                            <MudSelect @bind-Value="@ingredientCompareVM.PantryIngredientRemainingUnit" T="string" Label="Unit" AnchorOrigin="Origin.BottomCenter" Variant="Variant.Outlined">
+                                @foreach (Unit unit in Units.Where(u => u.AllowedInDropDown == true))
+                                {
+                                    <MudSelectItem Value="@unit.Name" />
+                                }
+                            </MudSelect>
+                        </MudItem>
+                    }
+                        }
+                    </MudGrid>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Default" OnClick="MarkRecipeAsMadeAsync">Skip Updating Pantry</MudButton>
+        <MudButton Color="Color.Primary" OnClick="MarkRecipeAsMadeAndUpdateFoodItemQuantityAsync">Update Pantry</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    public MudDialogInstance MudDialog { get; set; }
+    [Parameter]
+    public RecipeVM RecipeVM { get; set; }
+    [Parameter]
+    public List<IngredientCompareVM> IngredientCompareVMs { get; set; }
+
+    private IEnumerable<Unit> Units { get; set; }
+    private MudForm Form = new MudForm();
+
+    private bool Loading { get; set; }
+    private bool Success { get; set; } = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Loading = true;
+
+        Units = await _apiClient.GetUnitsAsync();
+
+        Loading = false;
+    }
+
+    private async void MarkRecipeAsMadeAsync()
+    {
+        await Form.Validate();
+
+        if (Success)
+        {
+            int recipeMadeId = await _apiClient.MarkRecipeAsMadeAsync(RecipeVM);
+
+            if (recipeMadeId != -1)
+            {
+                MudDialog.Close(DialogResult.Ok(recipeMadeId));
+            }
+            else
+            {
+                MudDialog.Close(DialogResult.Ok("Error marking recipe as made. Please try again."));
+            }
+
+            MudDialog.Close(DialogResult.Ok(""));
+        }
+    }
+
+    private async void MarkRecipeAsMadeAndUpdateFoodItemQuantityAsync()
+    {
+        await Form.Validate();
+
+        if (Success)
+        {
+            int recipeMadeId = await _apiClient.MarkRecipeAsMadeAsync(RecipeVM);
+
+            if (recipeMadeId != -1)
+            {
+                await UpdateFoodStockQuantityAsync();
+                MudDialog.Close(DialogResult.Ok(recipeMadeId));
+            }
+            else
+            {
+                MudDialog.Close(DialogResult.Ok("Error marking recipe as made. Quantity has not been updated. Please try again."));
+            }
+
+            MudDialog.Close(DialogResult.Ok(""));
+        }
+    }
+
+    private async Task UpdateFoodStockQuantityAsync()
+    {
+        bool success = await _apiClient.UpdateFoodStockQuantityAsync(IngredientCompareVMs);
+
+        if (!success)
+        {
+            MudDialog.Close(DialogResult.Ok("Error updating those ingredients. Please try again."));
+        }
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+}

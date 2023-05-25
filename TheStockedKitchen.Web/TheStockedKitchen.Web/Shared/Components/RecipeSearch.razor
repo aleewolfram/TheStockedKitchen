@@ -67,12 +67,12 @@ else
                                     </MudCardContent>
                                     <MudCardActions>
                                         <MudTooltip Text="View">
-                                            <MudIconButton Icon="@Icons.Material.Filled.Link" Color="Color.Default" OnClick="() => ShowRecipeDetail(recipeVM)" />
+                                            <MudIconButton Icon="@Icons.Material.Filled.Info" Color="Color.Info" OnClick="() => ShowRecipeDetail(recipeVM)" />
                                         </MudTooltip>
                                         @if (recipeVM.MissingIngredients.Any())
                                         {
                                             <MudTooltip Text="Shop Missing Ingredients">
-                                                <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default" />
+                                                <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Primary" />
                                             </MudTooltip>
                                         }
                                     </MudCardActions>

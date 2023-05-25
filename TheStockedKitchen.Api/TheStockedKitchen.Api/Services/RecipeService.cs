@@ -5,6 +5,8 @@ using Newtonsoft.Json;
 using TheStockedKitchen.Data.SpoonacularModel;
 using TheStockedKitchen.Api.Utilities;
 using TheStockedKitchen.Data.Model;
+using TheStockedKitchen.Db;
+using Microsoft.EntityFrameworkCore;
 
 namespace TheStockedKitchen.Api.Services
 {
@@ -12,6 +14,8 @@ namespace TheStockedKitchen.Api.Services
     {
         Task<List<RecipeVM>> GetRecipesAsync(string ingredients);
         Task<RecipeDetailVM> GetRecipeDetailAsync(RecipeVM recipeVM, string user);
+        Task<int> MarkRecipeAsMadeAsync(RecipeVM recipeVM, string user);
+        Task<bool> UndoMarkRecipeAsMadeAsync(int recipeMadeId, string user);
     }
     public class RecipeService : IRecipeService
     {
@@ -21,11 +25,14 @@ namespace TheStockedKitchen.Api.Services
 
         private readonly IUnitService _unitService;
 
-        public RecipeService(TheStockedKitchenConfiguration uSDANutrientDBConfiguration, IFoodStockService foodStockService, IUnitService unitService)
+        private readonly AppDBContext _dbContext;
+
+        public RecipeService(TheStockedKitchenConfiguration uSDANutrientDBConfiguration, IFoodStockService foodStockService, IUnitService unitService, AppDBContext dbContext)
         {
             _uSDANutrientDBConfiguration = uSDANutrientDBConfiguration;
             _foodStockService = foodStockService;
             _unitService = unitService;
+            _dbContext = dbContext;
         }
 
         public async Task<List<RecipeVM>> GetRecipesAsync(string ingredients)
@@ -142,6 +149,7 @@ namespace TheStockedKitchen.Api.Services
                                                                                 RecipeIngredientQuantity = d.amount,
                                                                                 RecipeIngredientUnit = d.unit.ToUpper(),
                                                                                 RecipeIngredientUnitAbbreviation = d.unit.ToUpper(),
+                                                                                PantryIngredientId = f.FoodStockId,
                                                                                 PantryIngredientName = f.Name,
                                                                                 PantryIngredientQuantity = f.Quantity,
                                                                                 PantryIngredientUnit = f.Unit,
@@ -171,6 +179,51 @@ namespace TheStockedKitchen.Api.Services
                     return null;
                 }
             }
+        }
+
+        public async Task<int> MarkRecipeAsMadeAsync(RecipeVM recipeVM, string user)
+        {
+            try
+            {
+                RecipeMade recipeMade = new RecipeMade()
+                {
+                    SpoonacularRecipeId = recipeVM.RecipeId,
+                    Title = recipeVM.Title,
+                    Image = recipeVM.Image,
+                    CreatedDate = DateTime.Now,
+                    User = user
+                };
+
+                await _dbContext.RecipesMade.AddAsync(recipeMade);
+
+                await _dbContext.SaveChangesAsync();
+
+                return recipeMade.RecipeMadeId;
+            }
+            catch
+            {
+                return -1;
+            }
+            
+        }
+
+        public async Task<bool> UndoMarkRecipeAsMadeAsync(int recipeMadeId, string user)
+        {
+            try
+            {
+                RecipeMade recipeMade = await _dbContext.RecipesMade.Where(m => m.RecipeMadeId == recipeMadeId && m.User == user).SingleAsync();
+
+                _dbContext.RecipesMade.Remove(recipeMade);
+
+                await _dbContext.SaveChangesAsync();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
         }
     }
 }

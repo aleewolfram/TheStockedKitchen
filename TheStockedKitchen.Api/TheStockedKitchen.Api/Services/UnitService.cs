@@ -78,7 +78,7 @@ namespace TheStockedKitchen.Api.Services
 
                 ingredientCompareVM.PantryIngredientRemainingQuantity = ingredientCompareVM.PantryIngredientQuantity - RecipeIngredientInTermsOfPantry;
                 ingredientCompareVM.PantryIngredientRemainingUnit = ingredientCompareVM.PantryIngredientUnit;
-                ingredientCompareVM.PantryIngredientUnitRemainingAbbreviation = ingredientCompareVM.PantryIngredientUnitAbbreviation;
+                ingredientCompareVM.PantryIngredientRemainingUnitAbbreviation = ingredientCompareVM.PantryIngredientUnitAbbreviation;
 
                 ingredientCompareVM.WasAbleToCompare = true;
             }
@@ -86,7 +86,7 @@ namespace TheStockedKitchen.Api.Services
             {
                 ingredientCompareVM.PantryIngredientRemainingQuantity = 0;
                 ingredientCompareVM.PantryIngredientRemainingUnit = ingredientCompareVM.PantryIngredientUnit;
-                ingredientCompareVM.PantryIngredientUnitRemainingAbbreviation = ingredientCompareVM.PantryIngredientUnitAbbreviation;
+                ingredientCompareVM.PantryIngredientRemainingUnitAbbreviation = ingredientCompareVM.PantryIngredientUnitAbbreviation;
 
                 ingredientCompareVM.WasAbleToCompare = false;
             }
