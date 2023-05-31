@@ -145,6 +145,11 @@ a:hover {
     width: 100%;
 }
 
+.mid-size {
+    height: 100%;
+    width: 85%;
+}
+
 .small-screen-join-btn {
     width: 100% !important;
 }
@@ -169,4 +174,8 @@ a:hover {
     50% {
         opacity: 1;
     }
+}
+
+.instructions-display {
+    display: block;
 }

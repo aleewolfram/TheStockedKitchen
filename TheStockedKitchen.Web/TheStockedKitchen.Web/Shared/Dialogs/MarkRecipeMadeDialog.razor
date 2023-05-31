@@ -5,60 +5,55 @@
 
 <MudDialog >
     <DialogContent>
-        <MudGrid Class="pb-5 d-flex justify-center">
-            <MudItem xs="10">
-                <MudPaper class="pa-5" Elevation="3">
-                    <MudGrid Class="d-flex justify-center pa-5">
-                        <MudItem sm="12">
-                            <MudText Typo="Typo.body1"><b>Pantry Quantities</b></MudText>
-                        </MudItem>
-                        @foreach (IngredientCompareVM ingredientCompareVM in IngredientCompareVMs)
-                        {
-                            <MudItem sm="4">
-                                <MudText Class="pt-4" Typo="Typo.subtitle2">@ingredientCompareVM.PantryIngredientName</MudText>
-                            </MudItem>
-                            <MudItem sm="4">
-                                <MudText Class="pt-4" Typo="Typo.subtitle2">@ingredientCompareVM.PantryIngredientQuantity @ingredientCompareVM.PantryIngredientUnit <MudIcon Icon="@Icons.Material.Filled.ArrowForward" />  @ingredientCompareVM.PantryIngredientRemainingQuantity @ingredientCompareVM.PantryIngredientRemainingUnit</MudText>
-                            </MudItem>
-                            <MudItem sm="4">
-                                @if (!ingredientCompareVM.WasAbleToCompare)
-                                {
-                                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Info"></MudIconButton>
-                                    <MudTooltip Text="Not able to auto convert this ingredient." Placement="Placement.Top">
-                                        <MudIcon Icon="@Icons.Material.Filled.PriorityHigh" Color="@Color.Error" />
-                                    </MudTooltip>
-                                }
-                                else
-                                {
-                                    <MudIconButton Icon="@Icons.Material.Filled.Edit"></MudIconButton>
-                                }
-                            </MudItem>
-                            @if(false)
-                    {
-                        <MudItem xs="12">
-                            <MudText Typo="Typo.h6">@ingredientCompareVM.PantryIngredientName</MudText>
-                        </MudItem>
-                        <MudItem xs="12" sm="6">
-                            <MudNumericField HideSpinButtons="true" @bind-Value="ingredientCompareVM.PantryIngredientRemainingQuantity" Label="Quantity" Variant="Variant.Outlined" Min="0.0" />
-                        </MudItem>
-                        <MudItem xs="12" sm="6">
-                            <MudSelect @bind-Value="@ingredientCompareVM.PantryIngredientRemainingUnit" T="string" Label="Unit" AnchorOrigin="Origin.BottomCenter" Variant="Variant.Outlined">
-                                @foreach (Unit unit in Units.Where(u => u.AllowedInDropDown == true))
-                                {
-                                    <MudSelectItem Value="@unit.Name" />
-                                }
-                            </MudSelect>
-                        </MudItem>
-                    }
-                        }
-                    </MudGrid>
-                </MudPaper>
-            </MudItem>
-        </MudGrid>
+        @if (EditMode)
+        {
+            <PantryQuantityInput IngredientCompareVM="@EditIngredientCompareVM" />
+        }
+        else
+        {
+            <MudGrid Class="pb-5 d-flex justify-center">
+                <MudItem xs="10">
+                    <MudDataGrid Items="@IngredientCompareVMs" Breakpoint="Breakpoint.Md" Filterable="false">
+                        <Columns>
+                            <PropertyColumn Title="Pantry Ingredients Used" Property="s => s.RecipeIngredientName" Sortable="false" />
+                            <TemplateColumn Sortable="false">
+                                <CellTemplate>
+                                    @if (!context.Item.WasAbleToCompare)
+                                    {
+                                        <MudTooltip Text="Not able to auto convert this ingredient." Placement="Placement.Top">
+                                            @context.Item.PantryIngredientQuantity @context.Item.PantryIngredientUnit <MudIcon Icon="@Icons.Material.Filled.ArrowForward" />  <MudIcon Icon="@Icons.Material.Filled.QuestionMark" Color="@Color.Warning" />
+                                        </MudTooltip>
+                                    }
+                                    else
+                                    {
+                                        <MudText Typo="Typo.body2">
+                                            @context.Item.PantryIngredientQuantity @context.Item.PantryIngredientUnit <MudIcon Icon="@Icons.Material.Filled.ArrowForward" />  @context.Item.PantryIngredientRemainingQuantity @context.Item.PantryIngredientRemainingUnit
+                                        </MudText>
+                                    }
+                                </CellTemplate>
+                            </TemplateColumn>
+                            <TemplateColumn CellClass="d-flex" Sortable="false">
+                                <CellTemplate>
+                                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="@(context.Item.WasAbleToCompare ? Color.Default : Color.Info)" OnClick="() => EditQuantity(context.Item)"></MudIconButton>
+                                </CellTemplate>
+                            </TemplateColumn>
+                        </Columns>
+                    </MudDataGrid>
+                </MudItem>
+            </MudGrid>
+        }
     </DialogContent>
     <DialogActions>
-        <MudButton Color="Color.Default" OnClick="MarkRecipeAsMadeAsync">Skip Updating Pantry</MudButton>
-        <MudButton Color="Color.Primary" OnClick="MarkRecipeAsMadeAndUpdateFoodItemQuantityAsync">Update Pantry</MudButton>
+        @if (EditMode)
+        {
+            <MudButton Color="Color.Default" OnClick="() => EditMode = false">Cancel</MudButton>
+            <MudButton Color="Color.Default" OnClick="UpdateIngredientCompareVM">Update Item</MudButton>
+        }
+        else
+        {
+            <MudButton Color="Color.Default" OnClick="MarkRecipeAsMadeAsync">Skip Updating Pantry</MudButton>
+            <MudButton Color="Color.Primary" OnClick="MarkRecipeAsMadeAndUpdateFoodItemQuantityAsync">Update Pantry</MudButton>
+        }
     </DialogActions>
 </MudDialog>
 
@@ -70,10 +65,12 @@
     [Parameter]
     public List<IngredientCompareVM> IngredientCompareVMs { get; set; }
 
+    public IngredientCompareVM EditIngredientCompareVM { get; set; }
     private IEnumerable<Unit> Units { get; set; }
     private MudForm Form = new MudForm();
 
     private bool Loading { get; set; }
+    private bool EditMode { get; set; } = false;
     private bool Success { get; set; } = true;
 
     protected override async Task OnInitializedAsync()
@@ -83,6 +80,20 @@
         Units = await _apiClient.GetUnitsAsync();
 
         Loading = false;
+    }
+
+    private void EditQuantity(IngredientCompareVM ingredientCompareVM)
+    {
+        EditIngredientCompareVM = ingredientCompareVM;
+        EditMode = true;
+    }
+
+    private void UpdateIngredientCompareVM()
+    {
+        int index = IngredientCompareVMs.FindIndex(i => i.PantryIngredientId != EditIngredientCompareVM.PantryIngredientId);
+        EditIngredientCompareVM.WasAbleToCompare = true;
+        IngredientCompareVMs[index-1] = EditIngredientCompareVM;
+        EditMode = false;
     }
 
     private async void MarkRecipeAsMadeAsync()

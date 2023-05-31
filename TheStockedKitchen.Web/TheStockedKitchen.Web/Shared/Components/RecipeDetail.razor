@@ -13,78 +13,70 @@ else
 {
     <MudGrid>
         <MudItem xs="12">
-            <MudPaper Class="pa-6 ma-2" Elevation="3">
+            <MudPaper Class="pa-6 ma-2 d-flex justify-center align-center" Elevation="3">
                 <MudGrid>
-                    <MudItem xs="12" md="6" Class="d-flex justify-center align-center">
-                        <MudImage ObjectFit="ObjectFit.Cover" Fluid="true" Src="@RecipeDetailVM.Image" Elevation="25" Class="rounded-lg" />
-                    </MudItem>
-                    <MudItem xs="12" md="6" Class="d-flex justify-center align-center">
+                    <MudItem xs="12" md="6">
                         <MudGrid>
-                            <MudItem xs="12">
-                                <MudText Typo="Typo.h6">@RecipeDetailVM.Title</MudText>
+                            <MudItem xs="12" Class="d-flex justify-center align-center">
+                                <MudImage ObjectFit="ObjectFit.Cover" Fluid="true" Src="@RecipeDetailVM.Image" Elevation="25" Class="rounded-lg" />
                             </MudItem>
-                            <MudHidden Breakpoint="Breakpoint.MdAndUp" Invert="true">
-                                <MudItem xs="12">
-                                    <MudText Typo="Typo.overline">@((MarkupString)RecipeDetailVM.Summary)</MudText>
-                                </MudItem>
-                            </MudHidden>
-                        </MudGrid>
-                    </MudItem>
-
-                        <MudItem xs="12" md="6">
-                            @if (ShowUndoMarkRecipeAsMadeError)
-                        {
-                            <MudItem xs="12">
-                                <StatusMessage Color="Color.Error" Message="@Message" Icon="@Icons.Material.Outlined.Error" />
-                            </MudItem>
-                        }
-                        <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="true">
-                            <MudItem xs="12" Class="pt-4 pb-4 d-flex">
-                                <MudButton Color="Color.Info" StartIcon="@Icons.Material.Filled.Link" Variant="Variant.Text" Href="@(RecipeDetailVM.SourceUrl)">View Source</MudButton>
-                                <MudButton Color="Color.Primary" StartIcon="@Icons.Material.Filled.LocalDining" Variant="Variant.Text" OnClick="MarkRecipeAsMadeAndUpdateFoodItemQuantityAsync">Mark As Made</MudButton>
-                            </MudItem>
-                        </MudHidden>
-                        <MudItem xs="12">
-                            <MudDataGrid Items="@(RecipeDetailVM.IngredientCompareVMs)" Breakpoint="Breakpoint.Md" Filterable="false">
-                                <Columns>
-                                    <PropertyColumn Title="Pantry Ingredients Used" Property="s => s.RecipeIngredientName" Sortable="false" />
-                                    <TemplateColumn Sortable="false">
-                                        <CellTemplate>
-                                            @if (!context.Item.WasAbleToCompare)
+                            <MudItem xs="12" Class="d-flex justify-center align-center">
+                                <MudPaper Class="pa-6 ma-2 mid-size" Elevation="3">
+                                    <MudItem xs="12">
+                                        <MudText Typo="Typo.h6" Class="pb-3">Ingredients</MudText>
+                                    </MudItem>
+                                    <MudItem xs="12">
+                                        @foreach (IngredientCompareVM ingredientCompareVM in RecipeDetailVM.IngredientCompareVMs)
+                                        {
+                                            if (String.IsNullOrEmpty(ingredientCompareVM.PantryIngredientName) || ingredientCompareVM.WasAbleToCompare)
                                             {
-                                                <MudTooltip Text="Not able to auto convert this ingredient." Placement="Placement.Top">
-                                                    @context.Item.PantryIngredientQuantity @context.Item.PantryIngredientUnit <MudIcon Icon="@Icons.Material.Filled.ArrowForward" />  <MudIcon Icon="@Icons.Material.Filled.QuestionMark" Color="@Color.Error" />
+                                                <MudCheckBox @bind-Checked="@ingredientCompareVM.WasAbleToCompare" ReadOnly="true" Label="@(ingredientCompareVM.RecipeIngredientQuantity + " " + ingredientCompareVM.RecipeIngredientUnit + " " + ingredientCompareVM.RecipeIngredientName)" Color="Color.Primary"></MudCheckBox>
+                                            }
+                                            else if(!ingredientCompareVM.WasAbleToCompare)
+                                            {
+                                                <MudTooltip Text="Not able to auto convert this ingredient quantity." Placement="Placement.Top">
+                                                    <MudCheckBox @bind-Checked="@ingredientCompareVM.WasAbleToCompare" ReadOnly="true" Label="@(ingredientCompareVM.RecipeIngredientQuantity + " " + ingredientCompareVM.RecipeIngredientUnit + " " + ingredientCompareVM.RecipeIngredientName)" Color="Color.Warning" CheckedIcon="@Icons.Material.Filled.QuestionMark" UncheckedIcon="@Icons.Material.Filled.QuestionMark"></MudCheckBox>
                                                 </MudTooltip>
                                             }
-                                            else
-                                            {
-                                                <MudText Typo="Typo.body2">
-                                                    @context.Item.PantryIngredientQuantity @context.Item.PantryIngredientUnit <MudIcon Icon="@Icons.Material.Filled.ArrowForward" />  @context.Item.PantryIngredientRemainingQuantity @context.Item.PantryIngredientRemainingUnit
-                                                </MudText>
-                                            }
-                                        </CellTemplate>
-                                    </TemplateColumn>
-                                    <TemplateColumn CellClass="d-flex" Sortable="false">
-                                        <CellTemplate>
-                                            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="@(context.Item.WasAbleToCompare ? Color.Default : Color.Info)"></MudIconButton>
-                                        </CellTemplate>
-                                    </TemplateColumn>
-                                </Columns>
-                            </MudDataGrid>
-                        </MudItem>
-                        <MudHidden Breakpoint="Breakpoint.MdAndUp" Invert="true">
-                            <MudItem xs="12" Class="pt-4 d-flex justify-end">
-                                <MudButton Color="Color.Info" StartIcon="@Icons.Material.Filled.Link" Variant="Variant.Text" Href="@(RecipeDetailVM.SourceUrl)">View Source</MudButton>
-                                @if (ShowUndoMarkRecipeAsMadeButton)
+                                        }
+                                    </MudItem>
+                                    <MudItem xs="12">
+                                        @if (ShowUndoMarkRecipeAsMadeError)
+                                        {
+                                            <MudItem xs="12">
+                                                <StatusMessage Color="Color.Error" Message="@Message" Icon="@Icons.Material.Outlined.Error" />
+                                            </MudItem>
+                                        }
+                                        <MudItem xs="12" Class="pr-4 d-flex justify-end">
+                                            <MudButton Color="Color.Info" StartIcon="@Icons.Material.Filled.Link" Variant="Variant.Text" Href="@(RecipeDetailVM.SourceUrl)">View Source</MudButton>
+                                            <MudButton Color="Color.Primary" StartIcon="@Icons.Material.Filled.LocalDining" Variant="Variant.Text" OnClick="OpenMarkRecipeMadeDialog">Mark As Made</MudButton>
+                                        </MudItem>
+                                    </MudItem>
+                                </MudPaper>
+                            </MudItem>
+                        </MudGrid>
+                    </MudItem>
+                    <MudItem xs="12" md="6">
+                        <MudGrid>
+                            <MudItem xs="12">
+                                <a href="@(RecipeDetailVM.SourceUrl)">
+                                    <MudText Typo="Typo.h6">@RecipeDetailVM.Title</MudText>
+                                </a>
+                            </MudItem>
+                            <MudItem xs="12">
+                                @if (RecipeDetailVM.Instructions.Any())
                                 {
-                                    <MudButton Color="Color.Primary" StartIcon="@Icons.Material.Filled.NoMeals" Variant="Variant.Text">Undo Mark As Made</MudButton>
+                                    @foreach (var (instruction, i) in RecipeDetailVM.Instructions.Select((x, i) => (x, i + 1)))
+                                    {
+                                        <MudText Typo="Typo.overline" Class="pb-3 site-text-large instructions-display"><b>@i.</b> @instruction</MudText>
+                                    }
                                 }
                                 else
                                 {
-                                    <MudButton Color="Color.Primary" StartIcon="@Icons.Material.Filled.LocalDining" Variant="Variant.Text" OnClick="MarkRecipeAsMadeAndUpdateFoodItemQuantityAsync">Mark As Made</MudButton>
+                                    <MudText Typo="Typo.overline">@((MarkupString)RecipeDetailVM.Summary)</MudText>
                                 }
                             </MudItem>
-                        </MudHidden>
+                        </MudGrid>
                     </MudItem>
                 </MudGrid>
             </MudPaper>
@@ -120,6 +112,34 @@ else
         Units = await _apiClient.GetUnitsAsync();
 
         Loading = false;
+    }
+
+    private async Task OpenMarkRecipeMadeDialog()
+    {
+        DialogOptions options = new DialogOptions() { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true, ClassBackground = "blurry-dialog" };
+        var parameters = new DialogParameters();
+        parameters.Add(nameof(MarkRecipeMadeDialog.IngredientCompareVMs), RecipeDetailVM.IngredientCompareVMs);
+
+        var dialog = _dialogService.Show<MarkRecipeMadeDialog>
+            ("Update Pantry", parameters, options);
+
+        var result = await dialog.Result;
+        if (!result.Canceled)
+        {
+            if (int.TryParse(result.Data as string, out int recipeMadeId))
+            {
+                RecipeMadeId = recipeMadeId;
+                ShowUndoMarkRecipeAsMadeButton = true;
+            }
+            else
+            {
+                ShowUndoMarkRecipeAsMadeError = true;
+                Message = result.Data as string;
+                StateHasChanged();
+                await Task.Delay(4000);
+                ShowUndoMarkRecipeAsMadeError = false;
+            }
+        }
     }
 
     private async Task MarkRecipeAsMadeAsync()

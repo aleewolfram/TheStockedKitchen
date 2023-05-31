@@ -1,0 +1,46 @@
+﻿@using TheStockedKitchen.Client;
+
+@inject ITheStockedKitchenClient _apiClient
+
+@if (Loading)
+{
+    <LoadingSpinner />
+}
+else
+{
+    <MudGrid Class="pb-5">
+        <MudItem xs="12">
+            <MudText Typo="Typo.h6">@IngredientCompareVM.PantryIngredientName</MudText>
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudNumericField HideSpinButtons="true" @bind-Value="IngredientCompareVM.PantryIngredientRemainingQuantity" Label="Quantity" Variant="Variant.Outlined" Min="0.0" />
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudSelect @bind-Value="@IngredientCompareVM.PantryIngredientRemainingUnit" T="string" Label="Unit" AnchorOrigin="Origin.BottomCenter" Variant="Variant.Outlined">
+                @foreach (Unit unit in Units.Where(u => u.AllowedInDropDown == true))
+                {
+                    <MudSelectItem Value="@unit.Name" />
+
+                }
+            </MudSelect>
+        </MudItem>
+    </MudGrid>
+}
+
+
+@code {
+    [Parameter]
+    public IngredientCompareVM IngredientCompareVM { get; set; }
+    private IEnumerable<Unit> Units { get; set; }
+
+    private bool Loading { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Loading = true;
+
+        Units = await _apiClient.GetUnitsAsync();
+
+        Loading = false;
+    }
+}
