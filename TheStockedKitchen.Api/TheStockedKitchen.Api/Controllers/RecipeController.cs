@@ -35,7 +35,7 @@ namespace SCGPlanningTool.Api.Controllers
         [HttpPost("MarkRecipeAsMade")]
         [OpenApiOperation("MarkRecipeAsMade")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<int>> MarkRecipeAsMadeAsync(RecipeVM recipeVM)
+        public async Task<ActionResult<bool>> MarkRecipeAsMadeAsync(RecipeVM recipeVM)
         {
             string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
             return await _RecipeService.MarkRecipeAsMadeAsync(recipeVM, user);
@@ -44,10 +44,10 @@ namespace SCGPlanningTool.Api.Controllers
         [HttpPost("UndoMarkRecipeAsMade")]
         [OpenApiOperation("UndoMarkRecipeAsMade")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<bool>> UndoMarkRecipeAsMadeAsync(int recipeMadeId)
+        public async Task<ActionResult<bool>> UndoMarkRecipeAsMadeAsync(int recipeId)
         {
             string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
-            return await _RecipeService.UndoMarkRecipeAsMadeAsync(recipeMadeId, user);
+            return await _RecipeService.UndoMarkRecipeAsMadeAsync(recipeId, user);
         }
     }
 }

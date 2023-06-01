@@ -24,11 +24,11 @@ namespace TheStockedKitchen.Client
     public partial interface ITheStockedKitchenClient
     {
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<FoodStock>> GetFoodStockAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<FoodStock>> GetFoodStockAsync();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<FoodStock>> GetFoodStockAsync(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<FoodStock>> GetFoodStockAsync(System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<bool> AddFoodStockAsync(FoodStockVM foodStockVM);
@@ -66,18 +66,18 @@ namespace TheStockedKitchen.Client
         System.Threading.Tasks.Task<bool> UpdateFoodStockQuantityAsync(System.Collections.Generic.IEnumerable<IngredientCompareVM> ingredientCompareVMs, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<FoodDataVM>> GetFullFoodDataResultsAsync(string? search);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<FoodDataVM>> GetFullFoodDataResultsAsync(string? search);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<FoodDataVM>> GetFullFoodDataResultsAsync(string? search, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<FoodDataVM>> GetFullFoodDataResultsAsync(string? search, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<RecipeVM>> GetRecipesAsync(string? ingredients);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<RecipeVM>> GetRecipesAsync(string? ingredients);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<RecipeVM>> GetRecipesAsync(string? ingredients, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<RecipeVM>> GetRecipesAsync(string? ingredients, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<RecipeDetailVM> GetRecipeDetailAsync(RecipeVM recipeVM);
@@ -87,25 +87,25 @@ namespace TheStockedKitchen.Client
         System.Threading.Tasks.Task<RecipeDetailVM> GetRecipeDetailAsync(RecipeVM recipeVM, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<int> MarkRecipeAsMadeAsync(RecipeVM recipeVM);
+        System.Threading.Tasks.Task<bool> MarkRecipeAsMadeAsync(RecipeVM recipeVM);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<int> MarkRecipeAsMadeAsync(RecipeVM recipeVM, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<bool> MarkRecipeAsMadeAsync(RecipeVM recipeVM, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<bool> UndoMarkRecipeAsMadeAsync(int? recipeMadeId);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<bool> UndoMarkRecipeAsMadeAsync(int? recipeMadeId, System.Threading.CancellationToken cancellationToken);
-
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Unit>> GetUnitsAsync();
+        System.Threading.Tasks.Task<bool> UndoMarkRecipeAsMadeAsync(int? recipeId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Unit>> GetUnitsAsync(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<bool> UndoMarkRecipeAsMadeAsync(int? recipeId, System.Threading.CancellationToken cancellationToken);
+
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Unit>> GetUnitsAsync();
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Unit>> GetUnitsAsync(System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -137,14 +137,14 @@ namespace TheStockedKitchen.Client
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<FoodStock>> GetFoodStockAsync()
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.List<FoodStock>> GetFoodStockAsync()
         {
             return GetFoodStockAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<FoodStock>> GetFoodStockAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.List<FoodStock>> GetFoodStockAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("GetFoodStock");
@@ -181,7 +181,7 @@ namespace TheStockedKitchen.Client
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<FoodStock>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.List<FoodStock>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -602,14 +602,14 @@ namespace TheStockedKitchen.Client
         }
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<FoodDataVM>> GetFullFoodDataResultsAsync(string? search)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.List<FoodDataVM>> GetFullFoodDataResultsAsync(string? search)
         {
             return GetFullFoodDataResultsAsync(search, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<FoodDataVM>> GetFullFoodDataResultsAsync(string? search, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.List<FoodDataVM>> GetFullFoodDataResultsAsync(string? search, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("GetFullFoodDataResults?");
@@ -652,7 +652,7 @@ namespace TheStockedKitchen.Client
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<FoodDataVM>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.List<FoodDataVM>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -680,14 +680,14 @@ namespace TheStockedKitchen.Client
         }
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<RecipeVM>> GetRecipesAsync(string? ingredients)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.List<RecipeVM>> GetRecipesAsync(string? ingredients)
         {
             return GetRecipesAsync(ingredients, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<RecipeVM>> GetRecipesAsync(string? ingredients, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.List<RecipeVM>> GetRecipesAsync(string? ingredients, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("GetRecipes?");
@@ -730,7 +730,7 @@ namespace TheStockedKitchen.Client
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<RecipeVM>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.List<RecipeVM>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -837,14 +837,14 @@ namespace TheStockedKitchen.Client
         }
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<int> MarkRecipeAsMadeAsync(RecipeVM recipeVM)
+        public virtual System.Threading.Tasks.Task<bool> MarkRecipeAsMadeAsync(RecipeVM recipeVM)
         {
             return MarkRecipeAsMadeAsync(recipeVM, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<int> MarkRecipeAsMadeAsync(RecipeVM recipeVM, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<bool> MarkRecipeAsMadeAsync(RecipeVM recipeVM, System.Threading.CancellationToken cancellationToken)
         {
             if (recipeVM == null)
                 throw new System.ArgumentNullException("recipeVM");
@@ -888,7 +888,7 @@ namespace TheStockedKitchen.Client
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<int>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<bool>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -916,20 +916,20 @@ namespace TheStockedKitchen.Client
         }
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<bool> UndoMarkRecipeAsMadeAsync(int? recipeMadeId)
+        public virtual System.Threading.Tasks.Task<bool> UndoMarkRecipeAsMadeAsync(int? recipeId)
         {
-            return UndoMarkRecipeAsMadeAsync(recipeMadeId, System.Threading.CancellationToken.None);
+            return UndoMarkRecipeAsMadeAsync(recipeId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<bool> UndoMarkRecipeAsMadeAsync(int? recipeMadeId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<bool> UndoMarkRecipeAsMadeAsync(int? recipeId, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("UndoMarkRecipeAsMade?");
-            if (recipeMadeId != null)
+            if (recipeId != null)
             {
-                urlBuilder_.Append(System.Uri.EscapeDataString("recipeMadeId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(recipeMadeId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder_.Append(System.Uri.EscapeDataString("recipeId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(recipeId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
 
@@ -994,14 +994,14 @@ namespace TheStockedKitchen.Client
         }
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Unit>> GetUnitsAsync()
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.List<Unit>> GetUnitsAsync()
         {
             return GetUnitsAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Unit>> GetUnitsAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.List<Unit>> GetUnitsAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("GetUnits");
@@ -1038,7 +1038,7 @@ namespace TheStockedKitchen.Client
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<Unit>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.List<Unit>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1387,7 +1387,7 @@ namespace TheStockedKitchen.Client
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
         [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.ICollection<FoodNutrientVM> FoodNutrients { get; set; } = new System.Collections.ObjectModel.Collection<FoodNutrientVM>();
+        public System.Collections.Generic.List<FoodNutrientVM> FoodNutrients { get; set; } = new System.Collections.Generic.List<FoodNutrientVM>();
 
     }
 
@@ -1455,13 +1455,13 @@ namespace TheStockedKitchen.Client
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
         [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.ICollection<IngredientVM> MissingIngredients { get; set; } = new System.Collections.ObjectModel.Collection<IngredientVM>();
+        public System.Collections.Generic.List<IngredientVM> MissingIngredients { get; set; } = new System.Collections.Generic.List<IngredientVM>();
 
         [System.Text.Json.Serialization.JsonPropertyName("usedIngredients")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
         [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.ICollection<IngredientVM> UsedIngredients { get; set; } = new System.Collections.ObjectModel.Collection<IngredientVM>();
+        public System.Collections.Generic.List<IngredientVM> UsedIngredients { get; set; } = new System.Collections.Generic.List<IngredientVM>();
 
     }
 
@@ -1528,17 +1528,22 @@ namespace TheStockedKitchen.Client
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Summary { get; set; } = default!;
 
+        [System.Text.Json.Serialization.JsonPropertyName("timesMade")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
+        public int TimesMade { get; set; } = default!;
+
         [System.Text.Json.Serialization.JsonPropertyName("ingredientCompareVMs")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
         [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.ICollection<IngredientCompareVM> IngredientCompareVMs { get; set; } = new System.Collections.ObjectModel.Collection<IngredientCompareVM>();
+        public System.Collections.Generic.List<IngredientCompareVM> IngredientCompareVMs { get; set; } = new System.Collections.Generic.List<IngredientCompareVM>();
 
         [System.Text.Json.Serialization.JsonPropertyName("instructions")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
         [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.ICollection<string> Instructions { get; set; } = new System.Collections.ObjectModel.Collection<string>();
+        public System.Collections.Generic.List<string> Instructions { get; set; } = new System.Collections.Generic.List<string>();
 
     }
 

@@ -12,6 +12,9 @@ else
         <MudItem xs="12">
             <MudText Typo="Typo.h6">@IngredientCompareVM.PantryIngredientName</MudText>
         </MudItem>
+        <MudItem xs="12">
+            <MudText Typo="Typo.overline">The recipe calls for @IngredientCompareVM.RecipeIngredientQuantity @IngredientCompareVM.RecipeIngredientUnitAbbreviation. You currently have @IngredientCompareVM.PantryIngredientQuantity @IngredientCompareVM.PantryIngredientUnitAbbreviation in your pantry. Enter the amount remaining after making the recipe.</MudText>
+        </MudItem>
         <MudItem xs="12" sm="6">
             <MudNumericField HideSpinButtons="true" @bind-Value="IngredientCompareVM.PantryIngredientRemainingQuantity" Label="Quantity" Variant="Variant.Outlined" Min="0.0" />
         </MudItem>
@@ -40,6 +43,7 @@ else
         Loading = true;
 
         Units = await _apiClient.GetUnitsAsync();
+        IngredientCompareVM.PantryIngredientRemainingQuantity = IngredientCompareVM.PantryIngredientRemainingQuantity < 0 ? 0 : IngredientCompareVM.PantryIngredientRemainingQuantity;
 
         Loading = false;
     }

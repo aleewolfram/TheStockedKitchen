@@ -14,8 +14,8 @@ namespace TheStockedKitchen.Api.Services
     {
         Task<List<RecipeVM>> GetRecipesAsync(string ingredients);
         Task<RecipeDetailVM> GetRecipeDetailAsync(RecipeVM recipeVM, string user);
-        Task<int> MarkRecipeAsMadeAsync(RecipeVM recipeVM, string user);
-        Task<bool> UndoMarkRecipeAsMadeAsync(int recipeMadeId, string user);
+        Task<bool> MarkRecipeAsMadeAsync(RecipeVM recipeVM, string user);
+        Task<bool> UndoMarkRecipeAsMadeAsync(int recipeId, string user);
     }
     public class RecipeService : IRecipeService
     {
@@ -104,7 +104,7 @@ namespace TheStockedKitchen.Api.Services
         public async Task<RecipeDetailVM> GetRecipeDetailAsync(RecipeVM recipeVM, string user)
         {
             // Keeping this here so I don't spam the limited Spoonacular API
-            if (true)
+            if (false)
             {
                 using (StreamReader r = new StreamReader("SampleData/RecipeDetailResult.json"))
                 {
@@ -164,6 +164,7 @@ namespace TheStockedKitchen.Api.Services
                             Title = recipeDetail.title,
                             Image = recipeDetail.image,
                             Summary = recipeDetail.summary,
+                            TimesMade = await _dbContext.RecipesMade.Where(r => r.SpoonacularRecipeId == recipeVM.RecipeId).CountAsync(),
                             IngredientCompareVMs = new List<IngredientCompareVM>(),
                             Instructions = recipeDetail.analyzedInstructions.SelectMany(i => i.steps.Select(s => s.step)).ToList()
                         };
@@ -182,7 +183,7 @@ namespace TheStockedKitchen.Api.Services
             }
         }
 
-        public async Task<int> MarkRecipeAsMadeAsync(RecipeVM recipeVM, string user)
+        public async Task<bool> MarkRecipeAsMadeAsync(RecipeVM recipeVM, string user)
         {
             try
             {
@@ -199,20 +200,20 @@ namespace TheStockedKitchen.Api.Services
 
                 await _dbContext.SaveChangesAsync();
 
-                return recipeMade.RecipeMadeId;
+                return true;
             }
             catch
             {
-                return -1;
+                return false;
             }
             
         }
 
-        public async Task<bool> UndoMarkRecipeAsMadeAsync(int recipeMadeId, string user)
+        public async Task<bool> UndoMarkRecipeAsMadeAsync(int recipeId, string user)
         {
             try
             {
-                RecipeMade recipeMade = await _dbContext.RecipesMade.Where(m => m.RecipeMadeId == recipeMadeId && m.User == user).SingleAsync();
+                RecipeMade recipeMade = await _dbContext.RecipesMade.Where(m => m.SpoonacularRecipeId == recipeId && m.User == user).OrderByDescending(m => m.CreatedDate).FirstAsync();
 
                 _dbContext.RecipesMade.Remove(recipeMade);
 
