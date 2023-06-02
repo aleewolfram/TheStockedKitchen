@@ -65,6 +65,15 @@ namespace TheStockedKitchen.Api.Services
                 case "QTS":
                     ingredientCompareVM.RecipeIngredientUnitAbbreviation = "QT";
                     break;
+                case "TABLESPOONS":
+                    ingredientCompareVM.RecipeIngredientUnitAbbreviation = "TBSP";
+                    break;
+                case "TEASPOONS":
+                    ingredientCompareVM.RecipeIngredientUnitAbbreviation = "TSP";
+                    break;
+                case "OUNCES":
+                    ingredientCompareVM.RecipeIngredientUnitAbbreviation = "OZ";
+                    break;
                 default:
                     break;
             }
@@ -76,7 +85,7 @@ namespace TheStockedKitchen.Api.Services
                 // Get pantry ingredient in terms of recipe ingredient
                 double RecipeIngredientInTermsOfPantry = (ingredientCompareVM.RecipeIngredientQuantity * unitConversion.UnitAmount) / unitConversion.CompareUnitAmount;
 
-                ingredientCompareVM.PantryIngredientRemainingQuantity = ingredientCompareVM.PantryIngredientQuantity - RecipeIngredientInTermsOfPantry;
+                ingredientCompareVM.PantryIngredientRemainingQuantity = Math.Round(ingredientCompareVM.PantryIngredientQuantity - RecipeIngredientInTermsOfPantry,2);
                 ingredientCompareVM.PantryIngredientRemainingUnit = ingredientCompareVM.PantryIngredientUnit;
                 ingredientCompareVM.PantryIngredientRemainingUnitAbbreviation = ingredientCompareVM.PantryIngredientUnitAbbreviation;
 

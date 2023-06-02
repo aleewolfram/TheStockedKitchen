@@ -38,7 +38,7 @@ namespace TheStockedKitchen.Api.Services
         public async Task<List<RecipeVM>> GetRecipesAsync(string ingredients)
         {
             //Keeping this here so I don't spam the limited Spoonacular API
-            if (true)
+            if (false)
             {
                 if(ingredients == "banana")
                 {
@@ -79,7 +79,8 @@ namespace TheStockedKitchen.Api.Services
                     {
                         ingredients = ingredients.Split(',').Select(i => i.Trim()).ToList(),
                         number = 20,
-                        ignorePantry = true,
+                        ignorePantry = false,
+                        ranking = 2,
                         apiKey
 
                     };
@@ -140,20 +141,38 @@ namespace TheStockedKitchen.Api.Services
                         
                         List<FoodStock> foodStocks = await _foodStockService.GetFoodStockAsync(user);
 
-                        List<IngredientCompareVM> ingredientCompareVMs = (  from d in recipeDetail.extendedIngredients
-                                                                            from f in foodStocks
-                                                                            where (d.nameClean == f.Name) || (d.name == f.Name)
+                        var joinByNameClean = from d in recipeDetail.extendedIngredients
+                                              join f in foodStocks on d.nameClean equals f.Name into gj
+                                              from f in gj.DefaultIfEmpty()
+                                              select new { d, f };
+
+                        var joinByName = from d in recipeDetail.extendedIngredients
+                                         join f in foodStocks on d.name equals f.Name into gj
+                                         from f in gj.DefaultIfEmpty()
+                                         select new { d, f };
+
+                        var joinByImg = from d in recipeDetail.extendedIngredients
+                                        join f in foodStocks on d.image equals f.Image.Split('/').Last() into gj
+                                        from f in gj.DefaultIfEmpty()
+                                        select new { d, f };
+
+                        List<IngredientCompareVM> ingredientCompareVMs = (
+                                                                            from j1 in joinByNameClean
+                                                                            join j2 in joinByName on j1.d equals j2.d into gj1
+                                                                            from j2 in gj1.DefaultIfEmpty()
+                                                                            join j3 in joinByImg on j1.d equals j3.d into gj2
+                                                                            from j3 in gj2.DefaultIfEmpty()
                                                                             select new IngredientCompareVM
                                                                             {
-                                                                                RecipeIngredientName = !string.IsNullOrEmpty(d.nameClean) ? d.nameClean : d.name,
-                                                                                RecipeIngredientQuantity = d.amount,
-                                                                                RecipeIngredientUnit = d.unit.ToUpper(),
-                                                                                RecipeIngredientUnitAbbreviation = d.unit.ToUpper(),
-                                                                                PantryIngredientId = f.FoodStockId,
-                                                                                PantryIngredientName = f.Name,
-                                                                                PantryIngredientQuantity = f.Quantity,
-                                                                                PantryIngredientUnit = f.Unit,
-                                                                                PantryIngredientUnitAbbreviation = f.UnitAbbreviation
+                                                                                RecipeIngredientName = !string.IsNullOrEmpty(j1.d.nameClean) ? j1.d.nameClean : j1.d.name,
+                                                                                RecipeIngredientQuantity = j1.d.amount,
+                                                                                RecipeIngredientUnit = j1.d.unit.ToUpper(),
+                                                                                RecipeIngredientUnitAbbreviation = j1.d.unit.ToUpper(),
+                                                                                PantryIngredientId = j1.f == null ? (j2?.f?.FoodStockId ?? (j3?.f?.FoodStockId ?? 0)) : j1.f.FoodStockId,
+                                                                                PantryIngredientName = j1.f?.Name ?? (j2?.f?.Name ?? j3?.f?.Name),
+                                                                                PantryIngredientQuantity = j1.f == null ? (j2?.f?.Quantity ?? (j3?.f?.Quantity ?? 0)) : j1.f.Quantity,
+                                                                                PantryIngredientUnit = j1.f?.Unit ?? (j2?.f?.Unit ?? j3?.f?.Unit),
+                                                                                PantryIngredientUnitAbbreviation = j1.f?.UnitAbbreviation ?? (j2?.f?.UnitAbbreviation ?? j3?.f?.UnitAbbreviation)
                                                                             }
                                                                         ).ToList();
 
