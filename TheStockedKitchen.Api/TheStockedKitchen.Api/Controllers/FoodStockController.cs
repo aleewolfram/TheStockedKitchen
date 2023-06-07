@@ -7,7 +7,6 @@ using TheStockedKitchen.Data.ViewModel;
 
 namespace SCGPlanningTool.Api.Controllers
 {
-    [Authorize]
     [ApiController]
     public class FoodStockController : ControllerBase
     {
@@ -67,7 +66,8 @@ namespace SCGPlanningTool.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<bool>> UpdateFoodStockQuantityAsync(List<IngredientCompareVM> ingredientCompareVMs)
         {
-            return await _FoodStockService.UpdateFoodStockQuantityAsync(ingredientCompareVMs);
+            string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
+            return await _FoodStockService.UpdateFoodStockQuantityAsync(ingredientCompareVMs, user);
         }
     }
 }

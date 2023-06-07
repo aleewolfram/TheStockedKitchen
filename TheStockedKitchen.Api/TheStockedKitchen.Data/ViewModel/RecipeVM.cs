@@ -13,6 +13,7 @@ namespace TheStockedKitchen.Data.ViewModel
         public string Title { get; set; }
         public string Image { get; set; }
         public int Likes { get; set; }
+        public int TimesMade { get; set; }
         public int MissingIngredientsCount { get; set; }
 
         public List<IngredientVM> MissingIngredients { get; set; }

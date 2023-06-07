@@ -101,8 +101,8 @@
     <DialogActions>
         @if (EditMode)
         {
-            <MudButton Color="Color.Default" OnClick="() => EditMode = false">Cancel</MudButton>
-            <MudButton Color="Color.Default" OnClick="UpdateIngredientCompareVM">Update Item</MudButton>
+            <MudButton Color="Color.Default" OnClick="CancelIngredientCompareVM">Cancel</MudButton>
+            <MudButton Color="Color.Default" OnClick="() => EditMode = false">Update Item</MudButton>
         }
         else
         {
@@ -123,11 +123,9 @@
     public List<IngredientCompareVM> EditIngredientCompareVMs { get; set; }
     public IngredientCompareVM EditIngredientCompareVM { get; set; }
     private IEnumerable<Unit> Units { get; set; }
-    private MudForm Form = new MudForm();
 
     private bool Loading { get; set; }
     private bool EditMode { get; set; } = false;
-    private bool Success { get; set; } = true;
     private bool ShowErrorMessage { get; set; } = false;
 
     private string Message { get; set; } = "";
@@ -137,7 +135,7 @@
         Loading = true;
 
         Units = await _apiClient.GetUnitsAsync();
-        List<IngredientCompareVM> EditIngredientCompareVMs = RecipeDetailVM.IngredientCompareVMs
+        EditIngredientCompareVMs = RecipeDetailVM.IngredientCompareVMs
                                                             .Where(i => !String.IsNullOrEmpty(i.PantryIngredientName))
                                                             .GroupBy(g => g.PantryIngredientName)
                                                             .Select(group => new IngredientCompareVM
@@ -163,31 +161,36 @@
 
     private void EditQuantity(IngredientCompareVM ingredientCompareVM)
     {
-        EditIngredientCompareVM = new IngredientCompareVM
-        {
-            RecipeIngredientName = ingredientCompareVM.RecipeIngredientName,
-            RecipeIngredientUnit = ingredientCompareVM.RecipeIngredientUnit,
-            RecipeIngredientUnitAbbreviation = ingredientCompareVM.RecipeIngredientUnitAbbreviation,
-            RecipeIngredientQuantity = ingredientCompareVM.RecipeIngredientQuantity,
-            PantryIngredientId = ingredientCompareVM.PantryIngredientId,
-            PantryIngredientName = ingredientCompareVM.PantryIngredientName,
-            PantryIngredientUnit = ingredientCompareVM.PantryIngredientUnit,
-            PantryIngredientUnitAbbreviation = ingredientCompareVM.PantryIngredientUnitAbbreviation,
-            PantryIngredientQuantity = ingredientCompareVM.PantryIngredientQuantity,
-            PantryIngredientRemainingUnit = ingredientCompareVM.PantryIngredientRemainingUnit,
-            PantryIngredientRemainingUnitAbbreviation = ingredientCompareVM.PantryIngredientRemainingUnitAbbreviation,
-            PantryIngredientRemainingQuantity = ingredientCompareVM.PantryIngredientRemainingQuantity,
-            WasAbleToCompare = ingredientCompareVM.WasAbleToCompare
-        };
+        EditIngredientCompareVM = ingredientCompareVM;
 
         EditMode = true;
     }
 
-    private void UpdateIngredientCompareVM()
+    private void CancelIngredientCompareVM()
     {
-        int index = RecipeDetailVM.IngredientCompareVMs.FindIndex(i => i.PantryIngredientId == EditIngredientCompareVM.PantryIngredientId);
-        EditIngredientCompareVM.WasAbleToCompare = true;
-        RecipeDetailVM.IngredientCompareVMs[index] = EditIngredientCompareVM;
+        List<IngredientCompareVM> EditIngredientCompareVMsHolder = RecipeDetailVM.IngredientCompareVMs
+                                                            .Where(i => !String.IsNullOrEmpty(i.PantryIngredientName))
+                                                            .GroupBy(g => g.PantryIngredientName)
+                                                            .Select(group => new IngredientCompareVM
+                                                                {
+                                                                    RecipeIngredientName = group.First().RecipeIngredientName,
+                                                                    RecipeIngredientUnit = group.First().RecipeIngredientUnit,
+                                                                    RecipeIngredientUnitAbbreviation = group.First().RecipeIngredientUnitAbbreviation,
+                                                                    RecipeIngredientQuantity = group.Sum(i => i.RecipeIngredientQuantity),
+                                                                    PantryIngredientId = group.First().PantryIngredientId,
+                                                                    PantryIngredientName = group.Key,
+                                                                    PantryIngredientUnit = group.First().PantryIngredientUnit,
+                                                                    PantryIngredientUnitAbbreviation = group.First().PantryIngredientUnitAbbreviation,
+                                                                    PantryIngredientQuantity = group.Sum(i => i.PantryIngredientQuantity),
+                                                                    PantryIngredientRemainingUnit = group.First().PantryIngredientRemainingUnit,
+                                                                    PantryIngredientRemainingUnitAbbreviation = group.First().PantryIngredientRemainingUnitAbbreviation,
+                                                                    PantryIngredientRemainingQuantity = group.Sum(i => i.PantryIngredientRemainingQuantity),
+                                                                    WasAbleToCompare = group.First().WasAbleToCompare
+                                                                })
+                                                            .ToList();
+        int index = EditIngredientCompareVMsHolder.FindIndex(i => i.PantryIngredientId == EditIngredientCompareVM.PantryIngredientId);
+        int editIndex = EditIngredientCompareVMs.FindIndex(i => i.PantryIngredientId == EditIngredientCompareVM.PantryIngredientId);
+        EditIngredientCompareVMs[editIndex] = EditIngredientCompareVMsHolder[index];
         EditMode = false;
     }
 
@@ -211,7 +214,7 @@
 
     private async void MarkRecipeAsMadeAndUpdateFoodItemQuantityAsync()
     {
-        if (RecipeDetailVM.IngredientCompareVMs.Where(i => i.WasAbleToCompare == false).Any())
+        if (EditIngredientCompareVMs.Where(i => i.WasAbleToCompare == false).Any())
         {
             ShowErrorMessage = true;
             Message = "Please make sure all quantities are updated.";
@@ -240,7 +243,7 @@
 
     private async Task UpdateFoodStockQuantityAsync()
     {
-        bool success = await _apiClient.UpdateFoodStockQuantityAsync(RecipeDetailVM.IngredientCompareVMs);
+        bool success = await _apiClient.UpdateFoodStockQuantityAsync(EditIngredientCompareVMs);
 
         if (success)
         {

@@ -36,9 +36,17 @@ else
         }
 
         <MudItem xs="12">
-            @if (RecipeVMs.Any())
+            @if (RecipeVMs?.Any() ?? false)
             {
                 <MudPaper Class="pa-6 ma-2" Elevation="3">
+                    @if (ShowMadeRecipesMessage)
+                    {
+                        <MudGrid>
+                            <MudItem xs="12">
+                                <MudText Typo="Typo.overline">No recipes found. Here are some previously made recipes you might like.</MudText>
+                            </MudItem>
+                        </MudGrid>
+                    }
                     <MudGrid>
                         @foreach (RecipeVM recipeVM in RecipeVMs.OrderBy(r => r.MissingIngredientsCount).ThenByDescending(r => r.Likes).ThenBy(r => r.Title))
                         {
@@ -49,18 +57,32 @@ else
                                             <MudText Typo="Typo.body1">@(recipeVM.Title)</MudText>
                                             </CardHeaderContent>
                                             <CardHeaderActions>
-                                                <MudBadge Content="@(recipeVM.Likes)" Overlap="true" Class="mx-6 my-4" Color="Color.Primary">
-                                                    <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Info" />
-                                                </MudBadge>
-                                            </CardHeaderActions>
-                                        </MudCardHeader>
-                                        <MudCardMedia Image="@(recipeVM.Image)" />
-                                        <MudCardContent>
-                                            @if (recipeVM.MissingIngredients.Any())
+                                                @if (recipeVM.TimesMade > 0)
+                                            {
+                                                <MudTooltip Text="@("You have made this " + recipeVM.TimesMade + " time(s) before." )" Placement="Placement.Top">
+                                                    <MudBadge Content="@(recipeVM.TimesMade)" Overlap="true" Class="mx-6 my-4" Color="Color.Primary">
+                                                        <MudIconButton Icon="@Icons.Material.Filled.LocalDining" Color="Color.Default" />
+                                                    </MudBadge>
+                                                </MudTooltip>
+                                            }
+                                            else if (recipeVM.Likes > 0)
+                                            {
+                                                <MudTooltip Text="@("Liked by " + recipeVM.Likes + "others." )" Placement="Placement.Top">
+                                                    <MudBadge Content="@(recipeVM.Likes)" Overlap="true" Class="mx-6 my-4" Color="Color.Primary">
+                                                        <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Info" />
+                                                    </MudBadge>
+                                                </MudTooltip>
+
+                                            }
+                                        </CardHeaderActions>
+                                    </MudCardHeader>
+                                    <MudCardMedia Image="@(recipeVM.Image)" />
+                                    <MudCardContent>
+                                        @if (recipeVM.MissingIngredients?.Any() ?? false)
                                         {
                                             <MudText Typo="Typo.overline">Missing Ingredients: @(string.Join(", ", recipeVM.MissingIngredients.Select(i => i.Name)))</MudText>
                                         }
-                                        else
+                                        else if (recipeVM.MissingIngredients != null)
                                         {
                                             <MudText Typo="Typo.overline">You have all ingredients!</MudText>
                                         }
@@ -69,7 +91,7 @@ else
                                         <MudTooltip Text="View">
                                             <MudIconButton Icon="@Icons.Material.Filled.Info" Color="Color.Info" OnClick="() => ShowRecipeDetail(recipeVM)" />
                                         </MudTooltip>
-                                        @if (recipeVM.MissingIngredients.Any())
+                                        @if (recipeVM.MissingIngredients?.Any() ?? false || recipeVM.UsedIngredients == null)
                                         {
                                             <MudTooltip Text="Shop Missing Ingredients">
                                                 <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Primary" />
@@ -86,12 +108,24 @@ else
             {
                 <MudPaper Class="pa-6 ma-2" Elevation="3">
                     <MudGrid>
-                        <MudItem xs="11">
-                            <MudText Class="" Typo="Typo.overline">No recipes found. Go add some ingredients to your pantry.</MudText>
-                        </MudItem>
-                        <MudItem xs="1">
-                            <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.ArrowForward" Href="/pantry" Size="Size.Small" />
-                        </MudItem>
+                        @if(ShowSearchRecipesError)
+                        {
+                            <MudItem xs="2">
+                                <MudImage Src="images/SadToasty.png" Height="50" />
+                            </MudItem>
+                            <MudItem xs="10">
+                                <MudText Typo="Typo.overline">There was an issue connecting to our resources. Please try again.</MudText>
+                            </MudItem>
+                        }
+                        else
+                        {
+                            <MudItem xs="11">
+                                <MudText Typo="Typo.overline">No recipes found. Go add some ingredients to your pantry.</MudText>
+                            </MudItem>
+                            <MudItem xs="1">
+                                <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.ArrowForward" Href="/pantry" Size="Size.Small" />
+                            </MudItem>
+                        }
                     </MudGrid>
                 </MudPaper>
             }
@@ -106,7 +140,10 @@ else
     public List<FoodStock> FoodStocks { get; set; }
 
     private List<RecipeVM> RecipeVMs { get; set; }
+
     private bool Loading { get; set; }
+    private bool ShowSearchRecipesError { get; set; }
+    private bool ShowMadeRecipesMessage { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -122,6 +159,19 @@ else
         if (FoodStocks.Where(f => f.IncludedInRecipeSearch == true).Any())
         {
             RecipeVMs = (await _apiClient.GetRecipesAsync(string.Join(", ", FoodStocks.Where(f => f.IncludedInRecipeSearch == true).Select(f => f.Name)))).ToList();
+
+            if (RecipeVMs == null)
+            {
+                ShowSearchRecipesError = true;
+            }
+            else if (!RecipeVMs.Any())
+            {
+                RecipeVMs = await _apiClient.GetRecipesMadeAsync();
+                if(RecipeVMs.Any())
+                {
+                    ShowMadeRecipesMessage = true;
+                }
+            }
         }
         else
         {

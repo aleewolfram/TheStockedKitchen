@@ -13,6 +13,7 @@ namespace TheStockedKitchen.Api.Services
     public interface IRecipeService
     {
         Task<List<RecipeVM>> GetRecipesAsync(string ingredients);
+        Task<List<RecipeVM>> GetRecipesMadeAsync(string user);
         Task<RecipeDetailVM> GetRecipeDetailAsync(RecipeVM recipeVM, string user);
         Task<bool> MarkRecipeAsMadeAsync(RecipeVM recipeVM, string user);
         Task<bool> UndoMarkRecipeAsMadeAsync(int recipeId, string user);
@@ -38,7 +39,7 @@ namespace TheStockedKitchen.Api.Services
         public async Task<List<RecipeVM>> GetRecipesAsync(string ingredients)
         {
             //Keeping this here so I don't spam the limited Spoonacular API
-            if (false)
+            if (true)
             {
                 if(ingredients == "banana")
                 {
@@ -94,23 +95,54 @@ namespace TheStockedKitchen.Api.Services
                     {
                         var content = await response.Content.ReadAsStringAsync();
                         List<Recipe> recipes = System.Text.Json.JsonSerializer.Deserialize<List<Recipe>>(content);
-                        return recipes.Select(r => new RecipeVM(r)).ToList();
+                        List<RecipeVM> recipeVMs = recipes.Select(r => new RecipeVM(r)).ToList();
+                        foreach(RecipeVM recipeVM in recipeVMs)
+                        {
+                            recipeVM.TimesMade = await _dbContext.RecipesMade.Where(r => r.SpoonacularRecipeId == recipeVM.RecipeId).CountAsync();
+                        }
+
+                        return recipeVMs;
                     }
 
                     return null;
                 }
             }
         }
-        
+
+        public async Task<List<RecipeVM>> GetRecipesMadeAsync(string user)
+        {
+            return await (from r in _dbContext.RecipesMade
+                      group r by r.SpoonacularRecipeId
+                      into grp
+                      select new RecipeVM
+                      {
+                          RecipeId = grp.Key,
+                          Title = grp.First().Title,
+                          Image = grp.First().Image,
+                          TimesMade = grp.Count()
+                      }).ToListAsync();
+        }
+
         public async Task<RecipeDetailVM> GetRecipeDetailAsync(RecipeVM recipeVM, string user)
         {
             // Keeping this here so I don't spam the limited Spoonacular API
-            if (false)
+            if (true)
             {
-                using (StreamReader r = new StreamReader("SampleData/RecipeDetailResult.json"))
+                if(recipeVM.RecipeId == 647093)
                 {
-                    string json = r.ReadToEnd();
-                    return JsonConvert.DeserializeObject<RecipeDetailVM>(json);
+                    using (StreamReader r = new StreamReader("SampleData/PeanutButterCupsRecipeDetailResult.json"))
+                    {
+                        string json = r.ReadToEnd();
+                        return JsonConvert.DeserializeObject<RecipeDetailVM>(json);
+                    }
+                }
+                else
+                {
+                    using (StreamReader r = new StreamReader("SampleData/BananaDipsRecipeDetailResult.json"))
+                    {
+                        string json = r.ReadToEnd();
+                        return JsonConvert.DeserializeObject<RecipeDetailVM>(json);
+                    }
                 }
             }
             else

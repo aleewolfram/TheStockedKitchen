@@ -62,6 +62,9 @@ namespace TheStockedKitchen.Api.Services
                 case "CUP":
                     ingredientCompareVM.RecipeIngredientUnitAbbreviation = "C";
                     break;
+                case "CUPS":
+                    ingredientCompareVM.RecipeIngredientUnitAbbreviation = "C";
+                    break;
                 case "QTS":
                     ingredientCompareVM.RecipeIngredientUnitAbbreviation = "QT";
                     break;
