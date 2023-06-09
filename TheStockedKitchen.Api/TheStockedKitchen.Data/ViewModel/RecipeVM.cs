@@ -16,9 +16,9 @@ namespace TheStockedKitchen.Data.ViewModel
         public int TimesMade { get; set; }
         public int MissingIngredientsCount { get; set; }
 
-        public List<IngredientVM> MissingIngredients { get; set; }
+        public List<IngredientVM>? MissingIngredients { get; set; }
 
-        public List<IngredientVM> UsedIngredients { get; set; }
+        public List<IngredientVM>? UsedIngredients { get; set; }
 
         public RecipeVM() { }
 

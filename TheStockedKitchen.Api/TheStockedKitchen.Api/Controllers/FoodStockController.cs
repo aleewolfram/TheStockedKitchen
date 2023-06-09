@@ -7,6 +7,7 @@ using TheStockedKitchen.Data.ViewModel;
 
 namespace SCGPlanningTool.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     public class FoodStockController : ControllerBase
     {

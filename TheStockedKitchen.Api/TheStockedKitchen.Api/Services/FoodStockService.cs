@@ -14,6 +14,7 @@ namespace TheStockedKitchen.Api.Services
         Task<bool> ToggleFoodStockIncludedInRecipeAsync(int foodStockId, string user);
         Task<bool> UpdateFoodStockQuantityAsync(List<IngredientCompareVM> ingredientCompareVMs, string user);
     }
+    
     public class FoodStockService : IFoodStockService
     {
 
@@ -28,7 +29,14 @@ namespace TheStockedKitchen.Api.Services
 
         public async Task<List<FoodStock>> GetFoodStockAsync(string user)
         {
-            return await _dbContext.FoodStock.Where(f => f.User == user).ToListAsync();
+            try
+            {
+                return await _dbContext.FoodStock.Where(f => f.User == user).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving food stock.", ex);
+            }
         }
 
         public async Task<bool> AddFoodStockAsync(FoodStockVM foodStockVM, string user)

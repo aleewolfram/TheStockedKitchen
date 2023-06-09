@@ -1538,15 +1538,13 @@ namespace TheStockedKitchen.Client
 
         [System.Text.Json.Serialization.JsonPropertyName("missingIngredients")]
 
-        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
-        [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.List<IngredientVM> MissingIngredients { get; set; } = new System.Collections.Generic.List<IngredientVM>();
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
+        public System.Collections.Generic.List<IngredientVM>? MissingIngredients { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("usedIngredients")]
 
-        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]   
-        [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.List<IngredientVM> UsedIngredients { get; set; } = new System.Collections.Generic.List<IngredientVM>();
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
+        public System.Collections.Generic.List<IngredientVM>? UsedIngredients { get; set; } = default!;
 
     }
 

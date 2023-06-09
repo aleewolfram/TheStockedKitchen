@@ -36,9 +36,9 @@ else
         }
 
         <MudItem xs="12">
-            @if (RecipeVMs?.Any() ?? false)
+            @if (RecipeVMs != null && RecipeVMs.Any())
             {
-                <MudPaper Class="pa-6 ma-2" Elevation="3">
+                <PaperMessage>
                     @if (ShowMadeRecipesMessage)
                     {
                         <MudGrid>
@@ -102,32 +102,27 @@ else
                             </MudItem>
                         }
                     </MudGrid>
-                </MudPaper>
+                </PaperMessage>
             }
             else
             {
-                <MudPaper Class="pa-6 ma-2" Elevation="3">
-                    <MudGrid>
-                        @if(ShowSearchRecipesError)
-                        {
-                            <MudItem xs="2">
-                                <MudImage Src="images/SadToasty.png" Height="50" />
-                            </MudItem>
-                            <MudItem xs="10">
-                                <MudText Typo="Typo.overline">There was an issue connecting to our resources. Please try again.</MudText>
-                            </MudItem>
-                        }
-                        else
-                        {
+                @if(ShowSearchRecipesError)
+                {
+                    <SadToastyError/>
+                }
+                else
+                {
+                    <PaperMessage>
+                        <MudGrid>
                             <MudItem xs="11">
                                 <MudText Typo="Typo.overline">No recipes found. Go add some ingredients to your pantry.</MudText>
                             </MudItem>
                             <MudItem xs="1">
                                 <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.ArrowForward" Href="/pantry" Size="Size.Small" />
                             </MudItem>
-                        }
-                    </MudGrid>
-                </MudPaper>
+                        </MudGrid>
+                    </PaperMessage>
+                }
             }
         </MudItem>
     </MudGrid>
@@ -158,19 +153,22 @@ else
     {
         if (FoodStocks.Where(f => f.IncludedInRecipeSearch == true).Any())
         {
-            RecipeVMs = (await _apiClient.GetRecipesAsync(string.Join(", ", FoodStocks.Where(f => f.IncludedInRecipeSearch == true).Select(f => f.Name)))).ToList();
+            try
+            {
+                RecipeVMs = (await _apiClient.GetRecipesAsync(string.Join(", ", FoodStocks.Where(f => f.IncludedInRecipeSearch == true).Select(f => f.Name)))).ToList();
 
-            if (RecipeVMs == null)
+                if (!RecipeVMs.Any())
+                {
+                    RecipeVMs = await _apiClient.GetRecipesMadeAsync();
+                    if (RecipeVMs.Any())
+                    {
+                        ShowMadeRecipesMessage = true;
+                    }
+                }
+            }
+            catch(Exception e)
             {
                 ShowSearchRecipesError = true;
-            }
-            else if (!RecipeVMs.Any())
-            {
-                RecipeVMs = await _apiClient.GetRecipesMadeAsync();
-                if(RecipeVMs.Any())
-                {
-                    ShowMadeRecipesMessage = true;
-                }
             }
         }
         else

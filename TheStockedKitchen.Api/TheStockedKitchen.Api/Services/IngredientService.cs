@@ -14,6 +14,7 @@ namespace TheStockedKitchen.Api.Services
     {
         Task<List<FoodDataVM>> GetFullFoodDataResultsAsync(string search);
     }
+    
     public class IngredientService : IIngredientService
     {
 
@@ -40,25 +41,32 @@ namespace TheStockedKitchen.Api.Services
             }
             else
             {
-                List<FoodDataVM> FoodNames = await GetFoodAsync(search);
-                List<FoodDataVM> FoodInfo = await GetFoodInfoAsync(search);
+                try
+                {
+                    List<FoodDataVM> FoodNames = await GetFoodAsync(search);
+                    List<FoodDataVM> FoodInfo = await GetFoodInfoAsync(search);
 
-                var foodDataVMs = from names in FoodNames.Where(n => n.NBDNumber != 0)
-                                  join info in FoodInfo.Where(n => n.NBDNumber != 0)
-                                  on names.NBDNumber equals info.NBDNumber into gj
-                                  from subInfo in gj.DefaultIfEmpty()
-                                  where names.Name.ToLower() == subInfo?.Name.ToLower() || names.NBDNumber == subInfo?.NBDNumber || subInfo == null
-                                  select new FoodDataVM
-                                  {
-                                      FDCId = subInfo?.FDCId ?? 0,
-                                      NBDNumber = subInfo?.NBDNumber ?? names.NBDNumber,
-                                      Name = names.Name,
-                                      FoodCategory = subInfo?.FoodCategory ?? string.Empty,
-                                      Image = names.Image,
-                                      FoodNutrients = subInfo?.FoodNutrients ?? new List<FoodNutrientVM>()
-                                  };
+                    var foodDataVMs = from names in FoodNames.Where(n => n.NBDNumber != 0)
+                                      join info in FoodInfo.Where(n => n.NBDNumber != 0)
+                                      on names.NBDNumber equals info.NBDNumber into gj
+                                      from subInfo in gj.DefaultIfEmpty()
+                                      where names.Name.ToLower() == subInfo?.Name.ToLower() || names.NBDNumber == subInfo?.NBDNumber || subInfo == null
+                                      select new FoodDataVM
+                                      {
+                                          FDCId = subInfo?.FDCId ?? 0,
+                                          NBDNumber = subInfo?.NBDNumber ?? names.NBDNumber,
+                                          Name = names.Name,
+                                          FoodCategory = subInfo?.FoodCategory ?? string.Empty,
+                                          Image = names.Image,
+                                          FoodNutrients = subInfo?.FoodNutrients ?? new List<FoodNutrientVM>()
+                                      };
 
-                return  foodDataVMs.ToList();
+                    return foodDataVMs.ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("An error occurred with getting food data.", ex);
+                }
             }
         }
 

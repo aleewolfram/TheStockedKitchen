@@ -5,36 +5,42 @@
 
 <MudDialog>
     <DialogContent>
-        @if (ShowDataGrid)
+        @if (ShowError)
         {
-            <MudGrid>
-                @if (ShowAddFoodItemStatus)
-                {
-                    <MudItem xs="12">
-                        <StatusMessage Color="@Color" Message="@Message" Icon="@Icon" />
-                    </MudItem>
-                }
-                <FoodSearchBar FoodSearch="@Search" SearchEvent="(string s) => SearchFoodItemsAsync(s)" />
-                <MudItem xs="12">
-                    @if (Loading)
+            <SadToastyError />
+        }
+        else
+        {
+            @if (ShowDataGrid)
+            {
+                <MudGrid>
+                    @if (ShowAddFoodItemStatus)
                     {
-                        <LoadingSpinner />
+                        <MudItem xs="12">
+                            <StatusMessage Color="@Color" Message="@Message" Icon="@Icon" />
+                        </MudItem>
                     }
-                    else
-                    {
-                        <MudDataGrid Items="@FoodDataVMs" Hover="true" SortLabel="Sort By">
-                            <Columns>
-                                <HierarchyColumn T="FoodDataVM" ButtonDisabledFunc="@(f => !f.FoodNutrients.Any())" />
-                                <TemplateColumn>
-                                    <CellTemplate>
-                                        <MudImage Src="@(context.Item.Image)" Elevation="25" Class="rounded-lg" Width="80" Height="60"/>
-                                    </CellTemplate>
-                                </TemplateColumn>
-                                <PropertyColumn Property="f => f.Name" />
-                                <PropertyColumn Title="Food Category" Property="f => f.FoodCategory" />
-                                <TemplateColumn>
-                                    <CellTemplate>
-                                        <MudStack Row>
+                    <FoodSearchBar FoodSearch="@Search" SearchEvent="(string s) => SearchFoodItemsAsync(s)" />
+                    <MudItem xs="12">
+                        @if (Loading)
+                        {
+                            <LoadingSpinner />
+                        }
+                        else
+                        {
+                            <MudDataGrid Items="@FoodDataVMs" Hover="true" SortLabel="Sort By">
+                                <Columns>
+                                    <HierarchyColumn T="FoodDataVM" ButtonDisabledFunc="@(f => !f.FoodNutrients.Any())" />
+                                    <TemplateColumn>
+                                        <CellTemplate>
+                                            <MudImage Src="@(context.Item.Image)" Elevation="25" Class="rounded-lg" Width="80" Height="60" />
+                                        </CellTemplate>
+                                    </TemplateColumn>
+                                    <PropertyColumn Property="f => f.Name" />
+                                    <PropertyColumn Title="Food Category" Property="f => f.FoodCategory" />
+                                    <TemplateColumn>
+                                        <CellTemplate>
+                                            <MudStack Row>
                                             <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
                                                 <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(() => OpenAddFoodItemFormAsync(context.Item))">Add</MudButton>
                                             </MudHidden>
@@ -73,21 +79,22 @@
                                         </MudCardContent>
                                     </MudCard>
                                 </ChildRowContent>
-                            <PagerContent>
-                                <MudDataGridPager T="FoodDataVM" />
-                            </PagerContent>
-                        </MudDataGrid>
-                    }
-                </MudItem>
-            </MudGrid>
-        }
-        else
-        {
-            <FoodItemInput @bind-FoodStockVM="@FoodStockVM" />
+                                <PagerContent>
+                                    <MudDataGridPager T="FoodDataVM" />
+                                </PagerContent>
+                            </MudDataGrid>
+                        }
+                    </MudItem>
+                </MudGrid>
+            }
+            else
+            {
+                <FoodItemInput @bind-FoodStockVM="@FoodStockVM" />
+            }
         }
     </DialogContent>
     <DialogActions>
-        @if (!ShowDataGrid)
+        @if (!ShowDataGrid && !ShowError)
         {
             <MudButton OnClick="ToggleGrid">Back</MudButton>
             <MudButton Color="Color.Primary" OnClick="AddFoodItemAsync">Add</MudButton>
@@ -113,12 +120,20 @@
     private bool Loading { get; set; }
     private bool ShowDataGrid { get; set; } = true;
     private bool ShowAddFoodItemStatus { get; set; } = false;
+    private bool ShowError { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
         Loading = true;
-
-        FoodDataVMs = await _apiClient.GetFullFoodDataResultsAsync(Search);
+        try
+        {
+            FoodDataVMs = await _apiClient.GetFullFoodDataResultsAsync(Search);
+        }
+        catch
+        {
+            ShowError = true;
+            Loading = false;
+        }
 
         Loading = false;
     }

@@ -5,9 +5,7 @@
 
 <MudDialog >
     <DialogContent>
-        <MudGrid>
-            <FoodItemInput @bind-FoodStockVM="@FoodStockVM" />
-        </MudGrid>
+        <FoodItemInput @bind-FoodStockVM="@FoodStockVM" />
     </DialogContent>
     <DialogActions>
         <MudButton Color="Color.Primary" OnClick="UpdateFoodItemAsync">Update</MudButton>

@@ -20,7 +20,7 @@ namespace SCGPlanningTool.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<RecipeVM>>> GetRecipesAsync(string ingredients)
         {
-            return null;// await _RecipeService.GetRecipesAsync(ingredients);
+            return await _RecipeService.GetRecipesAsync(ingredients);
         }
 
         [HttpPost("GetRecipesMade")]

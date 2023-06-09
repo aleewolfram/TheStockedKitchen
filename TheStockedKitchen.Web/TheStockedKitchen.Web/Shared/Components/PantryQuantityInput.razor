@@ -6,6 +6,10 @@
 {
     <LoadingSpinner />
 }
+else if (ShowError)
+{
+    <SadToastyError />
+}
 else
 {
     <MudGrid Class="pb-5">
@@ -37,14 +41,21 @@ else
     private IEnumerable<Unit> Units { get; set; }
 
     private bool Loading { get; set; }
+    private bool ShowError { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
         Loading = true;
-
-        Units = await _apiClient.GetUnitsAsync();
-        IngredientCompareVM.PantryIngredientRemainingQuantity = IngredientCompareVM.PantryIngredientRemainingQuantity < 0 ? 0 : IngredientCompareVM.PantryIngredientRemainingQuantity;
-
+        try
+        {
+            Units = await _apiClient.GetUnitsAsync();
+            IngredientCompareVM.PantryIngredientRemainingQuantity = IngredientCompareVM.PantryIngredientRemainingQuantity < 0 ? 0 : IngredientCompareVM.PantryIngredientRemainingQuantity;
+        }
+        catch (Exception)
+        {
+            ShowError = true;
+            Loading = false;
+        }
         Loading = false;
     }
 }

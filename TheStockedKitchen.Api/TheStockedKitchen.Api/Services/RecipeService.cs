@@ -18,6 +18,7 @@ namespace TheStockedKitchen.Api.Services
         Task<bool> MarkRecipeAsMadeAsync(RecipeVM recipeVM, string user);
         Task<bool> UndoMarkRecipeAsMadeAsync(int recipeId, string user);
     }
+    
     public class RecipeService : IRecipeService
     {
         private readonly TheStockedKitchenConfiguration _uSDANutrientDBConfiguration;
@@ -41,7 +42,7 @@ namespace TheStockedKitchen.Api.Services
             //Keeping this here so I don't spam the limited Spoonacular API
             if (true)
             {
-                if(ingredients == "banana")
+                if (ingredients == "banana")
                 {
                     using (StreamReader r = new StreamReader("SampleData/BananaRecipeSearchResults.json"))
                     {
@@ -49,8 +50,8 @@ namespace TheStockedKitchen.Api.Services
                         return JsonConvert.DeserializeObject<List<RecipeVM>>(json);
                     }
                 }
-                else if(ingredients == "banana, peanut butter, chocolate chips" || 
-                        ingredients == "banana, chocolate chips, peanut butter" || 
+                else if (ingredients == "banana, peanut butter, chocolate chips" ||
+                        ingredients == "banana, chocolate chips, peanut butter" ||
                         ingredients == "chocolate chips, banana, peanut butter" ||
                         ingredients == "chocolate chips, peanut butter, banana" ||
                         ingredients == "peanut butter, banana, chocolate chips" ||
@@ -69,58 +70,74 @@ namespace TheStockedKitchen.Api.Services
             }
             else
             {
-                string apiUrl = "https://api.spoonacular.com/recipes/findByIngredients";
-                string apiKey = _uSDANutrientDBConfiguration.ApiKey.SpoonacularApiKey;
-
-                using (HttpClient httpClient = new HttpClient())
+                try
                 {
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    string apiUrl = "https://api.spoonacular.com/recipes/findByIngredients";
+                    string apiKey = _uSDANutrientDBConfiguration.ApiKey.SpoonacularApiKey;
 
-                    var payload = new
+                    using (HttpClient httpClient = new HttpClient())
                     {
-                        ingredients = ingredients.Split(',').Select(i => i.Trim()).ToList(),
-                        number = 20,
-                        ignorePantry = false,
-                        ranking = 2,
-                        apiKey
+                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    };
-                    var jsonPayload = System.Text.Json.JsonSerializer.Serialize(payload);
-
-                    var requestUri = $"{apiUrl}?{QueryStringBuilder.BuildQueryString(payload)}";
-
-                    var response = await httpClient.GetAsync(requestUri);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var content = await response.Content.ReadAsStringAsync();
-                        List<Recipe> recipes = System.Text.Json.JsonSerializer.Deserialize<List<Recipe>>(content);
-                        List<RecipeVM> recipeVMs = recipes.Select(r => new RecipeVM(r)).ToList();
-                        foreach(RecipeVM recipeVM in recipeVMs)
+                        var payload = new
                         {
-                            recipeVM.TimesMade = await _dbContext.RecipesMade.Where(r => r.SpoonacularRecipeId == recipeVM.RecipeId).CountAsync();
+                            ingredients = ingredients.Split(',').Select(i => i.Trim()).ToList(),
+                            number = 20,
+                            ignorePantry = false,
+                            ranking = 2,
+                            apiKey
+
+                        };
+                        var jsonPayload = System.Text.Json.JsonSerializer.Serialize(payload);
+
+                        var requestUri = $"{apiUrl}?{QueryStringBuilder.BuildQueryString(payload)}";
+
+                        var response = await httpClient.GetAsync(requestUri);
+
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            var content = await response.Content.ReadAsStringAsync();
+                            List<Recipe> recipes = System.Text.Json.JsonSerializer.Deserialize<List<Recipe>>(content);
+                            List<RecipeVM> recipeVMs = recipes.Select(r => new RecipeVM(r)).ToList();
+                            foreach (RecipeVM recipeVM in recipeVMs)
+                            {
+                                recipeVM.TimesMade = await _dbContext.RecipesMade.Where(r => r.SpoonacularRecipeId == recipeVM.RecipeId).CountAsync();
+                            }
+
+                            return recipeVMs;
                         }
-
-                        return recipeVMs;
+                        else
+                        {
+                            throw new Exception("An error occurred with connecting with Spoonacular API.");
+                        }
                     }
-
-                    return null;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("An error occurred while retrieving recipes.", ex);
                 }
             }
         }
 
         public async Task<List<RecipeVM>> GetRecipesMadeAsync(string user)
         {
-            return await (from r in _dbContext.RecipesMade
-                      group r by r.SpoonacularRecipeId
+            try
+            {
+                return await (from r in _dbContext.RecipesMade
+                              group r by r.SpoonacularRecipeId
                       into grp
-                      select new RecipeVM
-                      {
-                          RecipeId = grp.Key,
-                          Title = grp.First().Title,
-                          Image = grp.First().Image,
-                          TimesMade = grp.Count()
-                      }).ToListAsync();
+                              select new RecipeVM
+                              {
+                                  RecipeId = grp.Key,
+                                  Title = grp.First().Title,
+                                  Image = grp.First().Image,
+                                  TimesMade = grp.Count()
+                              }).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving recipes.", ex);
+            }
         }
 
         public async Task<RecipeDetailVM> GetRecipeDetailAsync(RecipeVM recipeVM, string user)
@@ -128,7 +145,7 @@ namespace TheStockedKitchen.Api.Services
             // Keeping this here so I don't spam the limited Spoonacular API
             if (true)
             {
-                if(recipeVM.RecipeId == 647093)
+                if (recipeVM.RecipeId == 647093)
                 {
                     using (StreamReader r = new StreamReader("SampleData/PeanutButterCupsRecipeDetailResult.json"))
                     {
@@ -147,89 +164,98 @@ namespace TheStockedKitchen.Api.Services
             }
             else
             {
-                string apiUrl = $"https://api.spoonacular.com/recipes/{recipeVM.RecipeId}/information";
-                string apiKey = _uSDANutrientDBConfiguration.ApiKey.SpoonacularApiKey;
-
-                using (HttpClient httpClient = new HttpClient())
+                try
                 {
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    string apiUrl = $"https://api.spoonacular.com/recipes/{recipeVM.RecipeId}/information";
+                    string apiKey = _uSDANutrientDBConfiguration.ApiKey.SpoonacularApiKey;
 
-                    var payload = new
+                    using (HttpClient httpClient = new HttpClient())
                     {
-                        apiKey
+                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    };
-                    var jsonPayload = System.Text.Json.JsonSerializer.Serialize(payload);
-
-                    var requestUri = $"{apiUrl}?{QueryStringBuilder.BuildQueryString(payload)}";
-
-                    var response = await httpClient.GetAsync(requestUri);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var content = await response.Content.ReadAsStringAsync();
-                        
-                        RecipeDetail recipeDetail = System.Text.Json.JsonSerializer.Deserialize<RecipeDetail>(content);
-                        
-                        List<FoodStock> foodStocks = await _foodStockService.GetFoodStockAsync(user);
-
-                        var joinByNameClean = from d in recipeDetail.extendedIngredients
-                                              join f in foodStocks on d.nameClean equals f.Name into gj
-                                              from f in gj.DefaultIfEmpty()
-                                              select new { d, f };
-
-                        var joinByName = from d in recipeDetail.extendedIngredients
-                                         join f in foodStocks on d.name equals f.Name into gj
-                                         from f in gj.DefaultIfEmpty()
-                                         select new { d, f };
-
-                        var joinByImg = from d in recipeDetail.extendedIngredients
-                                        join f in foodStocks on d.image equals f.Image.Split('/').Last() into gj
-                                        from f in gj.DefaultIfEmpty()
-                                        select new { d, f };
-
-                        List<IngredientCompareVM> ingredientCompareVMs = (
-                                                                            from j1 in joinByNameClean
-                                                                            join j2 in joinByName on j1.d equals j2.d into gj1
-                                                                            from j2 in gj1.DefaultIfEmpty()
-                                                                            join j3 in joinByImg on j1.d equals j3.d into gj2
-                                                                            from j3 in gj2.DefaultIfEmpty()
-                                                                            select new IngredientCompareVM
-                                                                            {
-                                                                                RecipeIngredientName = !string.IsNullOrEmpty(j1.d.nameClean) ? j1.d.nameClean : j1.d.name,
-                                                                                RecipeIngredientQuantity = j1.d.amount,
-                                                                                RecipeIngredientUnit = j1.d.unit.ToUpper(),
-                                                                                RecipeIngredientUnitAbbreviation = j1.d.unit.ToUpper(),
-                                                                                PantryIngredientId = j1.f == null ? (j2?.f?.FoodStockId ?? (j3?.f?.FoodStockId ?? 0)) : j1.f.FoodStockId,
-                                                                                PantryIngredientName = j1.f?.Name ?? (j2?.f?.Name ?? j3?.f?.Name),
-                                                                                PantryIngredientQuantity = j1.f == null ? (j2?.f?.Quantity ?? (j3?.f?.Quantity ?? 0)) : j1.f.Quantity,
-                                                                                PantryIngredientUnit = j1.f?.Unit ?? (j2?.f?.Unit ?? j3?.f?.Unit),
-                                                                                PantryIngredientUnitAbbreviation = j1.f?.UnitAbbreviation ?? (j2?.f?.UnitAbbreviation ?? j3?.f?.UnitAbbreviation)
-                                                                            }
-                                                                        ).ToList();
-
-
-                        RecipeDetailVM recipeDetailVM = new RecipeDetailVM()
+                        var payload = new
                         {
-                            SourceUrl = recipeDetail.sourceUrl,
-                            Title = recipeDetail.title,
-                            Image = recipeDetail.image,
-                            Summary = recipeDetail.summary,
-                            TimesMade = await _dbContext.RecipesMade.Where(r => r.SpoonacularRecipeId == recipeVM.RecipeId).CountAsync(),
-                            IngredientCompareVMs = new List<IngredientCompareVM>(),
-                            Instructions = recipeDetail.analyzedInstructions.SelectMany(i => i.steps.Select(s => s.step)).ToList()
+                            apiKey
+
                         };
+                        var jsonPayload = System.Text.Json.JsonSerializer.Serialize(payload);
 
-                        foreach(IngredientCompareVM ingredientCompareVM in ingredientCompareVMs)
+                        var requestUri = $"{apiUrl}?{QueryStringBuilder.BuildQueryString(payload)}";
+
+                        var response = await httpClient.GetAsync(requestUri);
+
+                        if (response.IsSuccessStatusCode)
                         {
-                            IngredientCompareVM convertedIngredientCompareVM = await _unitService.GetPantryIngredientRemaining(ingredientCompareVM);
-                            recipeDetailVM.IngredientCompareVMs.Add(convertedIngredientCompareVM);
-                        }
-                        
-                        return recipeDetailVM;
-                    }
+                            var content = await response.Content.ReadAsStringAsync();
 
-                    return null;
+                            RecipeDetail recipeDetail = System.Text.Json.JsonSerializer.Deserialize<RecipeDetail>(content);
+
+                            List<FoodStock> foodStocks = await _foodStockService.GetFoodStockAsync(user);
+
+                            var joinByNameClean = from d in recipeDetail.extendedIngredients
+                                                  join f in foodStocks on d.nameClean equals f.Name into gj
+                                                  from f in gj.DefaultIfEmpty()
+                                                  select new { d, f };
+
+                            var joinByName = from d in recipeDetail.extendedIngredients
+                                             join f in foodStocks on d.name equals f.Name into gj
+                                             from f in gj.DefaultIfEmpty()
+                                             select new { d, f };
+
+                            var joinByImg = from d in recipeDetail.extendedIngredients
+                                            join f in foodStocks on d.image equals f.Image.Split('/').Last() into gj
+                                            from f in gj.DefaultIfEmpty()
+                                            select new { d, f };
+
+                            List<IngredientCompareVM> ingredientCompareVMs = (
+                                                                                from j1 in joinByNameClean
+                                                                                join j2 in joinByName on j1.d equals j2.d into gj1
+                                                                                from j2 in gj1.DefaultIfEmpty()
+                                                                                join j3 in joinByImg on j1.d equals j3.d into gj2
+                                                                                from j3 in gj2.DefaultIfEmpty()
+                                                                                select new IngredientCompareVM
+                                                                                {
+                                                                                    RecipeIngredientName = !string.IsNullOrEmpty(j1.d.nameClean) ? j1.d.nameClean : j1.d.name,
+                                                                                    RecipeIngredientQuantity = j1.d.amount,
+                                                                                    RecipeIngredientUnit = j1.d.unit.ToUpper(),
+                                                                                    RecipeIngredientUnitAbbreviation = j1.d.unit.ToUpper(),
+                                                                                    PantryIngredientId = j1.f == null ? (j2?.f?.FoodStockId ?? (j3?.f?.FoodStockId ?? 0)) : j1.f.FoodStockId,
+                                                                                    PantryIngredientName = j1.f?.Name ?? (j2?.f?.Name ?? j3?.f?.Name),
+                                                                                    PantryIngredientQuantity = j1.f == null ? (j2?.f?.Quantity ?? (j3?.f?.Quantity ?? 0)) : j1.f.Quantity,
+                                                                                    PantryIngredientUnit = j1.f?.Unit ?? (j2?.f?.Unit ?? j3?.f?.Unit),
+                                                                                    PantryIngredientUnitAbbreviation = j1.f?.UnitAbbreviation ?? (j2?.f?.UnitAbbreviation ?? j3?.f?.UnitAbbreviation)
+                                                                                }
+                                                                            ).ToList();
+
+
+                            RecipeDetailVM recipeDetailVM = new RecipeDetailVM()
+                            {
+                                SourceUrl = recipeDetail.sourceUrl,
+                                Title = recipeDetail.title,
+                                Image = recipeDetail.image,
+                                Summary = recipeDetail.summary,
+                                TimesMade = await _dbContext.RecipesMade.Where(r => r.SpoonacularRecipeId == recipeVM.RecipeId).CountAsync(),
+                                IngredientCompareVMs = new List<IngredientCompareVM>(),
+                                Instructions = recipeDetail.analyzedInstructions.SelectMany(i => i.steps.Select(s => s.step)).ToList()
+                            };
+
+                            foreach (IngredientCompareVM ingredientCompareVM in ingredientCompareVMs)
+                            {
+                                IngredientCompareVM convertedIngredientCompareVM = await _unitService.GetPantryIngredientRemaining(ingredientCompareVM);
+                                recipeDetailVM.IngredientCompareVMs.Add(convertedIngredientCompareVM);
+                            }
+
+                            return recipeDetailVM;
+                        }
+                        else
+                        {
+                            throw new Exception("An error occurred with connecting with Spoonacular API.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("An error occurred while retrieving recipe details.", ex);
                 }
             }
         }
@@ -257,7 +283,7 @@ namespace TheStockedKitchen.Api.Services
             {
                 return false;
             }
-            
+
         }
 
         public async Task<bool> UndoMarkRecipeAsMadeAsync(int recipeId, string user)
@@ -278,5 +304,6 @@ namespace TheStockedKitchen.Api.Services
             }
 
         }
+
     }
 }

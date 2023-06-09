@@ -6,16 +6,23 @@
 @inject ITheStockedKitchenClient _apiClient
 @inject IDialogService _dialogService
 
+<MudGrid>
+    <MudItem xs="11">
+        <MudText Class="site-logo-text site-title-large" Typo="Typo.overline" Align="Align.Center" Color="Color.Primary">Pantry</MudText>
+    </MudItem>
+</MudGrid>
+
 @if (Loading)
 {
     <LoadingSpinner />
 }
+else if (ShowError)
+{
+    <SadToastyError />
+}
 else
 {
     <MudGrid>
-        <MudItem xs="12">
-            <MudText Class="site-logo-text site-title-large" Typo="Typo.overline" Align="Align.Center" Color="Color.Primary">Pantry</MudText>
-        </MudItem>
         @if (ShowChangeFoodItemStatus)
         {
             <MudItem xs="12">
@@ -58,7 +65,8 @@ else
     private Color Color { get; set; } = Color.Success;
 
     private bool Loading { get; set; }
-    private bool ShowChangeFoodItemStatus { get; set; }  = false;
+    private bool ShowChangeFoodItemStatus { get; set; } = false;
+    private bool ShowError { get; set; } = false;
 
     private string Search { get; set; }
     private string Icon { get; set; } = Icons.Material.Outlined.Check;
@@ -85,7 +93,15 @@ else
     private async Task LoadFoodStockTable()
     {
         Loading = true;
-        FoodStocks = await _apiClient.GetFoodStockAsync();
+        try
+        {
+            FoodStocks = await _apiClient.GetFoodStockAsync();
+        }
+        catch (Exception)
+        {
+            ShowError = true;
+            Loading = false;
+        }
         Loading = false;
     }
 
@@ -129,7 +145,7 @@ else
     {
         DialogOptions options = new DialogOptions() { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true, ClassBackground = "blurry-dialog" };
         var parameters = new DialogParameters();
-        parameters.Add(nameof(UpdateFoodItemDialog.FoodStockVM), new FoodStockVM { Name = foodStock.Name, Quantity = foodStock.Quantity, Unit = foodStock.Unit});
+        parameters.Add(nameof(UpdateFoodItemDialog.FoodStockVM), new FoodStockVM { Name = foodStock.Name, Quantity = foodStock.Quantity, Unit = foodStock.Unit });
 
         var dialog = _dialogService.Show<UpdateFoodItemDialog>
             ("Update Food Item", parameters, options);

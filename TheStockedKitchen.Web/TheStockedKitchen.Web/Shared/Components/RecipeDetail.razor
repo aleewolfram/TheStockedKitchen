@@ -9,6 +9,10 @@
 {
     <LoadingSpinner />
 }
+else if (ShowError)
+{
+    <SadToastyError />
+}
 else
 {
     <MudGrid>
@@ -132,15 +136,24 @@ else
     private bool Loading { get; set; }
     private bool ShowUndoMakeRecipeButton { get; set; }
     private bool ShowUndoMakeRecipeError { get; set; }
+    private bool ShowError { get; set; } = false;
 
     private string Message { get; set; } = "";
 
     protected override async Task OnInitializedAsync()
     {
         Loading = true;
+        try
+        {
+            RecipeDetailVM = await _apiClient.GetRecipeDetailAsync(RecipeVM);
+            Units = await _apiClient.GetUnitsAsync();
 
-        RecipeDetailVM = await _apiClient.GetRecipeDetailAsync(RecipeVM);
-        Units = await _apiClient.GetUnitsAsync();
+        }
+        catch(Exception)
+        {
+            ShowError = true;
+            Loading = false;
+        }
 
         Loading = false;
     }

@@ -9,6 +9,10 @@
         {
             <LoadingSpinner/>
         }
+        else if (ShowError)
+        {
+            <SadToastyError />
+        }
         else
         {
             @if (EditMode)
@@ -127,13 +131,15 @@
     private bool Loading { get; set; }
     private bool EditMode { get; set; } = false;
     private bool ShowErrorMessage { get; set; } = false;
+    private bool ShowError { get; set; } = false;
 
     private string Message { get; set; } = "";
 
     protected override async Task OnInitializedAsync()
     {
         Loading = true;
-
+        try
+        {
         Units = await _apiClient.GetUnitsAsync();
         EditIngredientCompareVMs = RecipeDetailVM.IngredientCompareVMs
                                                             .Where(i => !String.IsNullOrEmpty(i.PantryIngredientName))
@@ -155,7 +161,12 @@
                                                                     WasAbleToCompare = group.First().WasAbleToCompare
                                                                 })
                                                             .ToList();
-
+        }
+        catch (Exception)
+        {
+            ShowError = true;
+            Loading = false;
+        }
         Loading = false;
     }
 

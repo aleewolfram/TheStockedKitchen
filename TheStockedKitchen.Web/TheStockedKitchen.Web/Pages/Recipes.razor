@@ -19,6 +19,10 @@
 {
     <LoadingSpinner />
 }
+else if (ShowError)
+{
+    <SadToastyError />
+}
 else
 {
     @if(ShowRecipeDetail)
@@ -34,15 +38,24 @@ else
 @code {
     private List<FoodStock> FoodStocks { get; set; } = new List<FoodStock>();
     private RecipeVM SelectedRecipeVM { get; set; } = new RecipeVM();
+    
     private bool ShowRecipeDetail { get; set; } = false;
-
     private bool Loading { get; set; }
+    private bool ShowError { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
         Loading = true;
 
-        FoodStocks = (await _apiClient.GetFoodStockAsync()).ToList();
+        try
+        {
+            FoodStocks = (await _apiClient.GetFoodStockAsync()).ToList();
+        }
+        catch(Exception)
+        {
+            ShowError = true;
+            Loading = false;
+        }
 
         Loading = false;
     }
