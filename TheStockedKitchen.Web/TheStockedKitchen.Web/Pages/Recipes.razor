@@ -4,17 +4,15 @@
 
 @inject ITheStockedKitchenClient _apiClient
 
-<MudGrid>
-    <MudItem xs="11">
-        <MudText Class="site-logo-text site-title-large" Typo="Typo.overline" Align="Align.Center" Color="Color.Primary">Recipes</MudText>
-    </MudItem>
-    @if(ShowRecipeDetail)
+<PageHeader Title="Recipes">
+    @if (ShowRecipeDetail)
     {
         <MudItem xs="1">
             <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.ArrowBack" OnClick="HideShowRecipeDetail" />
         </MudItem>
     }
-</MudGrid>
+</PageHeader>
+
 @if (Loading)
 {
     <LoadingSpinner />

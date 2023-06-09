@@ -1,4 +1,6 @@
-﻿<CascadingAuthenticationState>
+﻿@using TheStockedKitchen.Web.Shared.Components;
+
+<CascadingAuthenticationState>
     <Router AppAssembly="@typeof(App).Assembly">
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
@@ -16,9 +18,9 @@
             <FocusOnNavigate RouteData="@routeData" Selector="h1" />
         </Found>
         <NotFound>
-            <PageTitle>Not found</PageTitle>
             <LayoutView Layout="@typeof(MainLayout)">
-                <p role="alert">Sorry, there's nothing at this address.</p>
+                <PageHeader Title="Page Not Found" />
+                <ConfusedToasty Message="How did you end up here? There is nothing at this address." />
             </LayoutView>
         </NotFound>
     </Router>

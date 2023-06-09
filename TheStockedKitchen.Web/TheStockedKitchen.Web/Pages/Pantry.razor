@@ -6,11 +6,7 @@
 @inject ITheStockedKitchenClient _apiClient
 @inject IDialogService _dialogService
 
-<MudGrid>
-    <MudItem xs="11">
-        <MudText Class="site-logo-text site-title-large" Typo="Typo.overline" Align="Align.Center" Color="Color.Primary">Pantry</MudText>
-    </MudItem>
-</MudGrid>
+<PageHeader Title="Pantry"/>
 
 @if (Loading)
 {
