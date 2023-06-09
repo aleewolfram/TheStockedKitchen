@@ -22,5 +22,41 @@ namespace SCGPlanningTool.Api.Controllers
         {
             return await _RecipeService.GetRecipesAsync(ingredients);
         }
+
+        [HttpPost("GetRecipesMade")]
+        [OpenApiOperation("GetRecipesMade")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<RecipeVM>>> GetRecipesMadeAsync()
+        {
+            string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
+            return await _RecipeService.GetRecipesMadeAsync(user);
+        }
+
+        [HttpPost("GetRecipeDetail")]
+        [OpenApiOperation("GetRecipeDetail")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<RecipeDetailVM>> GetRecipeDetailAsync(RecipeVM recipeVM)
+        {
+            string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
+            return await _RecipeService.GetRecipeDetailAsync(recipeVM, user);
+        }
+
+        [HttpPost("MarkRecipeAsMade")]
+        [OpenApiOperation("MarkRecipeAsMade")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> MarkRecipeAsMadeAsync(RecipeVM recipeVM)
+        {
+            string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
+            return await _RecipeService.MarkRecipeAsMadeAsync(recipeVM, user);
+        }
+
+        [HttpPost("UndoMarkRecipeAsMade")]
+        [OpenApiOperation("UndoMarkRecipeAsMade")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> UndoMarkRecipeAsMadeAsync(int recipeId)
+        {
+            string user = User.Claims.Where(c => c.Type == "preferred_username").First().Value;
+            return await _RecipeService.UndoMarkRecipeAsMadeAsync(recipeId, user);
+        }
     }
 }

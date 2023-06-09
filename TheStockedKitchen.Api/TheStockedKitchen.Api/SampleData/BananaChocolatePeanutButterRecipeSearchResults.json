@@ -4,8 +4,17 @@
     "title": "CHOCOLATE PEANUT BUTTER, FROZEN BANANA DIPS",
     "image": "https://spoonacular.com/recipeImages/639152-312x231.jpg",
     "likes": 1,
-    "missingIngredientsCount": 0,
-    "missingIngredients": [],
+    "timesMade": 11,
+    "missingIngredientsCount": 1,
+    "missingIngredients": [
+      {
+        "name": "coconut oil",
+        "unit": "tablespoon",
+        "unitAbbreviation": "TBSP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/oil-coconut.jpg",
+        "quantity": 0
+      }
+    ],
     "usedIngredients": [
       {
         "name": "bananas",
@@ -35,8 +44,17 @@
     "title": "Vegan Peanut Butter Ice Cream",
     "image": "https://spoonacular.com/recipeImages/646426-312x231.jpg",
     "likes": 1,
-    "missingIngredientsCount": 0,
-    "missingIngredients": [],
+    "timesMade": 0,
+    "missingIngredientsCount": 1,
+    "missingIngredients": [
+      {
+        "name": "coconut oil",
+        "unit": "teaspoons",
+        "unitAbbreviation": "TSP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/oil-coconut.jpg",
+        "quantity": 0
+      }
+    ],
     "usedIngredients": [
       {
         "name": "banana",
@@ -62,313 +80,11 @@
     ]
   },
   {
-    "recipeId": 647093,
-    "title": "Homemade Reeses Peanut Butter Cups",
-    "image": "https://spoonacular.com/recipeImages/647093-312x231.jpg",
-    "likes": 1,
-    "missingIngredientsCount": 2,
-    "missingIngredients": [
-      {
-        "name": "butter",
-        "unit": "tablespoons",
-        "unitAbbreviation": "TBSP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/butter-sliced.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "graham cracker crumbs",
-        "unit": "cups",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/graham-crackers.jpg",
-        "quantity": 0
-      }
-    ],
-    "usedIngredients": [
-      {
-        "name": "milk chocolate chips",
-        "unit": "cups",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-chips.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "peanut butter",
-        "unit": "tablespoons",
-        "unitAbbreviation": "TBSP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/peanut-butter.png",
-        "quantity": 0
-      },
-      {
-        "name": "semi chocolate chips",
-        "unit": "cups",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-chips.jpg",
-        "quantity": 0
-      }
-    ]
-  },
-  {
-    "recipeId": 638940,
-    "title": "Chocolate Chip Peanut Butter Banana Cookies",
-    "image": "https://spoonacular.com/recipeImages/638940-312x231.jpg",
-    "likes": 81,
-    "missingIngredientsCount": 6,
-    "missingIngredients": [
-      {
-        "name": "baking powder",
-        "unit": "teaspoons",
-        "unitAbbreviation": "TSP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/white-powder.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "baking soda",
-        "unit": "teaspoons",
-        "unitAbbreviation": "TSP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/white-powder.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "butter",
-        "unit": "Tb",
-        "unitAbbreviation": "TBS",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/butter-sliced.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "cinnamon",
-        "unit": "teaspoons",
-        "unitAbbreviation": "TSP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/cinnamon.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "egg",
-        "unit": "",
-        "unitAbbreviation": "",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/egg.png",
-        "quantity": 0
-      },
-      {
-        "name": "vanilla",
-        "unit": "teaspoon",
-        "unitAbbreviation": "TSP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/vanilla.jpg",
-        "quantity": 0
-      }
-    ],
-    "usedIngredients": [
-      {
-        "name": "bananas",
-        "unit": "",
-        "unitAbbreviation": "",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/bananas.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "chocolate chips",
-        "unit": "cup",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-chips.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "creamy peanut butter",
-        "unit": "cups",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/peanut-butter.png",
-        "quantity": 0
-      }
-    ]
-  },
-  {
-    "recipeId": 655260,
-    "title": "Peanut Butter Chocolate and Banana Chip Cookies",
-    "image": "https://spoonacular.com/recipeImages/655260-312x231.jpg",
-    "likes": 1,
-    "missingIngredientsCount": 7,
-    "missingIngredients": [
-      {
-        "name": "baking soda",
-        "unit": "teaspoon",
-        "unitAbbreviation": "TSP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/white-powder.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "box vanilla pudding",
-        "unit": "ounces",
-        "unitAbbreviation": "OZ",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/vanilla-pudding.png",
-        "quantity": 0
-      },
-      {
-        "name": "butter",
-        "unit": "Cs",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/butter-sliced.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "sugar substitute",
-        "unit": "Cs",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/no.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "eggs",
-        "unit": "",
-        "unitAbbreviation": "",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/egg.png",
-        "quantity": 0
-      },
-      {
-        "name": "honey",
-        "unit": "tablespoon",
-        "unitAbbreviation": "TBSP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/honey.png",
-        "quantity": 0
-      },
-      {
-        "name": "vanilla extract",
-        "unit": "teaspoons",
-        "unitAbbreviation": "TSP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/vanilla-extract.jpg",
-        "quantity": 0
-      }
-    ],
-    "usedIngredients": [
-      {
-        "name": "no-stir natural peanut butter",
-        "unit": "Cs",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/peanut-butter.png",
-        "quantity": 0
-      },
-      {
-        "name": "banana chips",
-        "unit": "Cs",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/banana-chips.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "chocolate chips",
-        "unit": "Cs",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-chips.jpg",
-        "quantity": 0
-      }
-    ]
-  },
-  {
-    "recipeId": 634040,
-    "title": "Banana Chocolate Chip Cake With Peanut Butter Frosting - gluten free, dairy free, soy free",
-    "image": "https://spoonacular.com/recipeImages/634040-312x231.jpg",
-    "likes": 7,
-    "missingIngredientsCount": 10,
-    "missingIngredients": [
-      {
-        "name": "you will need: two cake pans",
-        "unit": "",
-        "unitAbbreviation": "",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/pound-cake.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "potato starch",
-        "unit": "cup",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/white-powder.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "rice flour",
-        "unit": "cups",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/white-powder.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "sorghum flour",
-        "unit": "cup",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/brown-flour.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "tapioca starch",
-        "unit": "cups",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/white-powder.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "baking soda",
-        "unit": "teaspoons",
-        "unitAbbreviation": "TSP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/white-powder.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "earth balance soy free spread",
-        "unit": "ounces",
-        "unitAbbreviation": "OZ",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/light-buttery-spread.png",
-        "quantity": 0
-      },
-      {
-        "name": "eggs",
-        "unit": "larges",
-        "unitAbbreviation": "LARGE",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/egg.png",
-        "quantity": 0
-      },
-      {
-        "name": "vanilla extract",
-        "unit": "teaspoons",
-        "unitAbbreviation": "TSP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/vanilla-extract.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "vegan cream",
-        "unit": "cup",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/sour-cream.jpg",
-        "quantity": 0
-      }
-    ],
-    "usedIngredients": [
-      {
-        "name": "bananas",
-        "unit": "cups",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/bananas.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "gf/df/sf chocolate chips",
-        "unit": "ounces",
-        "unitAbbreviation": "OZ",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-chips.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "creamy peanut butter",
-        "unit": "cups",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/peanut-butter.png",
-        "quantity": 0
-      }
-    ]
-  },
-  {
     "recipeId": 665469,
     "title": "Xocai Healthy Chocolate Peanut Butter Bannana Dip",
     "image": "https://spoonacular.com/recipeImages/665469-312x231.jpg",
     "likes": 1,
+    "timesMade": 0,
     "missingIngredientsCount": 1,
     "missingIngredients": [
       {
@@ -397,74 +113,11 @@
     ]
   },
   {
-    "recipeId": 1096312,
-    "title": "Chocolate PB & J Cups",
-    "image": "https://spoonacular.com/recipeImages/1096312-312x231.jpg",
-    "likes": 1,
-    "missingIngredientsCount": 1,
-    "missingIngredients": [
-      {
-        "name": "grape jelly",
-        "unit": "cups",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/grape-jelly.jpg",
-        "quantity": 0
-      }
-    ],
-    "usedIngredients": [
-      {
-        "name": "semisweet chocolate chips",
-        "unit": "ounces",
-        "unitAbbreviation": "OZ",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-chips.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "creamy peanut butter",
-        "unit": "tablespoons",
-        "unitAbbreviation": "TBSP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/peanut-butter.png",
-        "quantity": 0
-      }
-    ]
-  },
-  {
-    "recipeId": 642152,
-    "title": "Easy, Healthy Peanut Butter Chocolate Chip Cookies",
-    "image": "https://spoonacular.com/recipeImages/642152-312x231.jpg",
-    "likes": 1,
-    "missingIngredientsCount": 1,
-    "missingIngredients": [
-      {
-        "name": "cake flour",
-        "unit": "grams",
-        "unitAbbreviation": "G",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/flour.png",
-        "quantity": 0
-      }
-    ],
-    "usedIngredients": [
-      {
-        "name": "crunchy peanut butter",
-        "unit": "grams",
-        "unitAbbreviation": "G",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/peanut-butter.png",
-        "quantity": 0
-      },
-      {
-        "name": "bittersweet chocolate chips",
-        "unit": "grams",
-        "unitAbbreviation": "G",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-chips.jpg",
-        "quantity": 0
-      }
-    ]
-  },
-  {
     "recipeId": 655235,
     "title": "Peanut Butter and Jelly Smoothie",
     "image": "https://spoonacular.com/recipeImages/655235-312x231.jpg",
     "likes": 58,
+    "timesMade": 0,
     "missingIngredientsCount": 2,
     "missingIngredients": [
       {
@@ -500,49 +153,11 @@
     ]
   },
   {
-    "recipeId": 663348,
-    "title": "The Ultimate Frozen Coconut ‘Ice Cream’ with Hard Shell Chocolate Sauce",
-    "image": "https://spoonacular.com/recipeImages/663348-312x231.jpg",
-    "likes": 2,
-    "missingIngredientsCount": 2,
-    "missingIngredients": [
-      {
-        "name": "coconut milk",
-        "unit": "can",
-        "unitAbbreviation": "CAN",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/coconut-milk.png",
-        "quantity": 0
-      },
-      {
-        "name": "coconut",
-        "unit": "tablespoon",
-        "unitAbbreviation": "TBSP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/shredded-coconut.jpg",
-        "quantity": 0
-      }
-    ],
-    "usedIngredients": [
-      {
-        "name": "bananas",
-        "unit": "",
-        "unitAbbreviation": "",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/bananas.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "chocolate chips",
-        "unit": "tablespoons",
-        "unitAbbreviation": "TBSP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-chips.jpg",
-        "quantity": 0
-      }
-    ]
-  },
-  {
     "recipeId": 634048,
     "title": "Banana Chocolate Pudding",
     "image": "https://spoonacular.com/recipeImages/634048-312x231.jpg",
     "likes": 1,
+    "timesMade": 0,
     "missingIngredientsCount": 2,
     "missingIngredients": [
       {
@@ -578,10 +193,51 @@
     ]
   },
   {
+    "recipeId": 1096312,
+    "title": "Chocolate PB & J Cups",
+    "image": "https://spoonacular.com/recipeImages/1096312-312x231.jpg",
+    "likes": 1,
+    "timesMade": 1,
+    "missingIngredientsCount": 2,
+    "missingIngredients": [
+      {
+        "name": "coconut oil",
+        "unit": "tablespoons",
+        "unitAbbreviation": "TBSP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/oil-coconut.jpg",
+        "quantity": 0
+      },
+      {
+        "name": "grape jelly",
+        "unit": "cups",
+        "unitAbbreviation": "CUP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/grape-jelly.jpg",
+        "quantity": 0
+      }
+    ],
+    "usedIngredients": [
+      {
+        "name": "semisweet chocolate chips",
+        "unit": "ounces",
+        "unitAbbreviation": "OZ",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-chips.jpg",
+        "quantity": 0
+      },
+      {
+        "name": "creamy peanut butter",
+        "unit": "tablespoons",
+        "unitAbbreviation": "TBSP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/peanut-butter.png",
+        "quantity": 0
+      }
+    ]
+  },
+  {
     "recipeId": 652929,
     "title": "Namachokobanana Crepe",
     "image": "https://spoonacular.com/recipeImages/652929-312x231.jpg",
     "likes": 1,
+    "timesMade": 0,
     "missingIngredientsCount": 2,
     "missingIngredients": [
       {
@@ -621,6 +277,7 @@
     "title": "Frozen Chocolate-Dipped Peanut Butter Banana Bites",
     "image": "https://spoonacular.com/recipeImages/643901-312x231.jpg",
     "likes": 1,
+    "timesMade": 0,
     "missingIngredientsCount": 2,
     "missingIngredients": [
       {
@@ -660,6 +317,7 @@
     "title": "Halloween Haystacks",
     "image": "https://spoonacular.com/recipeImages/646136-312x231.jpg",
     "likes": 1,
+    "timesMade": 0,
     "missingIngredientsCount": 2,
     "missingIngredients": [
       {
@@ -695,63 +353,58 @@
     ]
   },
   {
-    "recipeId": 646873,
-    "title": "Home Made Ghirardelli Chocolate Peanut Butter Cups",
-    "image": "https://spoonacular.com/recipeImages/646873-312x231.jpg",
-    "likes": 1,
+    "recipeId": 715442,
+    "title": "Valentine’s Day Pretzel Treats",
+    "image": "https://spoonacular.com/recipeImages/715442-312x231.jpg",
+    "likes": 781,
+    "timesMade": 0,
     "missingIngredientsCount": 2,
     "missingIngredients": [
       {
-        "name": "bar ghirardelli premium baking bar",
-        "unit": "ounces",
-        "unitAbbreviation": "OZ",
+        "name": "candy coating",
+        "unit": "serving",
+        "unitAbbreviation": "SERVING",
         "image": "https://spoonacular.com/cdn/ingredients_100x100/baking-chocolate.jpg",
         "quantity": 0
       },
       {
-        "name": "butter",
-        "unit": "Tbsps",
-        "unitAbbreviation": "TBSP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/butter-sliced.jpg",
+        "name": "pretzels",
+        "unit": "serving",
+        "unitAbbreviation": "SERVING",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/pretzels.jpg",
         "quantity": 0
       }
     ],
     "usedIngredients": [
       {
-        "name": "ghirardelli premium baking chips",
-        "unit": "ounces",
-        "unitAbbreviation": "OZ",
+        "name": "chocolate chips",
+        "unit": "serving",
+        "unitAbbreviation": "SERVING",
         "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-chips.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "favorite creamy peanut butter",
-        "unit": "Cups",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/peanut-butter.png",
         "quantity": 0
       }
     ]
   },
   {
-    "recipeId": 1497523,
-    "title": "Peanut Butter Banana Smoothie",
-    "image": "https://spoonacular.com/recipeImages/1497523-312x231.jpg",
-    "likes": 0,
+    "recipeId": 650485,
+    "title": "Luscious Orange Cardamom Smoothie",
+    "image": "https://spoonacular.com/recipeImages/650485-312x231.jpg",
+    "likes": 1,
+    "timesMade": 0,
     "missingIngredientsCount": 2,
     "missingIngredients": [
       {
-        "name": "dates",
-        "unit": "",
-        "unitAbbreviation": "",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/dates.jpg",
+        "name": "orange juice",
+        "unit": "cups",
+        "unitAbbreviation": "CUP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/orange-juice.jpg",
         "quantity": 0
       },
       {
-        "name": "cocoa powder",
-        "unit": "tablespoons",
-        "unitAbbreviation": "TBSP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/cocoa-powder.png",
+        "name": "cardamom powder",
+        "unit": "pinch",
+        "unitAbbreviation": "PINCH",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/cardamom-ground.jpg",
         "quantity": 0
       }
     ],
@@ -762,12 +415,125 @@
         "unitAbbreviation": "",
         "image": "https://spoonacular.com/cdn/ingredients_100x100/bananas.jpg",
         "quantity": 0
+      }
+    ]
+  },
+  {
+    "recipeId": 658140,
+    "title": "Reeses Peanut Butter Chocolate Chip Cookies",
+    "image": "https://spoonacular.com/recipeImages/658140-312x231.jpg",
+    "likes": 1,
+    "timesMade": 0,
+    "missingIngredientsCount": 2,
+    "missingIngredients": [
+      {
+        "name": "muffin tins",
+        "unit": "servings",
+        "unitAbbreviation": "SERVINGS",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/English-muffins.jpg",
+        "quantity": 0
+      },
+      {
+        "name": "reese cups",
+        "unit": "bag",
+        "unitAbbreviation": "BAG",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/peanut-butter-cup.jpg",
+        "quantity": 0
+      }
+    ],
+    "usedIngredients": [
+      {
+        "name": "roll of pillsbury chocolate chips cookies",
+        "unit": "large",
+        "unitAbbreviation": "LARGE",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-chips.jpg",
+        "quantity": 0
+      }
+    ]
+  },
+  {
+    "recipeId": 157994,
+    "title": "Oreo Balls",
+    "image": "https://spoonacular.com/recipeImages/157994-312x231.jpg",
+    "likes": 0,
+    "timesMade": 0,
+    "missingIngredientsCount": 2,
+    "missingIngredients": [
+      {
+        "name": "cream cheese",
+        "unit": "ounces",
+        "unitAbbreviation": "OZ",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/cream-cheese.jpg",
+        "quantity": 0
+      },
+      {
+        "name": "oreo cookies",
+        "unit": "",
+        "unitAbbreviation": "",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/oreos.png",
+        "quantity": 0
+      }
+    ],
+    "usedIngredients": [
+      {
+        "name": "chocolate chips",
+        "unit": "ounces",
+        "unitAbbreviation": "OZ",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-chips.jpg",
+        "quantity": 0
+      }
+    ]
+  },
+  {
+    "recipeId": 647093,
+    "title": "Homemade Reeses Peanut Butter Cups",
+    "image": "https://spoonacular.com/recipeImages/647093-312x231.jpg",
+    "likes": 1,
+    "timesMade": 4,
+    "missingIngredientsCount": 3,
+    "missingIngredients": [
+      {
+        "name": "butter",
+        "unit": "tablespoons",
+        "unitAbbreviation": "TBSP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/butter-sliced.jpg",
+        "quantity": 0
+      },
+      {
+        "name": "graham cracker crumbs",
+        "unit": "cups",
+        "unitAbbreviation": "CUP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/graham-crackers.jpg",
+        "quantity": 0
+      },
+      {
+        "name": "powdered sugar",
+        "unit": "cup",
+        "unitAbbreviation": "CUP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/powdered-sugar.jpg",
+        "quantity": 0
+      }
+    ],
+    "usedIngredients": [
+      {
+        "name": "milk chocolate chips",
+        "unit": "cups",
+        "unitAbbreviation": "CUP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-chips.jpg",
+        "quantity": 0
       },
       {
         "name": "peanut butter",
         "unit": "tablespoons",
         "unitAbbreviation": "TBSP",
         "image": "https://spoonacular.com/cdn/ingredients_100x100/peanut-butter.png",
+        "quantity": 0
+      },
+      {
+        "name": "semi chocolate chips",
+        "unit": "cups",
+        "unitAbbreviation": "CUP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-chips.jpg",
         "quantity": 0
       }
     ]
@@ -777,6 +543,7 @@
     "title": "Skinny Green Monster Smoothie",
     "image": "https://spoonacular.com/recipeImages/660227-312x231.jpg",
     "likes": 7,
+    "timesMade": 0,
     "missingIngredientsCount": 3,
     "missingIngredients": [
       {
@@ -819,92 +586,207 @@
     ]
   },
   {
-    "recipeId": 782622,
-    "title": "Chocolate Peanut Butter Cinnamon Smoothie",
-    "image": "https://spoonacular.com/recipeImages/782622-312x231.png",
-    "likes": 5,
+    "recipeId": 646873,
+    "title": "Home Made Ghirardelli Chocolate Peanut Butter Cups",
+    "image": "https://spoonacular.com/recipeImages/646873-312x231.jpg",
+    "likes": 1,
+    "timesMade": 0,
     "missingIngredientsCount": 3,
     "missingIngredients": [
       {
-        "name": "elmhurst harvest chocolate almond milk",
-        "unit": "cups",
+        "name": "bar ghirardelli premium baking bar",
+        "unit": "ounces",
+        "unitAbbreviation": "OZ",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/baking-chocolate.jpg",
+        "quantity": 0
+      },
+      {
+        "name": "powdered sugar",
+        "unit": "Cups",
         "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/almond-milk.png",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/powdered-sugar.jpg",
         "quantity": 0
       },
       {
-        "name": "chocolate protein powder",
-        "unit": "scoop",
-        "unitAbbreviation": "SCOOP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-protein-powder.jpg",
-        "quantity": 0
-      },
-      {
-        "name": "cinnamon",
-        "unit": "pinch",
-        "unitAbbreviation": "PINCH",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/cinnamon.jpg",
+        "name": "butter",
+        "unit": "Tbsps",
+        "unitAbbreviation": "TBSP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/butter-sliced.jpg",
         "quantity": 0
       }
     ],
     "usedIngredients": [
       {
-        "name": "banana",
-        "unit": "",
-        "unitAbbreviation": "",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/bananas.jpg",
+        "name": "ghirardelli premium baking chips",
+        "unit": "ounces",
+        "unitAbbreviation": "OZ",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-chips.jpg",
         "quantity": 0
       },
       {
-        "name": "jif cinnamon peanut butter",
-        "unit": "Tablespoons",
-        "unitAbbreviation": "TBSP",
+        "name": "favorite creamy peanut butter",
+        "unit": "Cups",
+        "unitAbbreviation": "CUP",
         "image": "https://spoonacular.com/cdn/ingredients_100x100/peanut-butter.png",
         "quantity": 0
       }
     ]
   },
   {
-    "recipeId": 639249,
-    "title": "Chocolate, Pb and Banana Oats",
-    "image": "https://spoonacular.com/recipeImages/639249-312x231.jpg",
+    "recipeId": 661741,
+    "title": "Strawberry and Chocolate Chip Panini",
+    "image": "https://spoonacular.com/recipeImages/661741-312x231.jpg",
     "likes": 3,
+    "timesMade": 0,
     "missingIngredientsCount": 3,
     "missingIngredients": [
       {
-        "name": "cocoa powder",
-        "unit": "teaspoons",
-        "unitAbbreviation": "TSP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/cocoa-powder.png",
+        "name": "strawberries",
+        "unit": "serving",
+        "unitAbbreviation": "SERVING",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/strawberries.png",
         "quantity": 0
       },
       {
-        "name": "old fashioned oats",
-        "unit": "cups",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/rolled-oats.jpg",
+        "name": "sourdough bread",
+        "unit": "slices",
+        "unitAbbreviation": "SLICE",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/sourdough-bread.jpg",
         "quantity": 0
       },
       {
-        "name": "skim milk",
-        "unit": "cup",
-        "unitAbbreviation": "CUP",
-        "image": "https://spoonacular.com/cdn/ingredients_100x100/milk.jpg",
+        "name": "olive oil and brush",
+        "unit": "serving",
+        "unitAbbreviation": "SERVING",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/olive-oil.jpg",
         "quantity": 0
       }
     ],
     "usedIngredients": [
       {
-        "name": "banana",
+        "name": "chocolate chips- handful",
+        "unit": "serving",
+        "unitAbbreviation": "SERVING",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-chips.jpg",
+        "quantity": 0
+      }
+    ]
+  },
+  {
+    "recipeId": 634004,
+    "title": "Banana Bread Nice Cream",
+    "image": "https://spoonacular.com/recipeImages/634004-312x231.jpg",
+    "likes": 1,
+    "timesMade": 0,
+    "missingIngredientsCount": 3,
+    "missingIngredients": [
+      {
+        "name": "cinnamon",
+        "unit": "teaspoons",
+        "unitAbbreviation": "TSP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/cinnamon.jpg",
+        "quantity": 0
+      },
+      {
+        "name": "vanilla bean",
+        "unit": "",
+        "unitAbbreviation": "",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/vanilla.jpg",
+        "quantity": 0
+      },
+      {
+        "name": "walnuts",
+        "unit": "tablespoons",
+        "unitAbbreviation": "TBSP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/walnuts.jpg",
+        "quantity": 0
+      }
+    ],
+    "usedIngredients": [
+      {
+        "name": "bananas",
         "unit": "",
         "unitAbbreviation": "",
         "image": "https://spoonacular.com/cdn/ingredients_100x100/bananas.jpg",
         "quantity": 0
+      }
+    ]
+  },
+  {
+    "recipeId": 636326,
+    "title": "Brownie Chocolate Chip Cheesecake",
+    "image": "https://spoonacular.com/recipeImages/636326-312x231.jpg",
+    "likes": 1,
+    "timesMade": 0,
+    "missingIngredientsCount": 3,
+    "missingIngredients": [
+      {
+        "name": "cream cheese",
+        "unit": "pounds",
+        "unitAbbreviation": "LB",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/cream-cheese.jpg",
+        "quantity": 0
       },
       {
-        "name": "peanut butter",
+        "name": "condensed milk",
+        "unit": "ounces",
+        "unitAbbreviation": "OZ",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/evaporated-milk.png",
+        "quantity": 0
+      },
+      {
+        "name": "vanilla extract",
         "unit": "teaspoon",
         "unitAbbreviation": "TSP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/vanilla-extract.jpg",
+        "quantity": 0
+      }
+    ],
+    "usedIngredients": [
+      {
+        "name": "chocolate chips",
+        "unit": "cups",
+        "unitAbbreviation": "CUP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/chocolate-chips.jpg",
+        "quantity": 0
+      }
+    ]
+  },
+  {
+    "recipeId": 664089,
+    "title": "Turkish Delight",
+    "image": "https://spoonacular.com/recipeImages/664089-312x231.jpg",
+    "likes": 1,
+    "timesMade": 0,
+    "missingIngredientsCount": 3,
+    "missingIngredients": [
+      {
+        "name": "honey",
+        "unit": "cup",
+        "unitAbbreviation": "CUP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/honey.png",
+        "quantity": 0
+      },
+      {
+        "name": "non-fat milk",
+        "unit": "cups",
+        "unitAbbreviation": "CUP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/milk-powdered.jpg",
+        "quantity": 0
+      },
+      {
+        "name": "powdered sugar",
+        "unit": "cup",
+        "unitAbbreviation": "CUP",
+        "image": "https://spoonacular.com/cdn/ingredients_100x100/powdered-sugar.jpg",
+        "quantity": 0
+      }
+    ],
+    "usedIngredients": [
+      {
+        "name": "peanut butter",
+        "unit": "cup",
+        "unitAbbreviation": "CUP",
         "image": "https://spoonacular.com/cdn/ingredients_100x100/peanut-butter.png",
         "quantity": 0
       }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheStockedKitchen.Db;
 
@@ -11,9 +12,10 @@ using TheStockedKitchen.Db;
 namespace TheStockedKitchen.DB.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230522213632_UnitConversion")]
+    partial class UnitConversion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,11 +69,6 @@ namespace TheStockedKitchen.DB.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Unit");
 
-                    b.Property<string>("UnitAbbreviation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("UnitAbbreviation");
-
                     b.Property<string>("User")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -80,43 +77,6 @@ namespace TheStockedKitchen.DB.Migrations
                     b.HasKey("FoodStockId");
 
                     b.ToTable("FoodStock", "dbo");
-                });
-
-            modelBuilder.Entity("TheStockedKitchen.Data.Model.RecipeMade", b =>
-                {
-                    b.Property<int>("RecipeMadeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("RecipeMadeId");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecipeMadeId"), 1L, 1);
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Image");
-
-                    b.Property<int>("SpoonacularRecipeId")
-                        .HasColumnType("int")
-                        .HasColumnName("SpoonacularRecipeId");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Title");
-
-                    b.Property<string>("User")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("User");
-
-                    b.HasKey("RecipeMadeId");
-
-                    b.ToTable("RecipeMade", "dbo");
                 });
 
             modelBuilder.Entity("TheStockedKitchen.Data.Model.Unit", b =>

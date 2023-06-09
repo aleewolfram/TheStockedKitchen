@@ -6,6 +6,10 @@
 {
     <LoadingSpinner />
 }
+else if (ShowError)
+{
+    <SadToastyError />
+}
 else
 {
     <MudGrid Class="pb-5">
@@ -47,12 +51,21 @@ else
     private IEnumerable<Unit> Units { get; set; }
 
     private bool Loading { get; set; }
+    private bool ShowError { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
         Loading = true;
 
-        Units = await _apiClient.GetUnitsAsync();
+        try
+        {
+            Units = await _apiClient.GetUnitsAsync();
+        }
+        catch (Exception)
+        {
+            ShowError = true;
+            Loading = false;
+        }
 
         Loading = false;
     }

@@ -124,6 +124,10 @@ a, .btn-link {
     font-size: 13px;
 }
 
+a {
+    color: #F48C74;
+}
+
 a:hover {
     color: #9B4A08;
 }
@@ -139,6 +143,11 @@ a:hover {
 .full-size {
     height: 100%;
     width: 100%;
+}
+
+.mid-size {
+    height: 100%;
+    width: 85%;
 }
 
 .small-screen-join-btn {
@@ -165,4 +174,8 @@ a:hover {
     50% {
         opacity: 1;
     }
+}
+
+.instructions-display {
+    display: block;
 }

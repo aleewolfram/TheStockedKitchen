@@ -1,0 +1,275 @@
+﻿@using TheStockedKitchen.Client;
+@using TheStockedKitchen.Web.Shared.Components;
+
+@inject ITheStockedKitchenClient _apiClient
+
+<MudDialog >
+    <DialogContent>
+        @if(Loading)
+        {
+            <LoadingSpinner/>
+        }
+        else if (ShowError)
+        {
+            <SadToastyError />
+        }
+        else
+        {
+            @if (EditMode)
+            {
+                <PantryQuantityInput IngredientCompareVM="@EditIngredientCompareVM" />
+            }
+            else
+            {
+                <MudGrid Class="pb-5 d-flex justify-center">
+                    <MudItem xs="12">
+                        <MudExpansionPanels>
+                            <MudExpansionPanel Text="@RecipeDetailVM.Title">
+                                <TitleContent>
+                                    <MudText Typo="Typo.h6">@RecipeDetailVM.Title</MudText>
+                                </TitleContent>
+                                <ChildContent>
+                                    <MudGrid>
+                                        <MudItem xs="12">
+                                            @if (RecipeDetailVM.Instructions.Any())
+                                            {
+                                                @foreach (var (instruction, i) in RecipeDetailVM.Instructions.Select((x, i) => (x, i + 1)))
+                                                {
+                                                    <MudText Typo="Typo.overline" Class="pb-3 site-text-large instructions-display"><b>@i.</b> @instruction</MudText>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <MudText Typo="Typo.overline">@((MarkupString)RecipeDetailVM.Summary)</MudText>
+                                            }
+                                        </MudItem>
+                                        <MudItem xs="12" Class="pr-4 d-flex justify-end">
+                                            <MudButton Color="Color.Info" StartIcon="@Icons.Material.Filled.Link" Variant="Variant.Text" Href="@(RecipeDetailVM.SourceUrl)">View Source</MudButton>
+                                        </MudItem>
+                                    </MudGrid>
+                                </ChildContent>
+                            </MudExpansionPanel>
+                        </MudExpansionPanels>
+                    </MudItem>
+                    @if (ShowErrorMessage)
+                    {
+                        <MudItem xs="10">
+                            <StatusMessage Color="Color.Error" Message="@Message" Icon="@Icons.Material.Outlined.Error" />
+                        </MudItem>
+                    }
+                    <MudItem xs="10">
+                        <MudDataGrid Items="@EditIngredientCompareVMs" Breakpoint="Breakpoint.Md" Filterable="false">
+                            <Columns>
+                                <PropertyColumn Title="Ingredient" Property="s => s.PantryIngredientName" Sortable="false" />
+                                <TemplateColumn Title="Recipe Quantity" Sortable="false">
+                                    <CellTemplate>
+                                        <MudText Typo="Typo.body2">
+                                            @context.Item.RecipeIngredientQuantity @context.Item.RecipeIngredientUnit
+                                        </MudText>
+                                    </CellTemplate>
+                                </TemplateColumn>
+                                <TemplateColumn Title="Pantry Ingredients Used" Sortable="false">
+                                    <CellTemplate>
+                                        @if (context.Item.PantryIngredientRemainingQuantity < 0)
+                                        {
+                                            <MudTooltip Text="@("Need " + Math.Abs(context.Item.PantryIngredientRemainingQuantity) + " " + context.Item.PantryIngredientRemainingUnitAbbreviation + " more for recipe." )" Placement="Placement.Top">
+                                                @String.Format("{0:0.##}", context.Item.PantryIngredientQuantity) @context.Item.PantryIngredientUnit <MudIcon Icon="@Icons.Material.Filled.ArrowForward" />  <MudIcon Icon="@Icons.Material.Filled.PriorityHigh" Color="@Color.Error" />
+                                            </MudTooltip>
+                                        }
+                                        else if (!context.Item.WasAbleToCompare)
+                                        {
+                                            <MudTooltip Text="Not able to auto convert this ingredient." Placement="Placement.Top">
+                                                @String.Format("{0:0.##}", context.Item.PantryIngredientQuantity) @context.Item.PantryIngredientUnit <MudIcon Icon="@Icons.Material.Filled.ArrowForward" />  <MudIcon Icon="@Icons.Material.Filled.QuestionMark" Color="@Color.Warning" />
+                                            </MudTooltip>
+                                        }
+                                        else
+                                        {
+                                            <MudText Typo="Typo.body2">
+                                                @String.Format("{0:0.##}", context.Item.PantryIngredientQuantity) @context.Item.PantryIngredientUnit <MudIcon Icon="@Icons.Material.Filled.ArrowForward" />  @context.Item.PantryIngredientRemainingQuantity @context.Item.PantryIngredientRemainingUnit
+                                            </MudText>
+                                        }
+                                    </CellTemplate>
+                                </TemplateColumn>
+                                <TemplateColumn CellClass="d-flex" Sortable="false">
+                                    <CellTemplate>
+                                        <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="@((context.Item.WasAbleToCompare && !(context.Item.PantryIngredientRemainingQuantity < 0)) ? Color.Default : Color.Info)" OnClick="() => EditQuantity(context.Item)"></MudIconButton>
+                                    </CellTemplate>
+                                </TemplateColumn>
+                            </Columns>
+                        </MudDataGrid>
+                    </MudItem>
+                </MudGrid>
+            }
+        }
+    </DialogContent>
+    <DialogActions>
+        @if (EditMode)
+        {
+            <MudButton Color="Color.Default" OnClick="CancelIngredientCompareVM">Cancel</MudButton>
+            <MudButton Color="Color.Default" OnClick="() => EditMode = false">Update Item</MudButton>
+        }
+        else
+        {
+            <MudButton Color="Color.Default" OnClick="MarkRecipeAsMadeAsync">Skip Updating Pantry</MudButton>
+            <MudButton Color="Color.Primary" OnClick="MarkRecipeAsMadeAndUpdateFoodItemQuantityAsync">Update Pantry</MudButton>
+        }
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    public MudDialogInstance MudDialog { get; set; }
+    [Parameter]
+    public RecipeDetailVM RecipeDetailVM { get; set; }
+    [Parameter]
+    public RecipeVM RecipeVM { get; set; }
+
+    public List<IngredientCompareVM> EditIngredientCompareVMs { get; set; }
+    public IngredientCompareVM EditIngredientCompareVM { get; set; }
+    private IEnumerable<Unit> Units { get; set; }
+
+    private bool Loading { get; set; }
+    private bool EditMode { get; set; } = false;
+    private bool ShowErrorMessage { get; set; } = false;
+    private bool ShowError { get; set; } = false;
+
+    private string Message { get; set; } = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        Loading = true;
+        try
+        {
+        Units = await _apiClient.GetUnitsAsync();
+        EditIngredientCompareVMs = RecipeDetailVM.IngredientCompareVMs
+                                                            .Where(i => !String.IsNullOrEmpty(i.PantryIngredientName))
+                                                            .GroupBy(g => g.PantryIngredientName)
+                                                            .Select(group => new IngredientCompareVM
+                                                                {
+                                                                    RecipeIngredientName = group.First().RecipeIngredientName,
+                                                                    RecipeIngredientUnit = group.First().RecipeIngredientUnit,
+                                                                    RecipeIngredientUnitAbbreviation = group.First().RecipeIngredientUnitAbbreviation,
+                                                                    RecipeIngredientQuantity = group.Sum(i => i.RecipeIngredientQuantity),
+                                                                    PantryIngredientId = group.First().PantryIngredientId,
+                                                                    PantryIngredientName = group.Key,
+                                                                    PantryIngredientUnit = group.First().PantryIngredientUnit,
+                                                                    PantryIngredientUnitAbbreviation = group.First().PantryIngredientUnitAbbreviation,
+                                                                    PantryIngredientQuantity = group.Sum(i => i.PantryIngredientQuantity),
+                                                                    PantryIngredientRemainingUnit = group.First().PantryIngredientRemainingUnit,
+                                                                    PantryIngredientRemainingUnitAbbreviation = group.First().PantryIngredientRemainingUnitAbbreviation,
+                                                                    PantryIngredientRemainingQuantity = group.Sum(i => i.PantryIngredientRemainingQuantity),
+                                                                    WasAbleToCompare = group.First().WasAbleToCompare
+                                                                })
+                                                            .ToList();
+        }
+        catch (Exception)
+        {
+            ShowError = true;
+            Loading = false;
+        }
+        Loading = false;
+    }
+
+    private void EditQuantity(IngredientCompareVM ingredientCompareVM)
+    {
+        EditIngredientCompareVM = ingredientCompareVM;
+
+        EditMode = true;
+    }
+
+    private void CancelIngredientCompareVM()
+    {
+        List<IngredientCompareVM> EditIngredientCompareVMsHolder = RecipeDetailVM.IngredientCompareVMs
+                                                            .Where(i => !String.IsNullOrEmpty(i.PantryIngredientName))
+                                                            .GroupBy(g => g.PantryIngredientName)
+                                                            .Select(group => new IngredientCompareVM
+                                                                {
+                                                                    RecipeIngredientName = group.First().RecipeIngredientName,
+                                                                    RecipeIngredientUnit = group.First().RecipeIngredientUnit,
+                                                                    RecipeIngredientUnitAbbreviation = group.First().RecipeIngredientUnitAbbreviation,
+                                                                    RecipeIngredientQuantity = group.Sum(i => i.RecipeIngredientQuantity),
+                                                                    PantryIngredientId = group.First().PantryIngredientId,
+                                                                    PantryIngredientName = group.Key,
+                                                                    PantryIngredientUnit = group.First().PantryIngredientUnit,
+                                                                    PantryIngredientUnitAbbreviation = group.First().PantryIngredientUnitAbbreviation,
+                                                                    PantryIngredientQuantity = group.Sum(i => i.PantryIngredientQuantity),
+                                                                    PantryIngredientRemainingUnit = group.First().PantryIngredientRemainingUnit,
+                                                                    PantryIngredientRemainingUnitAbbreviation = group.First().PantryIngredientRemainingUnitAbbreviation,
+                                                                    PantryIngredientRemainingQuantity = group.Sum(i => i.PantryIngredientRemainingQuantity),
+                                                                    WasAbleToCompare = group.First().WasAbleToCompare
+                                                                })
+                                                            .ToList();
+        int index = EditIngredientCompareVMsHolder.FindIndex(i => i.PantryIngredientId == EditIngredientCompareVM.PantryIngredientId);
+        int editIndex = EditIngredientCompareVMs.FindIndex(i => i.PantryIngredientId == EditIngredientCompareVM.PantryIngredientId);
+        EditIngredientCompareVMs[editIndex] = EditIngredientCompareVMsHolder[index];
+        EditMode = false;
+    }
+
+    private async Task MarkRecipeAsMadeAsync()
+    {
+        bool success = await _apiClient.MarkRecipeAsMadeAsync(RecipeVM);
+
+        if (success)
+        {
+            MudDialog.Close();
+        }
+        else
+        {
+            ShowErrorMessage = true;
+            Message = "Error marking recipe as made. Please try again.";
+            StateHasChanged();
+            await Task.Delay(4000);
+            ShowErrorMessage = false;
+        }
+    }
+
+    private async void MarkRecipeAsMadeAndUpdateFoodItemQuantityAsync()
+    {
+        if (EditIngredientCompareVMs.Where(i => i.WasAbleToCompare == false).Any())
+        {
+            ShowErrorMessage = true;
+            Message = "Please make sure all quantities are updated.";
+            StateHasChanged();
+            await Task.Delay(4000);
+            ShowErrorMessage = false;
+        }
+        else
+        {
+            bool success = await _apiClient.MarkRecipeAsMadeAsync(RecipeVM);
+
+            if (success)
+            {
+                await UpdateFoodStockQuantityAsync();
+            }
+            else
+            {
+                ShowErrorMessage = true;
+                Message = "Error marking recipe as made. Quantity has not been updated. Please try again.";
+                StateHasChanged();
+                await Task.Delay(4000);
+                ShowErrorMessage = false;
+            }
+        }
+    }
+
+    private async Task UpdateFoodStockQuantityAsync()
+    {
+        bool success = await _apiClient.UpdateFoodStockQuantityAsync(EditIngredientCompareVMs);
+
+        if (success)
+        {
+            MudDialog.Close();
+        }
+        else
+        {
+            ShowErrorMessage = true;
+            await _apiClient.UndoMarkRecipeAsMadeAsync(RecipeVM.RecipeId);
+            Message = "Error updating pantry quantity. Please try again.";
+            StateHasChanged();
+            await Task.Delay(4000);
+            ShowErrorMessage = false;
+        }
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+}

@@ -12,20 +12,31 @@ namespace TheStockedKitchen.Api.Services
         Task<bool> DeleteFoodStockAsync(int foodStockId, string user);
         Task<bool> UpdateFoodStockAsync(FoodStock foodStock, string user);
         Task<bool> ToggleFoodStockIncludedInRecipeAsync(int foodStockId, string user);
+        Task<bool> UpdateFoodStockQuantityAsync(List<IngredientCompareVM> ingredientCompareVMs, string user);
     }
+    
     public class FoodStockService : IFoodStockService
     {
 
         private readonly AppDBContext _dbContext;
+        private readonly IUnitService _unitService;
 
-        public FoodStockService(AppDBContext dbContext)
+        public FoodStockService(AppDBContext dbContext, IUnitService unitService)
         {
             _dbContext = dbContext;
+            _unitService = unitService;
         }
 
         public async Task<List<FoodStock>> GetFoodStockAsync(string user)
         {
-            return await _dbContext.FoodStock.Where(f => f.User == user).ToListAsync();
+            try
+            {
+                return await _dbContext.FoodStock.Where(f => f.User == user).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving food stock.", ex);
+            }
         }
 
         public async Task<bool> AddFoodStockAsync(FoodStockVM foodStockVM, string user)
@@ -36,6 +47,7 @@ namespace TheStockedKitchen.Api.Services
                 {
                     Name = foodStockVM.Name,
                     Unit = foodStockVM.Unit,
+                    UnitAbbreviation = await _unitService.GetUnitAbbreviationAsync(foodStockVM.Unit),
                     Quantity = foodStockVM.Quantity,
                     User = user,
                     Image = foodStockVM.Image,
@@ -83,6 +95,7 @@ namespace TheStockedKitchen.Api.Services
                 {
                     updateFoodStock.Quantity = foodStock.Quantity;
                     updateFoodStock.Unit = foodStock.Unit;
+                    updateFoodStock.UnitAbbreviation = await _unitService.GetUnitAbbreviationAsync(foodStock.Unit);
                     updateFoodStock.LastEditedDate = DateTime.Now; 
                     
                     await _dbContext.SaveChangesAsync();
@@ -115,6 +128,43 @@ namespace TheStockedKitchen.Api.Services
                 }
 
                 return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateFoodStockQuantityAsync(List<IngredientCompareVM> ingredientCompareVMs, string user)
+        {
+            try
+            {
+                foreach(IngredientCompareVM ingredientCompareVM in ingredientCompareVMs)
+                {
+                    FoodStock updateFoodStock = await _dbContext.FoodStock.Where(f => f.FoodStockId == ingredientCompareVM.PantryIngredientId && f.User == user).SingleAsync();
+                    if (updateFoodStock != null)
+                    {
+                        if(ingredientCompareVM.PantryIngredientRemainingQuantity == 0)
+                        {
+                            await DeleteFoodStockAsync(ingredientCompareVM.PantryIngredientId, user);
+                        }
+                        else
+                        {
+                            updateFoodStock.Quantity = ingredientCompareVM.PantryIngredientRemainingQuantity;
+                            updateFoodStock.Unit = ingredientCompareVM.PantryIngredientRemainingUnit;
+                            updateFoodStock.UnitAbbreviation = ingredientCompareVM.PantryIngredientRemainingUnitAbbreviation;
+                            updateFoodStock.LastEditedDate = DateTime.Now;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+                await _dbContext.SaveChangesAsync();
+                return true;
+
             }
             catch
             {
