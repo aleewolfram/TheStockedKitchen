@@ -179,3 +179,26 @@ a:hover {
 .instructions-display {
     display: block;
 }
+
+.mudblazor-color {
+    background-color: #594ae2ff;
+}
+
+.spoonacular-color {
+    background-color: #00843c;
+}
+
+
+.usda-color {
+    background-color: #0071bc;
+}
+
+.github-color {
+    background-color: #24292f;
+    color: white;
+}
+
+.linkedin-color {
+    background-color: #0a66c2;
+    color: white;
+}
