@@ -1,0 +1,33 @@
+﻿@page "/contact"
+@using TheStockedKitchen.Web.Shared.Components;
+
+<PageHeader Title="Contact" />
+
+<MudGrid>
+    <MudItem Class="d-flex align-center justify-center" xs="12" sm="4">
+        <MudImage Height="500" Src="images/me.jpg" Elevation="25" Class="rounded-lg" />
+    </MudItem>
+     <MudItem xs="12" sm="8">
+        <MudGrid>
+            <MudItem xs="12">
+                <MudChipSet>
+                    <MudChip Icon="@Icons.Custom.Brands.GitHub" Class="github-color" Href="https://github.com/aleewolfram">Github</MudChip>
+                    <MudChip Icon="@Icons.Custom.Brands.LinkedIn" Class="linkedin-color" Href="https://www.linkedin.com/in/alexandria-wolfram/">Linkedin</MudChip>
+                    <MudChip Icon="@Icons.Custom.Uncategorized.ChessQueen" Color="Color.Info">My Website</MudChip>
+                </MudChipSet>
+            </MudItem>
+            <MudItem xs="12">
+                <PaperMessage>
+                    <MudText Typo="Typo.h6" Class="pb-3">Alee Wolfram</MudText>
+                    <MudText Typo="Typo.overline" Class="site-text-large">
+                        As a software engineer and self-certified foodie,
+                        I absolutely love cooking, planning meals, and trying out new recipes.
+                        But my real passion lies in developing tools that simplify and improve both my life and the lives of others.
+                        This side project was just one of those efforts where I got to combine my creative and technical skills.
+                        Check out the links above for more information.
+                    </MudText>
+                </PaperMessage>
+            </MudItem>
+        </MudGrid>
+    </MudItem>
+</MudGrid>
